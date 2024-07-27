@@ -7,7 +7,25 @@ import pessoas.*;
 import java.util.ArrayList;
 
 public class ProntuarioPaciente {
-    Paciente paciente;
-    ArrayList<ProntuarioAtendimento> historicoAtendimentos;
+    private Paciente paciente;
+    private ArrayList<ProntuarioAtendimento> historicoAtendimentos;
+    
+    // setters e getters
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public void setNovoAtendimento(ProntuarioAtendimento pat) {
+        this.historicoAtendimentos.add(pat);
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public ArrayList<ProntuarioAtendimento> getHistoricoAtendimentos() {
+        return historicoAtendimentos;
+    }   
     
 }

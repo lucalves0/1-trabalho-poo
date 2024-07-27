@@ -10,11 +10,24 @@ import pessoas.*;
  * @author guest-0rkw0a
  */
 public class Consulta {
-    String data;
-    String horario;
-    Medico medico;
-    Paciente paciente;
-    String tipo_consulta; 
+    private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    private int id;
+    private String data;
+    private String horario;
+    private Medico medico;
+    private Paciente paciente;
+    private String tipoConsulta; 
     
+    //métodos construtores de consulta
+    public Consulta(){
+        id = ++contadorID;
+    }
     
+    public Consulta(String data, String horario, Medico medico, Paciente paciente, String tipoConsulta){
+        this.data = data;
+        this.horario = horario;
+        this.medico = medico;
+        this.paciente = paciente;
+        this.tipoConsulta = tipoConsulta;
+    }
 }

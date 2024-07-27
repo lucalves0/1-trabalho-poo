@@ -3,16 +3,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package documentos;
+import pessoas.*;
 
 public class ProntuarioAtendimento {
-    String dataAtendimento;
-    String medico;
-    String sintomas;
-    String dignostico;
-    String prescricao;
-    String dataRetorno;
+    private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    private int id;
+    private String dataAtendimento;
+    private Paciente paciente;
+    private Medico medico;
+    private String sintomas;
+    private String diagnostico;
+    private String prescricao;
+    private String dataRetorno;
     
+    // métodos construtores
+    public ProntuarioAtendimento(){
+        id = ++contadorID;
+    }
     
+    public ProntuarioAtendimento(String dataAtendimento, Paciente paciente, Medico medico, String sintomas, String diagnostico, String prescricao, String dataRetorno){
+        id = ++contadorID;
+        this.dataAtendimento = dataAtendimento;
+        this.paciente = paciente;
+        this.medico = medico;
+        this.sintomas = sintomas;
+        this.diagnostico = diagnostico;
+        this.prescricao = prescricao;
+        this.dataRetorno = dataRetorno;
+    }
+    
+    // outros métodos
+    
+    public void resumoProntuarioAtendimento(){
+        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |MEDICO: %s |", id, dataAtendimento, paciente.getNome(), medico.getNome()));
+    }
     
     //setters e getters
 
@@ -20,7 +44,7 @@ public class ProntuarioAtendimento {
         this.dataAtendimento = dataAtendimento;
     }
 
-    public void setMedico(String medico) {
+    public void setMedico(Medico medico) {
         this.medico = medico;
     }
 
@@ -28,8 +52,8 @@ public class ProntuarioAtendimento {
         this.sintomas = sintomas;
     }
 
-    public void setDignostico(String dignostico) {
-        this.dignostico = dignostico;
+    public void setDignostico(String diagnostico) {
+        this.diagnostico = diagnostico;
     }
 
     public void setPrescricao(String prescricao) {
@@ -40,11 +64,15 @@ public class ProntuarioAtendimento {
         this.dataRetorno = dataRetorno;
     }
 
+    public Paciente getPaciente() {
+        return paciente;
+    }
+    
     public String getDataAtendimento() {
         return dataAtendimento;
     }
 
-    public String getMedico() {
+    public Medico getMedico() {
         return medico;
     }
 
@@ -53,7 +81,7 @@ public class ProntuarioAtendimento {
     }
 
     public String getDignostico() {
-        return dignostico;
+        return diagnostico;
     }
 
     public String getPrescricao() {

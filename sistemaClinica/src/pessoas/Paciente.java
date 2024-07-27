@@ -6,7 +6,7 @@ public class Paciente {
     private static int contadorId = 0; // Contador estático para gerar IDs únicos
     private int id;
     // dados que podem ser gerenciados pela secretária
-    private String dados_identificacao;
+    private String nome;
     private String data_nascimento;
     private String endereco;
     private String info_contato;
@@ -23,30 +23,20 @@ public class Paciente {
     private ArrayList<String> alergias;
     
 
-    public Paciente(String dados_identificacao, String data_nascimento, String endereco, String info_contato, String tipo_convenio) {
+    public Paciente(String nome, String data_nascimento, String endereco, String info_contato, String tipo_convenio) {
         this.id = ++contadorId; // Gera um ID único para cada novo objeto Paciente
-        this.dados_identificacao = dados_identificacao;
+        this.nome = nome;
         this.data_nascimento = data_nascimento;
         this.endereco = endereco;
         this.info_contato = info_contato;
         this.tipo_convenio = tipo_convenio;
     }
     
-    // Método para encontrar uma paciente pelo nome
-    public Paciente encontrar_paciente(ArrayList<Paciente> lista, String nome) {
-        for (Paciente paciente : lista) {
-            if (paciente.getDados_identificacao().equalsIgnoreCase(nome)) {
-                return paciente;
-            }
-        }
-        return null; 
-    }
-
     public void visualizar_dados(){
         System.out.println("+-----------------------+" + "");
         System.out.println("|    DADOS PESSOAIS     |" + "");
         System.out.println("+-----------------------+" + "");
-        System.out.println("|Nome:                  |" + dados_identificacao);
+        System.out.println("|Nome:                  |" + nome);
         System.out.println("|Data de nascimento:    |" + data_nascimento);
         System.out.println("|Endereco:              |" + endereco);
         System.out.println("|Informação de contato: |" + info_contato);
@@ -61,17 +51,13 @@ public class Paciente {
     public void setId(int id) {
         this.id = id;
     }
-    
-    public Paciente(String dados_identificacao){
-        this.dados_identificacao = dados_identificacao;
+
+    public String getNome() {
+        return nome;
     }
 
-    public String getDados_identificacao() {
-        return dados_identificacao;
-    }
-
-    public void setDados_identificacao(String dados_identificacao) {
-        this.dados_identificacao = dados_identificacao;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getData_nascimento() {
