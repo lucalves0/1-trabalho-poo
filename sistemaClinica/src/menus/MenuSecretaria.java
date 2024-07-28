@@ -8,10 +8,11 @@ import pessoas.*;
 import bancoDados.*;
 import java.util.Scanner;
 
-public class MenuSecretaria implements Menu, GerenciarPacientes{
+public class MenuSecretaria{
+    // objeto banco de dados
+    BancoDeDados banco = new BancoDeDados();
     Scanner in = new Scanner(System.in);
     
-    @Override
     public boolean menuPrincipal(){
         boolean voltar = false;
         boolean retornado = true;
@@ -68,11 +69,7 @@ public class MenuSecretaria implements Menu, GerenciarPacientes{
         return true;
     };
     
-    @Override
-    public boolean cadastrarPaciente() {
-        // objeto banco de dados
-        BancoDeDados banco = new BancoDeDados();
-        
+    public boolean cadastrarPaciente() {     
         // variáveis de entrada
         String nome;
         String data_nascimento;
@@ -113,14 +110,11 @@ public class MenuSecretaria implements Menu, GerenciarPacientes{
         
         return true;
     }
-    
 
-    @Override
     public boolean atualizarPaciente() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
     public boolean removerPaciente() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

@@ -33,6 +33,9 @@ public class ProntuarioAtendimento {
     }
     
     // outros métodos
+    public void mostrarProntuarioAtendimento(){
+        System.out.println("");
+    }
     
     public void resumoProntuarioAtendimento(){
         System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |MEDICO: %s |", id, dataAtendimento, paciente.getNome(), medico.getNome()));
@@ -62,6 +65,10 @@ public class ProntuarioAtendimento {
 
     public void setDataRetorno(String dataRetorno) {
         this.dataRetorno = dataRetorno;
+    }
+    
+    public int getId(){
+        return id;
     }
 
     public Paciente getPaciente() {

@@ -92,5 +92,13 @@ public class BancoDeDados {
         return null;
     }
     
-    // 
+    // método para encontrar um prontuário de atendimento pelo ID
+    public ProntuarioAtendimento buscarProntuarioAtendimento(int ID){
+        for (ProntuarioAtendimento PAT : ProntuariosAtendimentos){
+            if (PAT.getId() == ID){
+                return PAT;
+            }
+        }
+        return null;
+    }
 }

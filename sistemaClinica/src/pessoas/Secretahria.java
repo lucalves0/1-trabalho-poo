@@ -9,5 +9,6 @@ package pessoas;
  * @author guest-0rkw0a
  */
 public class Secretahria {
-    
+    private String nome;
+    private String CPF;
 }
