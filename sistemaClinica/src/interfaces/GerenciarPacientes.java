@@ -4,14 +4,9 @@
  */
 package interfaces;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public interface GerenciarPacientes {
     boolean cadastrarPaciente();
     boolean atualizarPaciente();
     boolean removerPaciente();
-    
     
 }

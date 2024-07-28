@@ -16,7 +16,7 @@ public class Main {
         banco.adicionarMedico(Ricardo);
         banco.adicionarMedico(Roberta);
         banco.mostrarMedicos();
-        Paciente Enzo = new Paciente("Enzo", "16/10/2001", "Rua Seibo Kakazu, 1271", "997711590", "Particular");
+        Paciente Enzo = new Paciente("Enzo", "16/10/2001", "Rua Seibo Kakazu, 1271", "997711590", "enzo@gmail.com", "Particular");
         banco.adicionarPaciente(Enzo);
         banco.mostrarPacientes();
         MenuInicial mnInicial = new MenuInicial();

@@ -22,11 +22,11 @@ public class MenusMedico{
         boolean retornado = true;
         while (retornado) {
             System.out.println("+------------------------------------+");
-            System.out.println("|======== CONSULTÓRIO MÉDICO ========|");
+            System.out.println("|======== CONSULTORIO MEDICO ========|");
             System.out.println("+------------------------------------+");
-            System.out.println("|(1) Prontuários                     |");
+            System.out.println("|(1) Prontuarios                     |");
             System.out.println("|(2) Ficha do paciente               |");
-            System.out.println("|(2) Gerar relatórios                |");
+            System.out.println("|(3) Gerar relatorios                |");
             System.out.println("|                                    |");
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
@@ -40,7 +40,19 @@ public class MenusMedico{
                     System.out.println("|Informe o nome do paciente:         |");
                     System.out.print("|>>> ");
                     nomePaciente = in.nextLine();
-                    retornado = menuFichaPaciente(nomePaciente);
+                    Paciente pac = banco.buscarPaciente(nomePaciente);
+                    int j = 0;
+                    while (pac == null && j < 3){
+                        System.out.println("Paciente nao encontrado:");
+                        System.out.print("\nPaciente: ");
+                        nomePaciente = in.nextLine();
+                        pac = banco.buscarPaciente(nomePaciente);
+                        ++j;
+                    }
+                    if (pac != null){
+                        retornado = menuFichaPaciente(nomePaciente);
+                    }
+                    
                 }
                 case "3" -> retornado = menuRelatorios();
                 case "0" -> {
@@ -58,21 +70,33 @@ public class MenusMedico{
         // objeto paciente
         String NomePaciente;
         
-        boolean voltar = false;
+        boolean voltar = true;
         System.out.println("+------------------------------------+");
-        System.out.println("|=========== PRONTUÁRIOS ============|");
+        System.out.println("|=========== PRONTUARIOS ============|");
         System.out.println("+------------------------------------+");
         System.out.println("|Informe o nome do paciente          |");
-        System.out.println("|                                    |");
-        System.out.println("|(0) Voltar                          |");
         System.out.print("|>>> ");
         NomePaciente = in.nextLine();
         System.out.println("+------------------------------------+");
         
-        switch(NomePaciente){
-            case "0" -> voltar = true;
-            default -> menuProntuariosSecundario(NomePaciente);
+        System.out.println(NomePaciente);
+        
+        Paciente pac = banco.buscarPaciente(NomePaciente);
+        int j = 0;
+        
+        while (pac == null && j < 3){
+            System.out.println("Paciente nao encontrado:");
+            System.out.print("\nPaciente: ");
+            NomePaciente = in.nextLine();
+            pac = banco.buscarPaciente(NomePaciente);
+            ++j;
         }
+        
+        if (pac != null){
+            voltar = false;
+            menuProntuariosSecundario(NomePaciente);
+        }
+        
         return voltar;
     }
     
@@ -83,7 +107,7 @@ public class MenusMedico{
         
         while (retornado){
             System.out.println("\n+----------------------------------------+");
-            System.out.println("|============= PRONTUÁRIOS ==============|");
+            System.out.println("|============= PRONTUARIOS ==============|");
             System.out.println("+----------------------------------------+");
             System.out.println("|(1) Consultar Prontuario do Paciente    |");
             System.out.println("|(2) Cadastrar Prontuario de Atendimento |");
@@ -145,22 +169,22 @@ public class MenusMedico{
         
         boolean voltar = false;
         System.out.println("+------------------------------------+");
-        System.out.println("|             RELATÓRIOS             |");
+        System.out.println("|             RELATORIOS             |");
         System.out.println("+------------------------------------+");
         System.out.println("|(1) Receita                         |");
         System.out.println("|(2) Atestado                        |");
         System.out.println("|(3) Declaração de acompanhamento    |");       
-        System.out.println("|(4) Clientes atendidos no mês       |");
+        System.out.println("|(4) Clientes atendidos no mes       |");
         System.out.println("|                                    |");
         System.out.println("|(0) Voltar                          |");
         System.out.println("+------------------------------------+");
         opcao = in.next();
 
         switch(opcao){
-            case "1" -> System.out.println("RECEITA");
-            case "2" -> System.out.println("ATESTADO");
-            case "3" -> System.out.println("DECLARAÇÃO");
-            case "4" -> System.out.println("CLIETES NO MÊS");
+            case "1" -> System.out.println("RECEITA"); //TODO
+            case "2" -> System.out.println("ATESTADO"); //TODO
+            case "3" -> System.out.println("DECLARAÇÃO"); //TODO
+            case "4" -> System.out.println("CLIENTES NO MÊS"); //TODO
             case "0" -> voltar = true;
         }
         
@@ -173,23 +197,10 @@ public class MenusMedico{
         if (PPAC != null){
             PPAC.mostrarProntuarioPaciente();
         } else {
-            System.out.println("Prontuário não encontrado");
+            System.out.println("Prontuário nao encontrado");
         }
         return true;
         
-        /*
-        ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
-        if (PPAC != null){
-            PPAC.getPaciente().visualizar_dados();
-            
-            for (ProntuarioAtendimento PAT : PPAC.getHistoricoAtendimentos()){
-                PAT.resumoProntuarioAtendimento();
-            }
-        } else {
-            System.out.println("Prontuário não encontrado");
-        }
-        return true;
-        */
     }
     
     public boolean cadastrarProntuarioAtendimento(){      
@@ -208,7 +219,7 @@ public class MenusMedico{
         String dataRetorno;
 
         System.out.println("+------------------------------------------------------+");
-        System.out.println("|========== NOVO PRONTUÁRIO DE ATENDIMENTO ============|");
+        System.out.println("|========== NOVO PRONTUARIO DE ATENDIMENTO ============|");
         System.out.println("+------------------------------------------------------+");
         System.out.print("Data do atendimento: ");
         dataAtendimento = in.nextLine();
@@ -217,12 +228,12 @@ public class MenusMedico{
         nomePaciente = in.nextLine();
         paciente = banco.buscarPaciente(nomePaciente);
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Nome do médico: ");
+        System.out.print("Nome do medico: ");
         nomeMedico = in.nextLine();
         medico = banco.buscarMedico(nomeMedico);
         int i = 0;
         while (medico == null && i < 3){
-            System.out.println("Medico não encontrado");
+            System.out.println("Medico nao encontrado");
             System.out.print("\nNome do Medico: ");
             nomeMedico = in.nextLine();
             medico = banco.buscarMedico(nomeMedico);
@@ -269,10 +280,10 @@ public class MenusMedico{
         if (PPAC != null){
             
             ArrayList<ProntuarioAtendimento> historico = PPAC.getHistoricoAtendimentos();
-            System.out.println("============= HISTÓRICO DE ATENDIMENTOS DO PACIENTE =============");
+            System.out.println("============= HISTORICO DE ATENDIMENTOS DO PACIENTE =============");
             boolean historicoVazio = historico.isEmpty();
             if (historicoVazio){
-                System.out.println("O paciente não possui histórico de atendimentos!");
+                System.out.println("O paciente nao possui historico de atendimentos!");
             } else {
                 for (ProntuarioAtendimento PAT : historico){
                     PAT.resumoProntuarioAtendimento();
@@ -280,7 +291,7 @@ public class MenusMedico{
             }
             System.out.println("=================================================================");
             if (!historicoVazio){
-                System.out.println("Qual dos prontuários você deseja atualizar?");
+                System.out.println("Qual dos prontuários voce deseja atualizar?");
                 System.out.print("Digite o ID: ");
                 IDBuscado = in.nextInt();
                 in.nextLine();
@@ -290,7 +301,7 @@ public class MenusMedico{
                 PATalterar.mostrarProntuarioAtendimento();
 
                 System.out.println("+----------------------------------------------+");
-                System.out.println("|Informe o número do dado que deseja atualizar |");
+                System.out.println("|Informe o numero do dado que deseja atualizar |");
                 System.out.println("|                                              |");
                 System.out.println("|(0) Voltar                                    |");
                 while(!voltar){
@@ -309,7 +320,7 @@ public class MenusMedico{
                             Paciente pac = banco.buscarPaciente(nomePac);
                             int j = 0;
                             while (pac == null && j < 3){
-                                System.out.println("Paciente não encontrado:");
+                                System.out.println("Paciente nao encontrado:");
                                 System.out.print("\nPaciente: ");
                                 nomePac = in.nextLine();
                                 pac = banco.buscarPaciente(nomePac);
@@ -325,7 +336,7 @@ public class MenusMedico{
                             Medico medico = banco.buscarMedico(nomeMed);
                             int i = 0;
                             while (medico == null && i < 3){
-                                System.out.println("Médico não encontrado:");
+                                System.out.println("Medico nao encontrado:");
                                 System.out.print("\nMedico: ");
                                 nomeMed = in.nextLine();
                                 medico = banco.buscarMedico(nomeMed);
@@ -341,12 +352,12 @@ public class MenusMedico{
                             PATalterar.setSintomas(sintomas);
                         }
                         case "5" -> {
-                            System.out.print("\nDiagnóstico: ");
+                            System.out.print("\nDiagnostico: ");
                             diagnostico = in.nextLine();
                             PATalterar.setDignostico(diagnostico);
                         }
                         case "6" -> {
-                            System.out.print("\nPrescrição: ");
+                            System.out.print("\nPrescricao: ");
                             prescricao = in.nextLine();
                             PATalterar.setPrescricao(prescricao);
                         }
@@ -360,7 +371,7 @@ public class MenusMedico{
             }
             
         } else {
-            System.out.println("Prontuário do Paciente não encontrado");
+            System.out.println("Prontuário do Paciente nao encontrado");
         }
         return true;
     }
@@ -375,10 +386,10 @@ public class MenusMedico{
             ArrayList<ProntuarioAtendimento> historico = PPAC.getHistoricoAtendimentos();
 
             // mostrar histórico de atendimentos do paciente
-            System.out.println("============= HISTÓRICO DE ATENDIMENTOS DO PACIENTE =============");
+            System.out.println("============= HISTORICO DE ATENDIMENTOS DO PACIENTE =============");
             boolean historicoVazio = historico.isEmpty();
             if (historicoVazio){
-                System.out.println("O paciente não possui histórico de atendimentos!");
+                System.out.println("O paciente nao possui historico de atendimentos!");
             } else {
                 for (ProntuarioAtendimento PAT : historico){
                     PAT.resumoProntuarioAtendimento();
@@ -386,7 +397,7 @@ public class MenusMedico{
             }
             System.out.println("=================================================================");
             if (!historicoVazio){
-                System.out.println("Qual dos prontuários você deseja remover?");
+                System.out.println("Qual dos prontuarios voce deseja remover?");
                 System.out.print("Digite o ID: ");
                 IDBuscado = in.nextInt();
                 in.nextLine();
@@ -400,11 +411,11 @@ public class MenusMedico{
                         PAT.resumoProntuarioAtendimento();
                     }
                     System.out.println("=================================================================");
-                    System.out.println("Prontuário removido com sucesso");
+                    System.out.println("Prontuario removido com sucesso");
                 }  
             }
         } else {
-            System.out.println("Prontuário do Paciente não encontrado!");
+            System.out.println("Prontuario do Paciente não encontrado!");
         }
         return true;
     }
@@ -429,13 +440,13 @@ public class MenusMedico{
         System.out.print("Bebe?: ");
         bebe = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Nível do colesterol: ");
+        System.out.print("Nivel do colesterol: ");
         nivelColesterol = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Diabetes: ");
         diabete = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Doença cardíaca: ");
+        System.out.print("Doenca cardiaca: ");
         doencaCardiaca = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Cirurgias realizadas: ");
@@ -469,7 +480,7 @@ public class MenusMedico{
         
         PAC.visualizarDadosCompleto();
         System.out.println("+----------------------------------------------+");
-        System.out.println("|Informe o número do dado que deseja atualizar |");
+        System.out.println("|Informe o numero do dado que deseja atualizar |");
         System.out.println("|                                              |");
         System.out.println("|(0) Voltar                                    |");
         while(!voltar){
@@ -478,37 +489,37 @@ public class MenusMedico{
             
             switch(selecao){
                 case "0" -> voltar = true;
-                case "6" -> {
+                case "7" -> {
                     System.out.print("\nÉ fumante?: ");
                     fuma = in.nextLine();
                     PAC.setFuma(fuma);
                 }
-                case "7" -> {
+                case "8" -> {
                     System.out.print("\nBebe?: ");
                     bebe = in.nextLine();
                     PAC.setBebe(bebe);
                 }
-                case "8" -> {
-                    System.out.print("\nNível do colesterol: ");
+                case "9" -> {
+                    System.out.print("\nNivel do colesterol: ");
                     nivelColesterol = in.nextLine();
                     PAC.setNivelColesterol(nivelColesterol);
                 }
-                case "9" -> {
+                case "10" -> {
                     System.out.print("\nDiabetes: ");
                     diabete = in.nextLine();
                     PAC.setDiabete(diabete);
                 }
-                case "10" -> {
-                    System.out.print("\nDoença cardíaca: ");
+                case "11" -> {
+                    System.out.print("\nDoenca cardiaca: ");
                     doencaCardiaca = in.nextLine();
                     PAC.setDoencaCardiaca(doencaCardiaca);
                 }
-                case "11" -> {
+                case "12" -> {
                     System.out.print("\nCirurgias realizadas: ");
                     cirurgias = in.nextLine();
                     PAC.setCirurgias(cirurgias);
                 }
-                case "12" -> {
+                case "13" -> {
                     System.out.print("\nAlergias: ");
                     alergias = in.nextLine();
                     PAC.setAlergias(alergias);

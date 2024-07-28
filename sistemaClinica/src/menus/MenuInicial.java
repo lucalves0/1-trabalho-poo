@@ -16,23 +16,23 @@ public class MenuInicial {
         Scanner entrada = new Scanner(System.in);
         while (retornado){
             System.out.println("+------------------------------------+");
-            System.out.println("|         CLÍNICA PURA SAÚDE         |");
+            System.out.println("|         CLINICA PURA SAUDE         |");
             System.out.println("+------------------------------------+");
             System.out.println("|Deseja logar em qual sistema:       |");
             System.out.println("+------------------------------------+");
             System.out.println("|(1) Secretaria                      |");
-            System.out.println("|(2) Consultório médico              |");
+            System.out.println("|(2) Consultorio medico              |");
             System.out.println("|                                    |");
             System.out.println("|(0) Sair do menu (encerrar programa)|");
             System.out.println("+------------------------------------+");
             System.out.print(">>> ");
             opcao = entrada.next();
-
+            
             switch (opcao) {
                 case "1" -> retornado = menuSec.menuPrincipal();
                 case "2" -> menuMed.menuPrincipal();
                 case "0" -> retornado = false;
-                default -> System.out.println("Ação não encontrada!"); 
+                default -> System.out.println("Acao nao encontrada!"); 
 
             }
         }

@@ -9,7 +9,8 @@ public class Paciente {
     private String nome;
     private String data_nascimento;
     private String endereco;
-    private String info_contato;
+    private String info_contatoCelular;
+    private String info_contatoEmail;
     private String tipo_convenio;
     private ArrayList<Medico> medicos;
     
@@ -23,12 +24,13 @@ public class Paciente {
     private String alergias;
     
     // construtor para secretaria
-    public Paciente(String nome, String data_nascimento, String endereco, String info_contato, String tipo_convenio) {
+    public Paciente(String nome, String data_nascimento, String endereco, String info_contatoCelular, String info_contatoEmail, String tipo_convenio) {
         this.id = ++contadorId; // Gera um ID único para cada novo objeto Paciente
         this.nome = nome;
         this.data_nascimento = data_nascimento;
         this.endereco = endereco;
-        this.info_contato = info_contato;
+        this.info_contatoCelular = info_contatoCelular;
+        this.info_contatoEmail = info_contatoEmail;
         this.tipo_convenio = tipo_convenio;
     }
     
@@ -50,8 +52,9 @@ public class Paciente {
         System.out.println("| 1 |Nome:                   |" + nome);
         System.out.println("| 2 |Data de nascimento:     |" + data_nascimento);
         System.out.println("| 3 |Endereco:               |" + endereco);
-        System.out.println("| 4 |Informação de contato:  |" + info_contato);
-        System.out.println("| 5 |Tipo do convenio:       |" + tipo_convenio);
+        System.out.println("| 4 |Celular:                |" + info_contatoCelular);
+        System.out.println("| 5 |Email:                  |" + info_contatoEmail);
+        System.out.println("| 6 |Tipo do convenio:       |" + tipo_convenio);
         System.out.println("+---+------------------------+" + "");
     }
     
@@ -62,20 +65,20 @@ public class Paciente {
         System.out.println("| 1  |Nome:                   |" + nome);
         System.out.println("| 2  |Data de nascimento:     |" + data_nascimento);
         System.out.println("| 3  |Endereco:               |" + endereco);
-        System.out.println("| 4  |Informação de contato:  |" + info_contato);
-        System.out.println("| 5  |Tipo do convenio:       |" + tipo_convenio);
+        System.out.println("| 4  |Celular:                |" + info_contatoCelular);
+        System.out.println("| 5  |Email:                  |" + info_contatoEmail);
+        System.out.println("| 6  |Tipo do convenio:       |" + tipo_convenio);
         System.out.println("|-----------------------------|");
-        System.out.println("| 6  |É fumante?:             |" + fuma);
-        System.out.println("| 7  |Bebe?:                  |" + bebe);
-        System.out.println("| 8  |Nivel do colesterol:    |" + nivelColesterol);
-        System.out.println("| 9  |Diabetes:               |" + diabete);
-        System.out.println("| 10 |Doença cardíaca:        |" + doencaCardiaca);
-        System.out.println("| 11 |Cirurgias realizadas:   |" + cirurgias);
-        System.out.println("| 12 |Alergias:               |" + alergias);
+        System.out.println("| 7  |É fumante?:             |" + fuma);
+        System.out.println("| 8  |Bebe?:                  |" + bebe);
+        System.out.println("| 9  |Nivel do colesterol:    |" + nivelColesterol);
+        System.out.println("| 10  |Diabetes:               |" + diabete);
+        System.out.println("| 11 |Doença cardíaca:        |" + doencaCardiaca);
+        System.out.println("| 12 |Cirurgias realizadas:   |" + cirurgias);
+        System.out.println("| 13 |Alergias:               |" + alergias);
         System.out.println("+----+------------------------+" + "");        
     }
-    
-    
+        
     // setters e getters
 
     public void setId(int id) {
@@ -94,8 +97,12 @@ public class Paciente {
         this.endereco = endereco;
     }
 
-    public void setInfoContato(String info_contato) {
-        this.info_contato = info_contato;
+    public void setInfoContatoCelular(String info_contatoCelular) {
+        this.info_contatoCelular = info_contatoCelular;
+    }
+    
+    public void setInfoContatoEmail(String info_contatoEmail) {
+        this.info_contatoEmail = info_contatoEmail;
     }
 
     public void setTipoConvenio(String tipo_convenio) {
@@ -150,8 +157,12 @@ public class Paciente {
         return endereco;
     }
 
-    public String getInfo_contato() {
-        return info_contato;
+    public String getInfo_contatoCelular() {
+        return info_contatoCelular;
+    }
+    
+    public String getInfo_contatoEmail() {
+        return info_contatoEmail;
     }
 
     public String getTipo_convenio() {
@@ -190,5 +201,4 @@ public class Paciente {
         return alergias;
     }
 
-    
 }

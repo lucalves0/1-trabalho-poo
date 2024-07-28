@@ -104,7 +104,8 @@ public class MenuSecretaria{
         String nome;
         String data_nascimento;
         String endereco;
-        String contato;
+        String contatoCelular;
+        String contatoEmail;
         String tipo_convenio;
         Paciente paciente;
 
@@ -121,13 +122,16 @@ public class MenuSecretaria{
         endereco = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Contato telefonico: ");
-        contato = in.nextLine();
+        contatoCelular = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Tipo do convênio: ");
+        System.out.print("Contato Email: ");
+        contatoEmail = in.nextLine();
+        System.out.println("+------------------------------------------------------+");
+        System.out.print("Tipo do convenio: ");
         tipo_convenio = in.nextLine();
         
         // adicionando paciente ao banco de dados
-        paciente = new Paciente(nome, data_nascimento, endereco, contato, tipo_convenio);
+        paciente = new Paciente(nome, data_nascimento, endereco, contatoCelular, contatoEmail, tipo_convenio);
         banco.adicionarPaciente(paciente);
         
         // mensagem confirmando o cadastro 
@@ -147,7 +151,8 @@ public class MenuSecretaria{
         String nome;
         String dataNascimento;
         String endereco;
-        String infoContato;
+        String infoContatoCeular;
+        String infoContatoEmail;
         String tipoConvenio;
         
         boolean retornado = true;
@@ -178,13 +183,14 @@ public class MenuSecretaria{
                         System.out.println("| 1 |Nome:                   |" + nome);
                         System.out.println("| 2 |Data de nascimento:     |" + data_nascimento);
                         System.out.println("| 3 |Endereco:               |" + endereco);
-                        System.out.println("| 4 |Informação de contato:  |" + info_contato);
-                        System.out.println("| 5 |Tipo do convenio:       |" + tipo_convenio);
+                        System.out.println("| 4 |Celular:                |" + info_contatoCelular);
+                        System.out.println("| 5 |Email:                  |" + info_contatoEmail);
+                        System.out.println("| 6 |Tipo do convenio:       |" + tipo_convenio);
                         System.out.println("+---+------------------------+" + "");
                     */
                     
                         System.out.println("+----------------------------------------------+");
-                        System.out.println("|Informe o número do dado que deseja atualizar |");
+                        System.out.println("|Informe o numero do dado que deseja atualizar |");
                         System.out.println("|                                              |");
                         System.out.println("|(0) Voltar                                    |");
                         boolean voltar = false;
@@ -204,17 +210,22 @@ public class MenuSecretaria{
                                     paciente.setDataNascimento(dataNascimento);
                                 }
                                 case "3" -> {
-                                    System.out.print("\nEndereço: ");
+                                    System.out.print("\nEndereco: ");
                                     endereco = in.nextLine();
                                     paciente.setEndereco(endereco);
                                 }
                                 case "4" -> {
-                                    System.out.print("\nInformações de contato: ");
-                                    infoContato = in.nextLine();
-                                    paciente.setInfoContato(infoContato);
+                                    System.out.print("\nCelular: ");
+                                    infoContatoCeular = in.nextLine();
+                                    paciente.setInfoContatoCelular(infoContatoCeular);
                                 }
                                 case "5" -> {
-                                    System.out.print("\nTipo de convênio: ");
+                                    System.out.print("\nEmail: ");
+                                    infoContatoEmail = in.nextLine();
+                                    paciente.setInfoContatoEmail(infoContatoEmail);
+                                }
+                                case "6" -> {
+                                    System.out.print("\nTipo de convenio: ");
                                     tipoConvenio = in.nextLine();
                                     paciente.setTipoConvenio(tipoConvenio);
                                 }
@@ -292,7 +303,7 @@ public class MenuSecretaria{
         Paciente paciente = banco.buscarPaciente(nomePaciente);
         int j = 0;
         while (paciente  == null && j < 3){
-            System.out.println("Paciente não encontrado");
+            System.out.println("Paciente nao encontrado");
             System.out.print("\nNome do Paciente: ");
             nomePaciente = in.nextLine();
             paciente = banco.buscarPaciente(nomePaciente);
@@ -420,7 +431,7 @@ public class MenuSecretaria{
                                             Medico medico = banco.buscarMedico(nomeMedico);
                                             int i = 0;
                                             while (medico == null && i < 3){
-                                                System.out.println("Médico não encontrado:");
+                                                System.out.println("Medico nao encontrado:");
                                                 System.out.print("\nMedico: ");
                                                 nomeMedico = in.nextLine();
                                                 medico = banco.buscarMedico(nomeMedico);
@@ -436,7 +447,7 @@ public class MenuSecretaria{
                                             Paciente pac = banco.buscarPaciente(nomePaciente);
                                             int j = 0;
                                             while (pac == null && j < 3){
-                                                System.out.println("Paciente não encontrado:");
+                                                System.out.println("Paciente nao encontrado:");
                                                 System.out.print("\nPaciente: ");
                                                 nomePaciente = in.nextLine();
                                                 paciente = banco.buscarPaciente(nomePaciente);
@@ -494,7 +505,7 @@ public class MenuSecretaria{
                         ArrayList<Consulta> listaConsultas = banco.buscarConsultaPaciente(paciente);
 
                         if (listaConsultas.isEmpty()){
-                            System.out.println("O paciente ainda não possui consultas cadastradas!");
+                            System.out.println("O paciente ainda nao possui consultas cadastradas!");
                         } else {
                             // mostrando o resumo de todas consultas do paciente
                             for (Consulta CON : listaConsultas){
