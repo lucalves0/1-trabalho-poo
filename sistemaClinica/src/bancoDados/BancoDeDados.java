@@ -21,10 +21,12 @@ public class BancoDeDados {
     // lista de prontuarios de atendimentos
     private static ArrayList<ProntuarioAtendimento> ProntuariosAtendimentos = new ArrayList<>();
     
-    
-    // métodos para adicionar elementos em cada lista
+// --------------- MÉTODOS PARA ADICIONAR INFORMAÇÕES -----------------------------
     public void adicionarPaciente(Paciente pac){
         Pacientes.add(pac);
+        // quando cadastramos um paciente, criamos seu prontuário
+        ProntuarioPaciente PPAC = new ProntuarioPaciente(pac);
+        ProntuariosPacientes.add(PPAC);
     }
     
     public void adicionarMedico(Medico med){
@@ -35,9 +37,11 @@ public class BancoDeDados {
         Consultas.add(con);
     }
     
+    /*
+    Este método pode não ser útil
     public void adicionarProntuarioPaciente(ProntuarioPaciente ppac){
         ProntuariosPacientes.add(ppac);
-    }
+    }*/
     
     public void adicionarProntuarioAtendimento(ProntuarioAtendimento pat){
         String nome;
@@ -51,16 +55,20 @@ public class BancoDeDados {
         PPAC.setNovoAtendimento(pat);
     }
 
-    // métodos para consulta
     
+// ----------------- MÉTODOS PARA ENCONTRAR INFORMAÇÕES -------------------------------
     
     // Método para encontrar uma paciente pelo nome
     public Paciente buscarPaciente(String nome){
-        for (Paciente paciente : Pacientes){
-            if (paciente.getNome().equalsIgnoreCase(nome)){
-                return paciente;
+        if (Pacientes.isEmpty()){
+            System.out.println("Não existem pacientes cadastrados");
+        } else {
+            for (Paciente paciente : Pacientes){
+                if (paciente.getNome().equalsIgnoreCase(nome)){
+                    return paciente;
+                }
             }
-        }
+        }   
         return null;
     }
     
@@ -74,6 +82,9 @@ public class BancoDeDados {
     
     // método para encontrar um médico pelo nome
     public Medico buscarMedico(String nome){
+        if (Medicos.isEmpty()){
+            System.out.println("Lista de médicos está vazia");
+        }
         for (Medico medico : Medicos){
             if (medico.getNome().equalsIgnoreCase(nome)){
                 return medico;
@@ -81,12 +92,45 @@ public class BancoDeDados {
         }
         return null;
     }
+    
+    // método para encontrar uma consulta pelo ID
+    public Consulta buscarConsulta(int ID){
+        for (Consulta CON : Consultas){
+            if (CON.getId() == ID){
+                return CON;
+            } else {
+                System.out.println("Consulta não encontrada");
+            }
+        }
+        return null;
+    }
+    
+    // método para encontrar as consultas de um paciente
+    public ArrayList<Consulta> buscarConsultaPaciente(Paciente PAC){
+        ArrayList<Consulta> lista = new ArrayList<>();
+        
+        // verificamos se a lista "Consultas" está vazia
+        if (!Consultas.isEmpty()){
+            // caso a lista não esteja vazia:
+            for (Consulta CON : Consultas){
+                if (CON.getPaciente() == PAC){
+                    lista.add(CON);
+                }
+            }
+        } else {
+            // caso a lista esteja vazia
+            System.out.println("Não existem consultas cadastradas");
+        }
+        return lista;
+    }
         
     // método para encontrar um prontuário de paciente por nome do paciente
     public ProntuarioPaciente buscarProntuarioPaciente(String nomePaciente){
         for (ProntuarioPaciente PPAC : ProntuariosPacientes){
             if (PPAC.getPaciente().getNome().equalsIgnoreCase(nomePaciente)){
                 return PPAC;
+            } else {
+                System.out.println("Prontuario do Paciente não encontrado");
             }
         }
         return null;
@@ -97,8 +141,107 @@ public class BancoDeDados {
         for (ProntuarioAtendimento PAT : ProntuariosAtendimentos){
             if (PAT.getId() == ID){
                 return PAT;
+            } else {
+                System.out.println("Prontuario de Atendimento não encontrado");
             }
         }
         return null;
     }
+    
+    
+// ---------------- MÉTODOS PARA REMOVER INFORMAÇÕES ---------------------------------
+    
+    public boolean removerPaciente(String nome){
+        if (Pacientes.isEmpty()){
+            System.out.println("Não existem pacientes cadastrados!");
+        } else {
+            for (Paciente PAC : Pacientes){
+                if (PAC.getNome().equalsIgnoreCase(nome)){ 
+                    Pacientes.remove(PAC);
+                    System.out.println("Paciente removido com sucesso!");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean removerProntuarioPaciente(int ID){
+        if (ProntuariosPacientes.isEmpty()){
+            System.out.println("Não existem prontuários de pacientes cadastrados!");
+        } else {
+            for (ProntuarioPaciente PPAC : ProntuariosPacientes){
+                if (PPAC.getId() == ID){
+                    ProntuariosPacientes.remove(PPAC);
+                    System.out.println("Prontuário de Paciente removido!");
+                    return true;
+                } else {
+                    System.out.println("Prontuário de Paciente não encontrado!");
+                }
+            }
+        }
+        
+        return false;
+    }
+            
+    public boolean removerProntuarioAtendimento(int ID){
+        if (ProntuariosAtendimentos.isEmpty()){
+            System.out.println("Lista de prontuários está vazia");
+        } else {
+            for (ProntuarioAtendimento PAT : ProntuariosAtendimentos){
+                if (PAT.getId() == ID){
+                    // removendo o Prontuario de Atendimento do Histórico de Atendimentos do Paciente
+                    Paciente paciente = PAT.getPaciente();
+                    ProntuarioPaciente PPAC = buscarProntuarioPaciente(paciente.getNome());
+                    PPAC.getHistoricoAtendimentos().remove(PAT);
+
+                    // removendo o Prontuario de Atendimento do banco de dados
+                    ProntuariosAtendimentos.remove(PAT);
+                    System.out.println("Prontuário de Atendimento removido!");
+                    return true;
+                } else {
+                    System.out.println("Prontuário de Atendimento não encontrado!");
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    public boolean removerConsulta(int ID){
+        for (Consulta CON : Consultas){
+            if (CON.getId() == ID){
+                Consultas.remove(CON);
+                System.out.println("Consulta removida!");
+                return true;
+            } else {
+                System.out.println("Consulta não encontrada");
+            }
+        }
+        return false;
+    }
+    
+    
+// ---------------- MÉTODOS PARA MOSTRAR INFORMAÇÕES ---------------------------------
+    
+    public void mostrarMedicos(){
+        if (Medicos.isEmpty()){
+            System.out.println("Lista de médicos vazia");
+        } else {
+            for (Medico MED : Medicos){
+                System.out.println(String.format("|ID: %d |NOME: %s|", MED.getId(), MED.getNome()));
+            }
+        }
+    }
+    
+    public void mostrarPacientes(){
+        if (Pacientes.isEmpty()){
+            System.out.println("A lista de pacientes está vazia");
+        } else {
+            for (Paciente PAC : Pacientes){
+                System.out.println(String.format("|ID: %d |NOME: %s|", PAC.getId(), PAC.getNome()));
+            }
+        }
+    }
+
 }

@@ -77,11 +77,9 @@ public class MenusMedico{
     }
     
     public boolean menuProntuariosSecundario(String nome){
-        Paciente PacienteEncontrado;
-        ProntuarioPaciente ProntuarioPacienteEcontrado;
         String selecao;
         boolean retornado = true;
-        boolean voltar = false;
+        //boolean voltar = false;
         
         while (retornado){
             System.out.println("\n+----------------------------------------+");
@@ -94,29 +92,20 @@ public class MenusMedico{
             System.out.println("|                                        |");
             System.out.println("|(0) Voltar                              |");
             System.out.print("|>>> ");
-            selecao = in.next();
+            selecao = in.nextLine();
             System.out.println("+------------------------------------+");            
             
             switch(selecao){
                 case "0" -> {
-                    voltar = true;
+                    //voltar = true;
                     retornado = false;
                 }
-                case "1" -> retornado = mostrarProntuarioPaciente(nome);
+                case "1" -> retornado = consultarProntuarioPaciente(nome);
                 case "2" -> retornado = cadastrarProntuarioAtendimento();
                 case "3" -> retornado = atualizarProntuarioAtendimento(nome);
-                case "4" -> System.out.println("EM OBRAS");
-                
+                case "4" -> retornado = apagarProntuarioAtendimento(nome);
             }
-            return voltar;
-        }
-        
-        
-        
-        
-        PacienteEncontrado = banco.buscarPaciente(nome);
-        ProntuarioPacienteEcontrado = banco.buscarProntuarioPaciente(nome);
-        
+        }      
         return true;
     }
 
@@ -179,16 +168,28 @@ public class MenusMedico{
     }
     
 // ------------------------   MÉTODOS DE GERENCIAMENTO  ----------------------------------
-    public boolean mostrarProntuarioPaciente(String nome){
-        ProntuarioPaciente PPAC;
-        
-        PPAC = banco.buscarProntuarioPaciente(nome);
-        PPAC.getPaciente().visualizar_dados();
-        
-        for (ProntuarioAtendimento PAT : PPAC.getHistoricoAtendimentos()){
-            PAT.resumoProntuarioAtendimento();
+    public boolean consultarProntuarioPaciente(String nome){
+        ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
+        if (PPAC != null){
+            PPAC.mostrarProntuarioPaciente();
+        } else {
+            System.out.println("Prontuário não encontrado");
         }
         return true;
+        
+        /*
+        ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
+        if (PPAC != null){
+            PPAC.getPaciente().visualizar_dados();
+            
+            for (ProntuarioAtendimento PAT : PPAC.getHistoricoAtendimentos()){
+                PAT.resumoProntuarioAtendimento();
+            }
+        } else {
+            System.out.println("Prontuário não encontrado");
+        }
+        return true;
+        */
     }
     
     public boolean cadastrarProntuarioAtendimento(){      
@@ -219,6 +220,14 @@ public class MenusMedico{
         System.out.print("Nome do médico: ");
         nomeMedico = in.nextLine();
         medico = banco.buscarMedico(nomeMedico);
+        int i = 0;
+        while (medico == null && i < 3){
+            System.out.println("Medico não encontrado");
+            System.out.print("\nNome do Medico: ");
+            nomeMedico = in.nextLine();
+            medico = banco.buscarMedico(nomeMedico);
+            ++i;
+        }
         System.out.println("+------------------------------------------------------+");
         System.out.print("Sintomas: ");
         sintomas = in.nextLine();
@@ -241,23 +250,162 @@ public class MenusMedico{
     }
     
     public boolean atualizarProntuarioAtendimento(String nome){
+        // variaveis
         int IDBuscado;
+        boolean voltar = false;
+        String selecao;
+        
+        String dataAtend;
+        String nomePac;
+        String nomeMed;
+        String sintomas;
+        String diagnostico;
+        String prescricao;
+        String dataRet;
+        
+        // objetos
         ProntuarioAtendimento PATalterar;
         ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
-        ArrayList<ProntuarioAtendimento> historico = PPAC.getHistoricoAtendimentos();
-        
-        System.out.println("============= HISTÓRICO DE ATENDIMENTOS DO PACIENTE =============");
-        for (ProntuarioAtendimento PAT : historico){
-            PAT.resumoProntuarioAtendimento();
+        if (PPAC != null){
+            
+            ArrayList<ProntuarioAtendimento> historico = PPAC.getHistoricoAtendimentos();
+            System.out.println("============= HISTÓRICO DE ATENDIMENTOS DO PACIENTE =============");
+            boolean historicoVazio = historico.isEmpty();
+            if (historicoVazio){
+                System.out.println("O paciente não possui histórico de atendimentos!");
+            } else {
+                for (ProntuarioAtendimento PAT : historico){
+                    PAT.resumoProntuarioAtendimento();
+                }
+            }
+            System.out.println("=================================================================");
+            if (!historicoVazio){
+                System.out.println("Qual dos prontuários você deseja atualizar?");
+                System.out.print("Digite o ID: ");
+                IDBuscado = in.nextInt();
+                in.nextLine();
+
+                PATalterar = banco.buscarProntuarioAtendimento(IDBuscado);
+
+                PATalterar.mostrarProntuarioAtendimento();
+
+                System.out.println("+----------------------------------------------+");
+                System.out.println("|Informe o número do dado que deseja atualizar |");
+                System.out.println("|                                              |");
+                System.out.println("|(0) Voltar                                    |");
+                while(!voltar){
+                    System.out.print("\n|>>> ");
+                    selecao = in.nextLine();
+                    switch(selecao){
+                        case "0" -> voltar = true;
+                        case "1" -> {
+                            System.out.print("\nData do atendimento: ");
+                            dataAtend = in.nextLine();
+                            PATalterar.setDataAtendimento(dataAtend);
+                        }
+                        case "2" -> {
+                            System.out.print("\nPaciente: ");
+                            nomePac = in.nextLine();
+                            Paciente pac = banco.buscarPaciente(nomePac);
+                            int j = 0;
+                            while (pac == null && j < 3){
+                                System.out.println("Paciente não encontrado:");
+                                System.out.print("\nPaciente: ");
+                                nomePac = in.nextLine();
+                                pac = banco.buscarPaciente(nomePac);
+                                ++j;
+                            }
+                            if (pac != null){
+                                PATalterar.setPaciente(banco.buscarPaciente(nomePac));
+                            }
+                        }
+                        case "3" -> {
+                            System.out.print("\nMedico: ");
+                            nomeMed = in.nextLine();
+                            Medico medico = banco.buscarMedico(nomeMed);
+                            int i = 0;
+                            while (medico == null && i < 3){
+                                System.out.println("Médico não encontrado:");
+                                System.out.print("\nMedico: ");
+                                nomeMed = in.nextLine();
+                                medico = banco.buscarMedico(nomeMed);
+                                ++i;
+                            }
+                            if (medico != null){
+                                PATalterar.setMedico(medico);
+                            }
+                        }
+                        case "4" -> {
+                            System.out.print("\nSintomas: ");
+                            sintomas = in.nextLine();
+                            PATalterar.setSintomas(sintomas);
+                        }
+                        case "5" -> {
+                            System.out.print("\nDiagnóstico: ");
+                            diagnostico = in.nextLine();
+                            PATalterar.setDignostico(diagnostico);
+                        }
+                        case "6" -> {
+                            System.out.print("\nPrescrição: ");
+                            prescricao = in.nextLine();
+                            PATalterar.setPrescricao(prescricao);
+                        }
+                        case "7" -> {
+                            System.out.print("\nRetorno: ");
+                            dataRet = in.nextLine();
+                            PATalterar.setDataRetorno(dataRet);
+                        }
+                    }
+                }
+            }
+            
+        } else {
+            System.out.println("Prontuário do Paciente não encontrado");
         }
-        System.out.println("=================================================================");
-        System.out.println("Qual dos prontuários você deseja atualizar?");
-        System.out.print("Digite o ID: ");
-        IDBuscado = in.nextInt();
-        in.nextLine();
+        return true;
+    }
+    
+    public boolean apagarProntuarioAtendimento(String nome){
+        // variáveis
+        int IDBuscado;
         
-        PATalterar = banco.buscarProntuarioAtendimento(IDBuscado);
-        
+        // objetos
+        ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
+        if (PPAC != null){
+            ArrayList<ProntuarioAtendimento> historico = PPAC.getHistoricoAtendimentos();
+
+            // mostrar histórico de atendimentos do paciente
+            System.out.println("============= HISTÓRICO DE ATENDIMENTOS DO PACIENTE =============");
+            boolean historicoVazio = historico.isEmpty();
+            if (historicoVazio){
+                System.out.println("O paciente não possui histórico de atendimentos!");
+            } else {
+                for (ProntuarioAtendimento PAT : historico){
+                    PAT.resumoProntuarioAtendimento();
+                }
+            }
+            System.out.println("=================================================================");
+            if (!historicoVazio){
+                System.out.println("Qual dos prontuários você deseja remover?");
+                System.out.print("Digite o ID: ");
+                IDBuscado = in.nextInt();
+                in.nextLine();
+
+                boolean resp = banco.removerProntuarioAtendimento(IDBuscado);
+
+                // mostrar histórico de atendimentos do paciente
+                if (resp){
+                    System.out.println("============= HISTÓRICO DE ATENDIMENTOS DO PACIENTE =============");
+                    for (ProntuarioAtendimento PAT : historico){
+                        PAT.resumoProntuarioAtendimento();
+                    }
+                    System.out.println("=================================================================");
+                    System.out.println("Prontuário removido com sucesso");
+                }  
+            }
+        } else {
+            System.out.println("Prontuário do Paciente não encontrado!");
+        }
         return true;
     }
     

@@ -7,11 +7,20 @@ import java.util.ArrayList;
 
 public class Medico {
     // dados do médico
+    private static int contadorId = 0; // Contador estático para gerar IDs únicos
+    private int id;
     private String nome;
     private String CPF;
     
     // lista de pacientes que atende
     private ArrayList<Paciente> pacientesAtendidos;
+    
+    // método construtor
+    public Medico(String nome, String CPF){
+        id = ++contadorId;
+        this.nome = nome;
+        this.CPF = CPF;
+    }
     
     // setters e getters
 
@@ -27,6 +36,10 @@ public class Medico {
         this.pacientesAtendidos = pacientesAtendidos;
     }
 
+    public int getId(){
+        return id;
+    }
+    
     public String getNome() {
         return nome;
     }

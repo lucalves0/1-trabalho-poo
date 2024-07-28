@@ -86,7 +86,7 @@ public class Paciente {
         this.nome = nome;
     }
 
-    public void setData_nascimento(String data_nascimento) {
+    public void setDataNascimento(String data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
 
@@ -94,11 +94,11 @@ public class Paciente {
         this.endereco = endereco;
     }
 
-    public void setInfo_contato(String info_contato) {
+    public void setInfoContato(String info_contato) {
         this.info_contato = info_contato;
     }
 
-    public void setTipo_convenio(String tipo_convenio) {
+    public void setTipoConvenio(String tipo_convenio) {
         this.tipo_convenio = tipo_convenio;
     }
 
