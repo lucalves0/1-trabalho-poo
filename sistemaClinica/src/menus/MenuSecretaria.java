@@ -48,6 +48,7 @@ public class MenuSecretaria{
             System.out.println("|(1) Cadastrar paciente              |");
             System.out.println("|(2) Atualizar dados de pacientes    |");
             System.out.println("|(3) Deletar paciente                |");
+            System.out.println("|(4) Gerar relatório                 |");
             System.out.println("|                                    |");
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
@@ -60,6 +61,7 @@ public class MenuSecretaria{
                 case "1" -> retornado = cadastrarPaciente();
                 case "2" -> retornado = atualizarPaciente();
                 case "3" -> retornado = removerPaciente();
+                case "4" -> retornado = gerarRelatorio();
             }            
         }
         return true;            
@@ -268,6 +270,34 @@ public class MenuSecretaria{
         return true;
     }
 
+    public boolean gerarRelatorio(){
+        String opcao;
+        
+        boolean voltar = false;
+        System.out.println("+------------------------------------+");
+        System.out.println("|             RELATORIOS             |");
+        System.out.println("+------------------------------------+");
+        System.out.println("|(1) Gerar relatorio consultas do dia|");
+        System.out.println("|seguinte de pacientes               |");
+        System.out.println("|com email/telefone                  |");
+        System.out.println("|                                    |");
+        System.out.println("|(2) Gerar relatorio consultas do dia|");
+        System.out.println("|seguinte de pacientes               |");
+        System.out.println("|sem email/telefone                  |");
+        System.out.println("|                                    |");
+        System.out.println("|                                    |");
+        System.out.println("|(0) Voltar                          |");
+        System.out.println("+------------------------------------+");
+        opcao = in.next();
+
+        switch(opcao){
+            case "1" -> System.out.println("RECEITA"); //TODO
+            case "2" -> System.out.println("ATESTADO"); //TODO
+            case "0" -> voltar = true;
+        }
+        
+        return voltar;
+    }
     
 // ---------------- MÉTODO DE GERENCIAMENTO DE CONSULTAS ------------------------------
     public boolean cadastrarConsulta(){

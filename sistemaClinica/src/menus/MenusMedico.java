@@ -182,7 +182,19 @@ public class MenusMedico{
         switch(opcao){
             case "1" -> System.out.println("RECEITA"); //TODO
             case "2" -> System.out.println("ATESTADO"); //TODO
-            case "3" -> System.out.println("DECLARAÇÃO"); //TODO
+            case "3" -> {
+                        System.out.println("Declaração de acompanhamento selecionado: ");
+                        System.out.println("Insira o nome do médico a declarar acompanhamento e aperte enter: ");
+                        String nomeMedico = in.nextLine();
+                        System.out.println("Insira o nome completo do acompanhante e aperte enter: ");
+                        String nomeAcompanhante = in.nextLine();
+                        System.out.println("Agora insira o nome completo do paciente acompanhado e aperte enter: ");
+                        String nomeAcompanhado = in.nextLine();
+                        System.out.println("+------------------------------------+");
+                        System.out.println("|    DECLARAÇÃO DE ACOMPANHAMENTO    |");
+                        System.out.println("+------------------------------------+");
+                        System.out.println("|                                    |");
+                        } //TODO
             case "4" -> System.out.println("CLIENTES NO MÊS"); //TODO
             case "0" -> voltar = true;
         }
