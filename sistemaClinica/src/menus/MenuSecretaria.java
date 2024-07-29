@@ -38,7 +38,6 @@ public class MenuSecretaria{
     }
     
     public boolean menuGerenciarPacientes(){
-        //boolean voltar = false;
         boolean retornado = true;
         String selecao;
         
@@ -53,6 +52,7 @@ public class MenuSecretaria{
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
             System.out.print(">>> ");
+            
             selecao = in.nextLine();
             
             switch(selecao){
@@ -68,13 +68,7 @@ public class MenuSecretaria{
     public boolean menuGerenciarConsultas(){
         boolean retornado = true;
         String selecao;
-        /*
-            System.out.println("(1) Cadastrar consulta; ");
-            System.out.println("(2) Atualizar dados da consulta; e");
-            System.out.println("(3) Deletar consulta.");
-            System.out.println("(4) Sair");
-            System.out.print("Qual ações deseja realizar: ");
-        */
+
         while (retornado){
             System.out.println("+------------------------------------+");
             System.out.println("|======= GERENCIAR CONSULTAS ========|");
@@ -128,7 +122,12 @@ public class MenuSecretaria{
         contatoEmail = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Tipo do convenio: ");
-        tipo_convenio = in.nextLine();
+        tipo_convenio = in.next();
+        while(!"particular".equals(tipo_convenio) && !"plano".equals(tipo_convenio)){
+            System.out.println("ERRO: Convenio deve ser 'particular' ou 'plano'");
+            System.out.print("Tipo do convenio: ");
+            tipo_convenio = in.next();
+        }
         
         // adicionando paciente ao banco de dados
         paciente = new Paciente(nome, data_nascimento, endereco, contatoCelular, contatoEmail, tipo_convenio);
@@ -227,6 +226,11 @@ public class MenuSecretaria{
                                 case "6" -> {
                                     System.out.print("\nTipo de convenio: ");
                                     tipoConvenio = in.nextLine();
+                                    while(tipoConvenio != "particular" && tipoConvenio != "plano"){
+                                        System.out.println("ERRO: Tipo de convenio deve ser 'particular' ou 'plano'");
+                                        System.out.print("\nTipo de convenio: ");
+                                        tipoConvenio = in.nextLine();
+                                    }
                                     paciente.setTipoConvenio(tipoConvenio);
                                 }
                             }
@@ -282,9 +286,19 @@ public class MenuSecretaria{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Data da consulta: ");
         data = in.nextLine();
+        while(!data.matches("\\d{2}/\\d{2}/\\d{4}")){
+            System.out.println("ERRO: Data deve estar no formato DD/MM/YYYY");
+            System.out.print("Data da consulta: ");
+            data = in.nextLine();
+        }
         System.out.println("+------------------------------------------------------+");
         System.out.print("Horario: ");
         horario = in.nextLine();
+        while(!horario.matches("\\d{2}:\\d{2}")){
+            System.out.println("ERRO: Horário deve estar no formato HH:MM");
+            System.out.print("Horario: ");
+            horario = in.nextLine();
+        }
         System.out.println("+------------------------------------------------------+");
         System.out.print("Nome do Medico: ");
         nomeMedico = in.nextLine();
@@ -311,7 +325,12 @@ public class MenuSecretaria{
         }
         System.out.println("+------------------------------------------------------+");
         System.out.print("Tipo da consulta: ");
-        tipoConsulta = in.nextLine();
+        tipoConsulta = in.next();
+        while(!"normal".equals(tipoConsulta) && !"retorno".equals(tipoConsulta)){
+            System.out.println("ERRO: tipo da consulta deve ser 'normal' ou 'retorno'");
+            System.out.print("Tipo da consulta: ");
+            tipoConsulta = in.next();
+        }
         
         // estanciando objeto consulta e adicionando ao banco de dados
         consulta = new Consulta(data, horario, medico, paciente, tipoConsulta);
@@ -418,11 +437,21 @@ public class MenuSecretaria{
                                         case "1" -> {
                                             System.out.print("\nData do atendimento: ");
                                             data = in.nextLine();
+                                            while(!data.matches("\\d{2}/\\d{2}/\\d{4}")){
+                                                System.out.println("ERRO: Data deve estar no formato DD/MM/YYYY");
+                                                System.out.print("Data da consulta: ");
+                                                data = in.nextLine();
+                                            }
                                             consultaAtualizar.setData(data);
                                         }
                                         case "2" -> {
                                             System.out.print("\nHorário: ");
                                             horario = in.nextLine();
+                                            while(!horario.matches("\\d{2}:\\d{2}")){
+                                                System.out.println("ERRO: Horário deve estar no formato HH:MM");
+                                                System.out.print("Horario: ");
+                                                horario = in.nextLine();
+                                            }
                                             consultaAtualizar.setHorario(horario);
                                         }
                                         case "3" -> {
@@ -460,6 +489,11 @@ public class MenuSecretaria{
                                         case "5" -> {
                                             System.out.print("\nTipo de consulta: ");
                                             tipoConsulta = in.nextLine();
+                                            while(tipoConsulta != "normal" && tipoConsulta != "retorno"){
+                                                System.out.println("ERRO: tipo da consulta deve ser 'normal' ou 'retorno'");
+                                                System.out.print("Tipo da consulta: ");
+                                                tipoConsulta = in.nextLine();
+                                            }
                                             consultaAtualizar.setTipoConsulta(tipoConsulta);
                                         }
 

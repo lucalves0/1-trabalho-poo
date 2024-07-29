@@ -34,6 +34,9 @@ public class ProntuarioAtendimento {
     
     // outros métodos
     public void mostrarProntuarioAtendimento(){
+        
+        
+        
         System.out.println("+-------------------------------------------------+");
         System.out.println("|=========== PRONTUÁRIO DE ATENDIMENTO ===========|");
         System.out.println("+-------------------------------------------------+");

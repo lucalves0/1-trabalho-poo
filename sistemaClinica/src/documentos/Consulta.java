@@ -5,10 +5,6 @@
 package documentos;
 import pessoas.*;
 
-/**
- *
- * @author guest-0rkw0a
- */
 public class Consulta {
     private static int contadorID = 0; // Contador estático para gerar IDs únicos
     private int id;
@@ -16,7 +12,8 @@ public class Consulta {
     private String horario;
     private Medico medico;
     private Paciente paciente;
-    private String tipoConsulta; 
+    private String tipoConsulta;
+    private String duracao;
     
     //métodos construtores de consulta
     public Consulta(){
@@ -25,11 +22,19 @@ public class Consulta {
     
     public Consulta(String data, String horario, Medico medico, Paciente paciente, String tipoConsulta){
         id = ++contadorID;
+        
         this.data = data;
         this.horario = horario;
         this.medico = medico;
         this.paciente = paciente;
         this.tipoConsulta = tipoConsulta;
+        
+        if("normal".equals(tipoConsulta.toLowerCase())){
+            this.duracao = "01:00";
+        }else if("retorno".equals(tipoConsulta.toLowerCase())){
+            this.duracao = "00:30";
+        }
+
     }
     
     // outros métodos
@@ -51,24 +56,32 @@ public class Consulta {
     
     // setters e getters
 
-    public void setData(String data) {
+    public final void setData(String data) {
         this.data = data;
     }
 
-    public void setHorario(String horario) {
+    public final void setHorario(String horario) {
         this.horario = horario;
     }
 
-    public void setMedico(Medico medico) {
+    public final void setMedico(Medico medico) {
         this.medico = medico;
     }
 
-    public void setPaciente(Paciente paciente) {
+    public final void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
 
-    public void setTipoConsulta(String tipoConsulta) {
+    public final void setTipoConsulta(String tipoConsulta) {
         this.tipoConsulta = tipoConsulta;
+    }
+    
+    public final void setDuracao(String tipoConsulta){
+        if("normal".equals(tipoConsulta.toLowerCase())){
+            this.duracao = "01:00";
+        }else if("retorno".equals(tipoConsulta.toLowerCase())){
+            this.duracao = "00:30";
+        }
     }
 
     public int getId() {
@@ -95,5 +108,8 @@ public class Consulta {
         return tipoConsulta;
     }
     
+    public String getDuracao(){
+        return duracao;
+    }
     
 }

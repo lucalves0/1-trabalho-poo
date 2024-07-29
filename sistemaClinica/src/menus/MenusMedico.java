@@ -103,7 +103,6 @@ public class MenusMedico{
     public boolean menuProntuariosSecundario(String nome){
         String selecao;
         boolean retornado = true;
-        //boolean voltar = false;
         
         while (retornado){
             System.out.println("\n+----------------------------------------+");
@@ -125,7 +124,7 @@ public class MenusMedico{
                     retornado = false;
                 }
                 case "1" -> retornado = consultarProntuarioPaciente(nome);
-                case "2" -> retornado = cadastrarProntuarioAtendimento();
+                case "2" -> retornado = cadastrarProntuarioAtendimento(nome);
                 case "3" -> retornado = atualizarProntuarioAtendimento(nome);
                 case "4" -> retornado = apagarProntuarioAtendimento(nome);
             }
@@ -203,15 +202,14 @@ public class MenusMedico{
         
     }
     
-    public boolean cadastrarProntuarioAtendimento(){      
+    public boolean cadastrarProntuarioAtendimento(String nome){      
         ProntuarioAtendimento PAT;
         
         // variáveis de entrada
-        String nomePaciente;
         String nomeMedico;
         
         String dataAtendimento;
-        Paciente paciente;
+        Paciente paciente = banco.buscarPaciente(nome);
         Medico medico;
         String sintomas;
         String diagnostico;
@@ -223,10 +221,6 @@ public class MenusMedico{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Data do atendimento: ");
         dataAtendimento = in.nextLine();
-        System.out.println("+------------------------------------------------------+");
-        System.out.print("Nome do paciente: ");
-        nomePaciente = in.nextLine();
-        paciente = banco.buscarPaciente(nomePaciente);
         System.out.println("+------------------------------------------------------+");
         System.out.print("Nome do medico: ");
         nomeMedico = in.nextLine();
@@ -243,10 +237,10 @@ public class MenusMedico{
         System.out.print("Sintomas: ");
         sintomas = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Diagnóstico: ");
+        System.out.print("Diagnostico: ");
         diagnostico = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Prescrição: ");
+        System.out.print("Prescricao: ");
         prescricao = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Data de Retorno: ");
@@ -291,14 +285,18 @@ public class MenusMedico{
             }
             System.out.println("=================================================================");
             if (!historicoVazio){
-                System.out.println("Qual dos prontuários voce deseja atualizar?");
+                System.out.println("Qual dos prontuarios voce deseja atualizar?");
                 System.out.print("Digite o ID: ");
                 IDBuscado = in.nextInt();
                 in.nextLine();
 
                 PATalterar = banco.buscarProntuarioAtendimento(IDBuscado);
 
-                PATalterar.mostrarProntuarioAtendimento();
+                if(PATalterar != null){
+                    PATalterar.mostrarProntuarioAtendimento();
+                }else{
+                    return true;
+                }
 
                 System.out.println("+----------------------------------------------+");
                 System.out.println("|Informe o numero do dado que deseja atualizar |");
