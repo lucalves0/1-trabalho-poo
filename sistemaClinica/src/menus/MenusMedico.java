@@ -193,8 +193,12 @@ public class MenusMedico{
                         System.out.println("+------------------------------------+");
                         System.out.println("|    DECLARAÇÃO DE ACOMPANHAMENTO    |");
                         System.out.println("+------------------------------------+");
-                        System.out.println("|                                    |");
-                        } //TODO
+                        System.out.printf("Eu, %s,\n", nomeMedico);
+                        System.out.printf(" declaro que %s\n", nomeAcompanhante);
+                        System.out.printf("acompanhou %s\n", nomeAcompanhado);
+                        System.out.printf("em uma consulta em meu consultório.\n");
+                        System.out.println("");
+                        }
             case "4" -> System.out.println("CLIENTES NO MÊS"); //TODO
             case "0" -> voltar = true;
         }
