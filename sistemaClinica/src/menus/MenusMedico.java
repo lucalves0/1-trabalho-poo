@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import bancoDados.*;
 import pessoas.*;
 import documentos.*;
+import gerenciadorMensagens.*;
 
 public class MenusMedico{
     Scanner in = new Scanner(System.in);
@@ -181,10 +182,10 @@ public class MenusMedico{
         opcao = in.next();
 
         switch(opcao){
-            case "1" -> receita();//TODO
+            case "1" -> receita();
             case "2" -> atestado();
             case "3" -> declaracaoAcompanhamento();
-            case "4" -> System.out.println("CLIENTES NO MÊS"); //TODO
+            case "4" -> clientesNoMes();
             case "0" -> voltar = true;
         }
         
@@ -323,7 +324,20 @@ public class MenusMedico{
         System.out.printf(">>> ");
         in.nextLine();
         System.out.println("");
+    }
+    public void clientesNoMes(){
+        GerenciadorMensagens gerMens = new GerenciadorMensagens();
+        String dataHoje = gerMens.getData();
+        String mesHoje = dataHoje.substring(3,5);
+        BancoDeDados bancoClientesNoMes = new BancoDeDados();
+        ArrayList<Consulta> consultasClientesNoMes = bancoClientesNoMes.buscarConsultas();
+        for(int i = 0; i < consultasClientesNoMes.size(); i++){
+            Consulta consultaIterada = consultasClientesNoMes.get(i);
+            String dataConsulta = consultaIterada.getData();
+            String mesConsulta = dataConsulta.substring(3, 5);
+            
         }
+    }
 // ------------------------   MÉTODOS DE GERENCIAMENTO  ----------------------------------
     public boolean consultarProntuarioPaciente(String nome){
         ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
