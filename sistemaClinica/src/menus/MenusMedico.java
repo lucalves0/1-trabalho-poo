@@ -177,6 +177,7 @@ public class MenusMedico{
         System.out.println("|                                    |");
         System.out.println("|(0) Voltar                          |");
         System.out.println("+------------------------------------+");
+        System.out.print(">>> ");
         opcao = in.next();
 
         switch(opcao){
@@ -184,19 +185,31 @@ public class MenusMedico{
             case "2" -> System.out.println("ATESTADO"); //TODO
             case "3" -> {
                         System.out.println("Declaração de acompanhamento selecionado: ");
-                        System.out.println("Insira o nome do médico a declarar acompanhamento e aperte enter: ");
+                        in.nextLine();
+                        System.out.println("");
+                        System.out.println("Insira o nome completo do médico a declarar acompanhamento e aperte enter: ");
+                        System.out.printf(">>> ");
                         String nomeMedico = in.nextLine();
+                        System.out.println("");
                         System.out.println("Insira o nome completo do acompanhante e aperte enter: ");
+                        System.out.printf(">>> ");
                         String nomeAcompanhante = in.nextLine();
+                        System.out.println("");
                         System.out.println("Agora insira o nome completo do paciente acompanhado e aperte enter: ");
+                        System.out.printf(">>> ");
                         String nomeAcompanhado = in.nextLine();
+                        System.out.println("");
                         System.out.println("+------------------------------------+");
                         System.out.println("|    DECLARAÇÃO DE ACOMPANHAMENTO    |");
                         System.out.println("+------------------------------------+");
                         System.out.printf("Eu, %s,\n", nomeMedico);
-                        System.out.printf(" declaro que %s\n", nomeAcompanhante);
+                        System.out.printf("declaro que %s\n", nomeAcompanhante);
                         System.out.printf("acompanhou %s\n", nomeAcompanhado);
                         System.out.printf("em uma consulta em meu consultório.\n");
+                        System.out.println("");
+                        System.out.println("Declaração realizada. Aperte enter para continuar.");
+                        System.out.printf(">>> ");
+                        in.nextLine();
                         System.out.println("");
                         }
             case "4" -> System.out.println("CLIENTES NO MÊS"); //TODO
