@@ -326,17 +326,35 @@ public class MenusMedico{
         System.out.println("");
     }
     public void clientesNoMes(){
+        in.nextLine();
         GerenciadorMensagens gerMens = new GerenciadorMensagens();
         String dataHoje = gerMens.getData();
         String mesHoje = dataHoje.substring(3,5);
         BancoDeDados bancoClientesNoMes = new BancoDeDados();
+        int qtdConsultasNoMes = 0;
+        int qtdClientesNoMes = 0;
+        ArrayList<Integer> idsClientesMes = new ArrayList<>();
         ArrayList<Consulta> consultasClientesNoMes = bancoClientesNoMes.buscarConsultas();
         for(int i = 0; i < consultasClientesNoMes.size(); i++){
             Consulta consultaIterada = consultasClientesNoMes.get(i);
             String dataConsulta = consultaIterada.getData();
             String mesConsulta = dataConsulta.substring(3, 5);
-            
+            if(mesConsulta == mesHoje){
+                qtdConsultasNoMes++;
+                Paciente pacienteConsulta = consultaIterada.getPaciente();
+                int idClienteConsulta = pacienteConsulta.getId();
+                int indiceClienteConsulta = idsClientesMes.indexOf(idClienteConsulta);
+                if(indiceClienteConsulta == -1){
+                    qtdClientesNoMes++;
+                    idsClientesMes.add(idClienteConsulta);
+                }
+            }
         }
+        System.out.printf("Houveram %d consultas no mês,\natendendo a %d clientes distintos.\n\n", qtdConsultasNoMes, qtdClientesNoMes);
+        System.out.println("Pressione enter para continuar");
+        System.out.printf(">>> ");
+        in.nextLine();
+        System.out.println("");
     }
 // ------------------------   MÉTODOS DE GERENCIAMENTO  ----------------------------------
     public boolean consultarProntuarioPaciente(String nome){
