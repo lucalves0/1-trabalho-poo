@@ -327,30 +327,54 @@ public class MenusMedico{
     }
     public void clientesNoMes(){
         in.nextLine();
+        System.out.println("");
+
+        // Invoca o gerenciador de mensagens para obter a data de hoje
         GerenciadorMensagens gerMens = new GerenciadorMensagens();
+
+        // Obtem a data e mes de hoje
         String dataHoje = gerMens.getData();
         String mesHoje = dataHoje.substring(3,5);
+
+        // Cria um objeto da classe BancoDeDados para obter a ArrayList prontAtendClientesNoMes, de ProntuarioAtendimento
         BancoDeDados bancoClientesNoMes = new BancoDeDados();
-        int qtdConsultasNoMes = 0;
-        int qtdClientesNoMes = 0;
+        ArrayList<ProntuarioAtendimento> prontAtendClientesNoMes = bancoClientesNoMes.buscarProntuarioAtendimentos();
+        
+        // Cria a ArrayList idsClientesMes, para que não seja contado um mesmo cliente repetidas vezes
         ArrayList<Integer> idsClientesMes = new ArrayList<>();
-        ArrayList<Consulta> consultasClientesNoMes = bancoClientesNoMes.buscarConsultas();
-        for(int i = 0; i < consultasClientesNoMes.size(); i++){
-            Consulta consultaIterada = consultasClientesNoMes.get(i);
-            String dataConsulta = consultaIterada.getData();
-            String mesConsulta = dataConsulta.substring(3, 5);
-            if(mesConsulta == mesHoje){
-                qtdConsultasNoMes++;
-                Paciente pacienteConsulta = consultaIterada.getPaciente();
-                int idClienteConsulta = pacienteConsulta.getId();
-                int indiceClienteConsulta = idsClientesMes.indexOf(idClienteConsulta);
-                if(indiceClienteConsulta == -1){
+
+        // Inicia os contadores de atendimentos no mes e clientes no mes
+        int qtdProntAtendNoMes = 0;
+        int qtdClientesNoMes = 0;
+
+        // Itera por todos os atendimentos
+        for(int i = 0; i < prontAtendClientesNoMes.size(); i++){
+            ProntuarioAtendimento prontAtendIterado = prontAtendClientesNoMes.get(i);
+            
+            // Obtem a data e mes de atendimento do prontuario iterado
+            String dataAtendimento = prontAtendIterado.getDataAtendimento();
+            String mesAtendimento = dataAtendimento.substring(3, 5);
+
+            // Se o mes de atendimento for o mesmo do mes de hoje, incrementa o contador de atendimentos no mes
+            if(mesHoje.equals(mesAtendimento)){
+                qtdProntAtendNoMes++;
+                
+                // Obtem o paciente do atendimento iterado e seu ID
+                Paciente pacienteAtendimento = prontAtendIterado.getPaciente();
+                int idClienteAtendimento = pacienteAtendimento.getId();
+
+                // Verifica se o paciente está na ArrayList que criamos, ou seja, se seu atendimento já foi contabilizado
+                int indiceClienteAtendimento = idsClientesMes.indexOf(idClienteAtendimento);
+
+                // Caso o atendimento do paciente não havia sido contabilizado, contabiliza esse atendimento
+                // e incrementa a quantidade de clientes atendidos no mes
+                if(indiceClienteAtendimento == -1){
                     qtdClientesNoMes++;
-                    idsClientesMes.add(idClienteConsulta);
+                    idsClientesMes.add(idClienteAtendimento);
                 }
             }
         }
-        System.out.printf("Houveram %d consultas no mês,\natendendo a %d clientes distintos.\n\n", qtdConsultasNoMes, qtdClientesNoMes);
+        System.out.printf("Houveram %d atendimentos no mês,\natendendo a %d clientes distintos.\n\n", qtdProntAtendNoMes, qtdClientesNoMes);
         System.out.println("Pressione enter para continuar");
         System.out.printf(">>> ");
         in.nextLine();
