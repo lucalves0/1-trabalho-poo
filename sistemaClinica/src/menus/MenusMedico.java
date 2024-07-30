@@ -181,37 +181,9 @@ public class MenusMedico{
         opcao = in.next();
 
         switch(opcao){
-            case "1" -> System.out.println("RECEITA"); //TODO
-            case "2" -> System.out.println("ATESTADO"); //TODO
-            case "3" -> {
-                        System.out.println("Declaração de acompanhamento selecionado: ");
-                        in.nextLine();
-                        System.out.println("");
-                        System.out.println("Insira o nome completo do médico a declarar acompanhamento e aperte enter: ");
-                        System.out.printf(">>> ");
-                        String nomeMedico = in.nextLine();
-                        System.out.println("");
-                        System.out.println("Insira o nome completo do acompanhante e aperte enter: ");
-                        System.out.printf(">>> ");
-                        String nomeAcompanhante = in.nextLine();
-                        System.out.println("");
-                        System.out.println("Agora insira o nome completo do paciente acompanhado e aperte enter: ");
-                        System.out.printf(">>> ");
-                        String nomeAcompanhado = in.nextLine();
-                        System.out.println("");
-                        System.out.println("+------------------------------------+");
-                        System.out.println("|    DECLARAÇÃO DE ACOMPANHAMENTO    |");
-                        System.out.println("+------------------------------------+");
-                        System.out.printf("Eu, %s,\n", nomeMedico);
-                        System.out.printf("declaro que %s\n", nomeAcompanhante);
-                        System.out.printf("acompanhou %s\n", nomeAcompanhado);
-                        System.out.printf("em uma consulta em meu consultório.\n");
-                        System.out.println("");
-                        System.out.println("Declaração realizada. Aperte enter para continuar.");
-                        System.out.printf(">>> ");
-                        in.nextLine();
-                        System.out.println("");
-                        }
+            case "1" -> receita();//TODO
+            case "2" -> atestado();
+            case "3" -> declaracaoAcompanhamento();
             case "4" -> System.out.println("CLIENTES NO MÊS"); //TODO
             case "0" -> voltar = true;
         }
@@ -219,6 +191,99 @@ public class MenusMedico{
         return voltar;
     }
     
+    public void receita(){
+        System.out.println("Receituário selecionado.");
+        in.nextLine();
+        System.out.println("");
+        System.out.println("Insira o nome completo do médico a emitir a receita e aperte enter: ");
+        System.out.printf(">>> ");
+        String nomeMedico = in.nextLine();
+        System.out.println("");
+        System.out.println("Insira o nome completo do paciente e aperte enter: ");
+        System.out.printf(">>> ");
+        String nomePaciente = in.nextLine();
+        System.out.println("Agora insira a data de emissão do atestado e aperte enter: ");
+        System.out.printf(">>> ");
+        String dataAtestado = in.nextLine();
+        System.out.println("");
+        do{
+            System.out.println("Insira o nome da medicação receitada e aperte enter,");
+            System.out.println("ou, caso finalizada a receita, apenas aperte enter:");
+            System.out.printf(">>> ");
+            String medicacao = in.nextLine();
+            System.out.println("");
+            System.out.println("Insira a quantidade da medicação prescrita e aperte enter:");
+        }
+    }
+
+    public void atestado(){
+        System.out.println("Declaração de atestado médico selecionado: ");
+        in.nextLine();
+        System.out.println("");
+        System.out.println("Insira o nome completo do médico a declarar o atestado e aperte enter: ");
+        System.out.printf(">>> ");
+        String nomeMedico = in.nextLine();
+        System.out.println("");
+        System.out.println("Insira o nome completo do paciente e aperte enter: ");
+        System.out.printf(">>> ");
+        String nomePaciente = in.nextLine();
+        System.out.println("");
+        System.out.println("Agora insira a quantidade de dias de atestado e aperte enter: ");
+        System.out.printf(">>> ");
+        String quantidadeDiasAtestado = in.nextLine();
+        System.out.println("");
+        System.out.println("Agora insira a data de emissão do atestado e aperte enter: ");
+        System.out.printf(">>> ");
+        String dataAtestado = in.nextLine();
+        System.out.println("");
+        System.out.println("+------------------------------------+");
+        System.out.println("|           Atestado Médico          |");
+        System.out.println("+------------------------------------+");
+        System.out.printf("Eu, %s,\n", nomeMedico);
+        System.out.printf("forneço o presente atestado médico referente a %s\n", nomePaciente);
+        System.out.printf("para fins de afastamento de suas atividades pelo período de %s dias,\n", quantidadeDiasAtestado);
+        System.out.printf("no dia %s.\n", dataAtestado);
+        System.out.println("");
+        System.out.println("Atestado realizado. Aperte enter para continuar.");
+        System.out.printf(">>> ");
+        in.nextLine();
+        System.out.println("");
+        
+    }
+
+    public void declaracaoAcompanhamento(){
+        System.out.println("Declaração de acompanhamento selecionado: ");
+        in.nextLine();
+        System.out.println("");
+        System.out.println("Insira o nome completo do médico a declarar acompanhamento e aperte enter: ");
+        System.out.printf(">>> ");
+        String nomeMedico = in.nextLine();
+        System.out.println("");
+        System.out.println("Insira o nome completo do acompanhante e aperte enter: ");
+        System.out.printf(">>> ");
+        String nomeAcompanhante = in.nextLine();
+        System.out.println("");
+        System.out.println("Insira o nome completo do paciente acompanhado e aperte enter: ");
+        System.out.printf(">>> ");
+        String nomeAcompanhado = in.nextLine();
+        System.out.println("");
+        System.out.println("Agora insira a data em que o paciente foi acompanhado e aperte enter: ");
+        System.out.printf(">>> ");
+        String dataAcompanhamento = in.nextLine();
+        System.out.println("");System.out.println("+------------------------------------+");
+        System.out.println("|    DECLARAÇÃO DE ACOMPANHAMENTO    |");
+        System.out.println("+------------------------------------+");
+        System.out.printf("Eu, %s,\n", nomeMedico);
+        System.out.printf("declaro que %s\n", nomeAcompanhante);
+        System.out.printf("acompanhou %s\n", nomeAcompanhado);
+        System.out.printf("em uma consulta em meu consultório\n");
+        System.out.printf("no dia %s", dataAcompanhamento);
+        System.out.println("");
+        System.out.println("Declaração realizada. Aperte enter para continuar.");
+        System.out.printf(">>> ");
+        in.nextLine();
+        System.out.println("");
+        }
 // ------------------------   MÉTODOS DE GERENCIAMENTO  ----------------------------------
     public boolean consultarProntuarioPaciente(String nome){
         ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
