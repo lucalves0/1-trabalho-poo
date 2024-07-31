@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package principal;
-import menus.*;
+import menusGrafico.MenuInicial;
 import pessoas.*;
 import bancoDados.*;
 import gerenciadorMensagens.*;
