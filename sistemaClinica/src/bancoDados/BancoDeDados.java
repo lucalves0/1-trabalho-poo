@@ -72,6 +72,10 @@ public class BancoDeDados {
         return null;
     }
     
+    public ArrayList<Consulta> buscarConsultas(){
+        return Consultas;
+    }
+    
     // Método para encontrar um paciente recebendo um objeto paciente
     public Paciente buscarPaciente(Paciente pac){
         Paciente retorno;

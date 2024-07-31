@@ -4,10 +4,6 @@
  */
 package interfaces;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public interface Menu {
     boolean menuPrincipal();
 }

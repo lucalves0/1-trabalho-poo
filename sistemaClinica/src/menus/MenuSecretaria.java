@@ -38,7 +38,6 @@ public class MenuSecretaria{
     }
     
     public boolean menuGerenciarPacientes(){
-        //boolean voltar = false;
         boolean retornado = true;
         String selecao;
         
@@ -53,6 +52,7 @@ public class MenuSecretaria{
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
             System.out.print(">>> ");
+            
             selecao = in.nextLine();
             
             switch(selecao){
@@ -68,13 +68,7 @@ public class MenuSecretaria{
     public boolean menuGerenciarConsultas(){
         boolean retornado = true;
         String selecao;
-        /*
-            System.out.println("(1) Cadastrar consulta; ");
-            System.out.println("(2) Atualizar dados da consulta; e");
-            System.out.println("(3) Deletar consulta.");
-            System.out.println("(4) Sair");
-            System.out.print("Qual ações deseja realizar: ");
-        */
+
         while (retornado){
             System.out.println("+------------------------------------+");
             System.out.println("|======= GERENCIAR CONSULTAS ========|");
@@ -104,7 +98,8 @@ public class MenuSecretaria{
         String nome;
         String data_nascimento;
         String endereco;
-        String contato;
+        String contatoCelular;
+        String contatoEmail;
         String tipo_convenio;
         Paciente paciente;
 
@@ -121,13 +116,21 @@ public class MenuSecretaria{
         endereco = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Contato telefonico: ");
-        contato = in.nextLine();
+        contatoCelular = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Tipo do convênio: ");
-        tipo_convenio = in.nextLine();
+        System.out.print("Contato Email: ");
+        contatoEmail = in.nextLine();
+        System.out.println("+------------------------------------------------------+");
+        System.out.print("Tipo do convenio: ");
+        tipo_convenio = in.next();
+        while(!"particular".equals(tipo_convenio) && !"plano".equals(tipo_convenio)){
+            System.out.println("ERRO: Convenio deve ser 'particular' ou 'plano'");
+            System.out.print("Tipo do convenio: ");
+            tipo_convenio = in.next();
+        }
         
         // adicionando paciente ao banco de dados
-        paciente = new Paciente(nome, data_nascimento, endereco, contato, tipo_convenio);
+        paciente = new Paciente(nome, data_nascimento, endereco, contatoCelular, contatoEmail, tipo_convenio);
         banco.adicionarPaciente(paciente);
         
         // mensagem confirmando o cadastro 
@@ -147,7 +150,8 @@ public class MenuSecretaria{
         String nome;
         String dataNascimento;
         String endereco;
-        String infoContato;
+        String infoContatoCeular;
+        String infoContatoEmail;
         String tipoConvenio;
         
         boolean retornado = true;
@@ -178,13 +182,14 @@ public class MenuSecretaria{
                         System.out.println("| 1 |Nome:                   |" + nome);
                         System.out.println("| 2 |Data de nascimento:     |" + data_nascimento);
                         System.out.println("| 3 |Endereco:               |" + endereco);
-                        System.out.println("| 4 |Informação de contato:  |" + info_contato);
-                        System.out.println("| 5 |Tipo do convenio:       |" + tipo_convenio);
+                        System.out.println("| 4 |Celular:                |" + info_contatoCelular);
+                        System.out.println("| 5 |Email:                  |" + info_contatoEmail);
+                        System.out.println("| 6 |Tipo do convenio:       |" + tipo_convenio);
                         System.out.println("+---+------------------------+" + "");
                     */
                     
                         System.out.println("+----------------------------------------------+");
-                        System.out.println("|Informe o número do dado que deseja atualizar |");
+                        System.out.println("|Informe o numero do dado que deseja atualizar |");
                         System.out.println("|                                              |");
                         System.out.println("|(0) Voltar                                    |");
                         boolean voltar = false;
@@ -204,18 +209,28 @@ public class MenuSecretaria{
                                     paciente.setDataNascimento(dataNascimento);
                                 }
                                 case "3" -> {
-                                    System.out.print("\nEndereço: ");
+                                    System.out.print("\nEndereco: ");
                                     endereco = in.nextLine();
                                     paciente.setEndereco(endereco);
                                 }
                                 case "4" -> {
-                                    System.out.print("\nInformações de contato: ");
-                                    infoContato = in.nextLine();
-                                    paciente.setInfoContato(infoContato);
+                                    System.out.print("\nCelular: ");
+                                    infoContatoCeular = in.nextLine();
+                                    paciente.setInfoContatoCelular(infoContatoCeular);
                                 }
                                 case "5" -> {
-                                    System.out.print("\nTipo de convênio: ");
+                                    System.out.print("\nEmail: ");
+                                    infoContatoEmail = in.nextLine();
+                                    paciente.setInfoContatoEmail(infoContatoEmail);
+                                }
+                                case "6" -> {
+                                    System.out.print("\nTipo de convenio: ");
                                     tipoConvenio = in.nextLine();
+                                    while(tipoConvenio != "particular" && tipoConvenio != "plano"){
+                                        System.out.println("ERRO: Tipo de convenio deve ser 'particular' ou 'plano'");
+                                        System.out.print("\nTipo de convenio: ");
+                                        tipoConvenio = in.nextLine();
+                                    }
                                     paciente.setTipoConvenio(tipoConvenio);
                                 }
                             }
@@ -271,9 +286,19 @@ public class MenuSecretaria{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Data da consulta: ");
         data = in.nextLine();
+        while(!data.matches("\\d{2}/\\d{2}/\\d{4}")){
+            System.out.println("ERRO: Data deve estar no formato DD/MM/YYYY");
+            System.out.print("Data da consulta: ");
+            data = in.nextLine();
+        }
         System.out.println("+------------------------------------------------------+");
         System.out.print("Horario: ");
         horario = in.nextLine();
+        while(!horario.matches("\\d{2}:\\d{2}")){
+            System.out.println("ERRO: Horário deve estar no formato HH:MM");
+            System.out.print("Horario: ");
+            horario = in.nextLine();
+        }
         System.out.println("+------------------------------------------------------+");
         System.out.print("Nome do Medico: ");
         nomeMedico = in.nextLine();
@@ -292,7 +317,7 @@ public class MenuSecretaria{
         Paciente paciente = banco.buscarPaciente(nomePaciente);
         int j = 0;
         while (paciente  == null && j < 3){
-            System.out.println("Paciente não encontrado");
+            System.out.println("Paciente nao encontrado");
             System.out.print("\nNome do Paciente: ");
             nomePaciente = in.nextLine();
             paciente = banco.buscarPaciente(nomePaciente);
@@ -300,7 +325,12 @@ public class MenuSecretaria{
         }
         System.out.println("+------------------------------------------------------+");
         System.out.print("Tipo da consulta: ");
-        tipoConsulta = in.nextLine();
+        tipoConsulta = in.next();
+        while(!"normal".equals(tipoConsulta) && !"retorno".equals(tipoConsulta)){
+            System.out.println("ERRO: tipo da consulta deve ser 'normal' ou 'retorno'");
+            System.out.print("Tipo da consulta: ");
+            tipoConsulta = in.next();
+        }
         
         // estanciando objeto consulta e adicionando ao banco de dados
         consulta = new Consulta(data, horario, medico, paciente, tipoConsulta);
@@ -407,11 +437,21 @@ public class MenuSecretaria{
                                         case "1" -> {
                                             System.out.print("\nData do atendimento: ");
                                             data = in.nextLine();
+                                            while(!data.matches("\\d{2}/\\d{2}/\\d{4}")){
+                                                System.out.println("ERRO: Data deve estar no formato DD/MM/YYYY");
+                                                System.out.print("Data da consulta: ");
+                                                data = in.nextLine();
+                                            }
                                             consultaAtualizar.setData(data);
                                         }
                                         case "2" -> {
                                             System.out.print("\nHorário: ");
                                             horario = in.nextLine();
+                                            while(!horario.matches("\\d{2}:\\d{2}")){
+                                                System.out.println("ERRO: Horário deve estar no formato HH:MM");
+                                                System.out.print("Horario: ");
+                                                horario = in.nextLine();
+                                            }
                                             consultaAtualizar.setHorario(horario);
                                         }
                                         case "3" -> {
@@ -420,7 +460,7 @@ public class MenuSecretaria{
                                             Medico medico = banco.buscarMedico(nomeMedico);
                                             int i = 0;
                                             while (medico == null && i < 3){
-                                                System.out.println("Médico não encontrado:");
+                                                System.out.println("Medico nao encontrado:");
                                                 System.out.print("\nMedico: ");
                                                 nomeMedico = in.nextLine();
                                                 medico = banco.buscarMedico(nomeMedico);
@@ -436,7 +476,7 @@ public class MenuSecretaria{
                                             Paciente pac = banco.buscarPaciente(nomePaciente);
                                             int j = 0;
                                             while (pac == null && j < 3){
-                                                System.out.println("Paciente não encontrado:");
+                                                System.out.println("Paciente nao encontrado:");
                                                 System.out.print("\nPaciente: ");
                                                 nomePaciente = in.nextLine();
                                                 paciente = banco.buscarPaciente(nomePaciente);
@@ -449,6 +489,11 @@ public class MenuSecretaria{
                                         case "5" -> {
                                             System.out.print("\nTipo de consulta: ");
                                             tipoConsulta = in.nextLine();
+                                            while(tipoConsulta != "normal" && tipoConsulta != "retorno"){
+                                                System.out.println("ERRO: tipo da consulta deve ser 'normal' ou 'retorno'");
+                                                System.out.print("Tipo da consulta: ");
+                                                tipoConsulta = in.nextLine();
+                                            }
                                             consultaAtualizar.setTipoConsulta(tipoConsulta);
                                         }
 
@@ -494,7 +539,7 @@ public class MenuSecretaria{
                         ArrayList<Consulta> listaConsultas = banco.buscarConsultaPaciente(paciente);
 
                         if (listaConsultas.isEmpty()){
-                            System.out.println("O paciente ainda não possui consultas cadastradas!");
+                            System.out.println("O paciente ainda nao possui consultas cadastradas!");
                         } else {
                             // mostrando o resumo de todas consultas do paciente
                             for (Consulta CON : listaConsultas){
