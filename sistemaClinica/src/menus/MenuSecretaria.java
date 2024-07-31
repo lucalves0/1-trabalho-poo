@@ -6,6 +6,8 @@ package menus;
 import pessoas.*;
 import bancoDados.*;
 import documentos.*;
+import gerenciadorMensagens.GerenciadorMensagens;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -277,12 +279,12 @@ public class MenuSecretaria{
         System.out.println("+------------------------------------+");
         System.out.println("|             RELATORIOS             |");
         System.out.println("+------------------------------------+");
-        System.out.println("|(1) Gerar relatorio consultas do dia|");
-        System.out.println("|seguinte de pacientes               |");
+        System.out.println("|(1) Gerar relatorio consultas       |");
+        System.out.println("|do dia seguinte, de pacientes       |");
         System.out.println("|com email/telefone                  |");
         System.out.println("|                                    |");
-        System.out.println("|(2) Gerar relatorio consultas do dia|");
-        System.out.println("|seguinte de pacientes               |");
+        System.out.println("|(2) Gerar relatorio consultas       |");
+        System.out.println("|do dia seguinte, de pacientes       |");
         System.out.println("|sem email/telefone                  |");
         System.out.println("|                                    |");
         System.out.println("|                                    |");
@@ -291,12 +293,47 @@ public class MenuSecretaria{
         opcao = in.next();
 
         switch(opcao){
-            case "1" -> System.out.println("RECEITA"); //TODO
+            case "1" -> consultasDiaSeguinteComContato(); //TODO
             case "2" -> System.out.println("ATESTADO"); //TODO
             case "0" -> voltar = true;
         }
         
         return voltar;
+    }
+
+    public void consultasDiaSeguinteComContato(){
+
+        // Obtendo a data de hoje através de um objeto do tipo GerenciadorMensagens
+        GerenciadorMensagens gerenMensag = new GerenciadorMensagens();
+        String dataHoje = gerenMensag.getData();
+
+        // Obtendo dia, mes e ano a partir da data
+        String[] diaMesAnoString = dataHoje.split("/");
+        int diaInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 0);
+        int mesInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 1);
+        int anoInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 2);
+
+        // Obtem uma ArrayList com todas as consultas
+        BancoDeDados banco = new BancoDeDados();
+        ArrayList<Consulta> consultas = banco.buscarConsultas();
+
+        // Iterando por todas as consultas
+        for(int i = 0; i < consultas.size(); i++){
+            
+            // Obtendo dia, mes e ano da consulta iterada
+            Consulta consultaIterada = consultas.get(i);
+            String dataIterada = consultaIterada.getData();
+            String[] diaMesAnoIterados = dataIterada.split("/");
+            int diaIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 0);
+            int mesIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 1);
+            int anoIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 2);
+        }
+    }
+
+    public int obtemIntDeStringArrayNaPosN(String[] stringArray, int n){
+        String string = stringArray[n];
+        int intObtido = Integer.parseInt(string);
+        return intObtido;
     }
     
 // ---------------- MÉTODO DE GERENCIAMENTO DE CONSULTAS ------------------------------
