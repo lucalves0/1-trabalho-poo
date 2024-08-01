@@ -22,8 +22,10 @@ public class Main {
         banco.mostrarMedicos();
         Paciente Enzo = new Paciente("Enzo", "16/10/2001", "Rua Seibo Kakazu, 1271", "997711590", "enzo@gmail.com", "Particular");
         Paciente Renata = new Paciente("Renata", "12/07/1998", "Avenida Brasil 110", "998446633", "email@email.com", "Particular");
+        Paciente Rosana = new Paciente("Rozana", "01/04/1990", "Rua São Caetano 223", null, null, "particular");
         banco.adicionarPaciente(Enzo);
         banco.adicionarPaciente(Renata);
+        banco.adicionarPaciente(Rosana);
         banco.mostrarPacientes();
         MenuInicial mnInicial = new MenuInicial();
         

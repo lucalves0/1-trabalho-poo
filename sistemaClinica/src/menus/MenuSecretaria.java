@@ -295,8 +295,8 @@ public class MenuSecretaria{
         opcao = in.next();
 
         switch(opcao){
-            case "1" -> consultasDiaSeguinteComContato(); //TODO
-            case "2" -> System.out.println("ATESTADO"); //TODO
+            case "1" -> consultasDiaSeguinteComContato();
+            case "2" -> consultasDiaSeguinteSemContato(); //TODO
             case "0" -> voltar = true;
         }
         
@@ -304,6 +304,9 @@ public class MenuSecretaria{
     }
 
     public void consultasDiaSeguinteComContato(){
+
+        // "Consumindo" a quebra de linha que ficou no buffer
+        in.nextLine();
 
         // Obtendo a data de hoje através de um objeto do tipo GerenciadorMensagens
         GerenciadorMensagens gerenMensag = new GerenciadorMensagens();
@@ -333,6 +336,60 @@ public class MenuSecretaria{
             // Verificar se o paciente possui informação de contato email/celular
             if(((contatoCelularIterado != null) && (contatoCelularIterado  != "")) || 
             ((contatoEmailIterado != null) && (contatoEmailIterado != ""))){
+                //consultaIterada.mostrarConsulta();
+                // Obtendo dia, mes e ano da consulta iterada
+                String dataIterada = consultaIterada.getData();
+                String[] diaMesAnoIterados = dataIterada.split("/");
+                int diaIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 0);
+                int mesIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 1);
+                int anoIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 2);
+
+                // Verifica se a consulta é relativa ao dia seguinte
+                if(proxDia(anoInt, anoIterado, mesInt, mesIterado, diaInt, diaIterado)){
+                    consultaIterada.mostrarConsulta();
+                }
+            }
+        }
+        System.out.println("");
+        System.out.println("Pressione Enter para continuar:");
+        System.out.printf(">>> ");
+        in.nextLine();
+        System.out.println("");
+    }
+
+    public void consultasDiaSeguinteSemContato(){
+
+        // "Consumindo" a quebra de linha que ficou no buffer
+        in.nextLine();
+
+        // Obtendo a data de hoje através de um objeto do tipo GerenciadorMensagens
+        GerenciadorMensagens gerenMensag = new GerenciadorMensagens();
+        String dataHoje = gerenMensag.getData();
+
+        // Obtendo dia, mes e ano a partir da data
+        String[] diaMesAnoString = dataHoje.split("/");
+        int diaInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 0);
+        int mesInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 1);
+        int anoInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 2);
+
+        // Obtem uma ArrayList com todas as consultas
+        BancoDeDados banco = new BancoDeDados();
+        ArrayList<Consulta> consultas = banco.buscarConsultas();
+
+        // Iterando por todas as consultas
+        for(int i = 0; i < consultas.size(); i++){
+            
+            // Obtendo a consulta da iteração atual
+            Consulta consultaIterada = consultas.get(i);
+            
+            // Obtendo email e celular do paciente da consulta obtida
+            Paciente pacienteIterado = consultaIterada.getPaciente();
+            String contatoCelularIterado = pacienteIterado.getInfo_contatoCelular();
+            String contatoEmailIterado = pacienteIterado.getInfo_contatoEmail();
+
+            // Verificar se o paciente possui informação de contato email/celular
+            if(!(((contatoCelularIterado != null) && (contatoCelularIterado  != "")) || 
+            ((contatoEmailIterado != null) && (contatoEmailIterado != "")))){
                 //consultaIterada.mostrarConsulta();
                 // Obtendo dia, mes e ano da consulta iterada
                 String dataIterada = consultaIterada.getData();
