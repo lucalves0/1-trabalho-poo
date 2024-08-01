@@ -29,6 +29,8 @@ public class MenuSecretaria{
             System.out.println("|                                    |");
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
+            
+            System.out.printf(">>> ");
             selecao = in.next();
 
             switch(selecao){
@@ -52,7 +54,6 @@ public class MenuSecretaria{
             System.out.println("|(1) Cadastrar paciente              |");
             System.out.println("|(2) Atualizar dados de pacientes    |");
             System.out.println("|(3) Deletar paciente                |");
-            System.out.println("|(4) Gerar relatório                 |");
             System.out.println("|                                    |");
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
@@ -65,7 +66,6 @@ public class MenuSecretaria{
                 case "1" -> retornado = cadastrarPaciente();
                 case "2" -> retornado = atualizarPaciente();
                 case "3" -> retornado = removerPaciente();
-                case "4" -> retornado = gerarRelatorio();
             }            
         }
         return true;            
@@ -292,6 +292,8 @@ public class MenuSecretaria{
         System.out.println("|                                    |");
         System.out.println("|(0) Voltar                          |");
         System.out.println("+------------------------------------+");
+        
+        System.out.printf(">>> ");
         opcao = in.next();
 
         switch(opcao){
@@ -321,6 +323,17 @@ public class MenuSecretaria{
         // Obtem uma ArrayList com todas as consultas
         BancoDeDados banco = new BancoDeDados();
         ArrayList<Consulta> consultas = banco.buscarConsultas();
+        
+        // Contador para a quantidade de consultas para informar caso não haja nenhuma
+        int qtdConsultas = 0;
+
+        // Informando a opção selecionada
+        System.out.println("");
+        System.out.println("Relatório de consultas relativas ao dia seguinte");
+        System.out.println("de pacientes com contato/celular selecionado");
+        System.out.println("");
+        System.out.println("Consultas desse tipo exibidas a seguir:");
+        System.out.println("");
 
         // Iterando por todas as consultas
         for(int i = 0; i < consultas.size(); i++){
@@ -347,8 +360,21 @@ public class MenuSecretaria{
                 // Verifica se a consulta é relativa ao dia seguinte
                 if(proxDia(anoInt, anoIterado, mesInt, mesIterado, diaInt, diaIterado)){
                     consultaIterada.mostrarConsulta();
+                    System.out.println("");
+                    System.out.println("Informações de contato do paciente da consulta acima exibida:");
+                    if((contatoCelularIterado != null) && (contatoCelularIterado != "")){
+                        System.out.println(contatoCelularIterado);
+                    }
+                    if((contatoEmailIterado != null) && (contatoEmailIterado != "")){
+                        System.out.println(contatoEmailIterado);
+                    }
+                    qtdConsultas++;
                 }
             }
+        }
+        if(qtdConsultas == 0){
+            System.out.println("");
+            System.out.println("Não há consultas desse tipo para o dia de amanhã");
         }
         System.out.println("");
         System.out.println("Pressione Enter para continuar:");
@@ -376,6 +402,17 @@ public class MenuSecretaria{
         BancoDeDados banco = new BancoDeDados();
         ArrayList<Consulta> consultas = banco.buscarConsultas();
 
+        // Contador para a quantidade de consultas para informar caso não haja nenhuma
+        int qtdConsultas = 0;
+
+         // Informando a opção selecionada
+         System.out.println("");
+         System.out.println("Relatório de consultas relativas ao dia seguinte");
+         System.out.println("de pacientes sem contato/celular selecionado");
+         System.out.println("");
+         System.out.println("Consultas desse tipo exibidas a seguir:");
+         System.out.println("");
+
         // Iterando por todas as consultas
         for(int i = 0; i < consultas.size(); i++){
             
@@ -401,8 +438,13 @@ public class MenuSecretaria{
                 // Verifica se a consulta é relativa ao dia seguinte
                 if(proxDia(anoInt, anoIterado, mesInt, mesIterado, diaInt, diaIterado)){
                     consultaIterada.mostrarConsulta();
+                    qtdConsultas++;
                 }
             }
+        }
+        if(qtdConsultas == 0){
+            System.out.println("");
+            System.out.println("Não há consultas desse tipo para o dia de amanhã");
         }
         System.out.println("");
         System.out.println("Pressione Enter para continuar:");
