@@ -25,6 +25,7 @@ public class MenuSecretaria{
             System.out.println("+------------------------------------+");
             System.out.println("|(1) Gerenciar pacientes             |");
             System.out.println("|(2) Gerenciar consultas             |");
+            System.out.println("|(3) Gerar relatórios                |");
             System.out.println("|                                    |");
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
@@ -34,6 +35,7 @@ public class MenuSecretaria{
                 case "0" -> retornado = false;
                 case "1" -> retornado = menuGerenciarPacientes();
                 case "2" -> retornado = menuGerenciarConsultas();
+                case "3" -> retornado = gerarRelatorio();
             }            
         }
         return true;
@@ -320,20 +322,54 @@ public class MenuSecretaria{
         // Iterando por todas as consultas
         for(int i = 0; i < consultas.size(); i++){
             
-            // Obtendo dia, mes e ano da consulta iterada
+            // Obtendo a consulta da iteração atual
             Consulta consultaIterada = consultas.get(i);
-            String dataIterada = consultaIterada.getData();
-            String[] diaMesAnoIterados = dataIterada.split("/");
-            int diaIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 0);
-            int mesIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 1);
-            int anoIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 2);
+            
+            // Obtendo email e celular do paciente da consulta obtida
+            Paciente pacienteIterado = consultaIterada.getPaciente();
+            String contatoCelularIterado = pacienteIterado.getInfo_contatoCelular();
+            String contatoEmailIterado = pacienteIterado.getInfo_contatoEmail();
+
+            // Verificar se o paciente possui informação de contato email/celular
+            if(((contatoCelularIterado != null) && (contatoCelularIterado  != "")) || 
+            ((contatoEmailIterado != null) && (contatoEmailIterado != ""))){
+                //consultaIterada.mostrarConsulta();
+                // Obtendo dia, mes e ano da consulta iterada
+                String dataIterada = consultaIterada.getData();
+                String[] diaMesAnoIterados = dataIterada.split("/");
+                int diaIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 0);
+                int mesIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 1);
+                int anoIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 2);
+
+                // Verifica se a consulta é relativa ao dia seguinte
+                if(proxDia(anoInt, anoIterado, mesInt, mesIterado, diaInt, diaIterado)){
+                    consultaIterada.mostrarConsulta();
+                }
+            }
         }
+        System.out.println("");
+        System.out.println("Pressione Enter para continuar:");
+        System.out.printf(">>> ");
+        in.nextLine();
+        System.out.println("");
     }
 
     public int obtemIntDeStringArrayNaPosN(String[] stringArray, int n){
         String string = stringArray[n];
         int intObtido = Integer.parseInt(string);
         return intObtido;
+    }
+
+    public boolean proxDia(int ano1, int ano2, int mes1, int mes2, int dia1, int dia2){
+        if(ano1 == ano2 && mes1 == mes2 && dia1+1 == dia2){
+            return true;
+        }
+        
+        if(ano1 == ano2 && mes1+1 == mes2 && dia2 == 1 && (dia1 >= 29 && dia1 <= 31)){
+            return true;
+        }
+        
+        return false;
     }
     
 // ---------------- MÉTODO DE GERENCIAMENTO DE CONSULTAS ------------------------------

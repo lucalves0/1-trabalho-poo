@@ -12,7 +12,7 @@ public class Main {
     public static void main(String args[]){
         BancoDeDados banco = new BancoDeDados();
         GerenciadorMensagens msgs = new GerenciadorMensagens();
-        msgs.setData("29/07/2024");
+        msgs.setData("20/07/2024");
         
         // Inicializando a lista de médicos da clínica
         Medico Ricardo = new Medico("Ricardo Nogueira", "106.609.899-99");
