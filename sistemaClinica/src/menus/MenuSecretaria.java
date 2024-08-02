@@ -6,7 +6,7 @@ package menus;
 import pessoas.*;
 import bancoDados.*;
 import documentos.*;
-import gerenciadorMensagens.GerenciadorMensagens;
+import gerenciadorMensagens.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,7 +25,7 @@ public class MenuSecretaria{
             System.out.println("+------------------------------------+");
             System.out.println("|(1) Gerenciar pacientes             |");
             System.out.println("|(2) Gerenciar consultas             |");
-            System.out.println("|(3) Gerar relatórios                |");
+            System.out.println("|(3) Gerar relatorios                |");
             System.out.println("|                                    |");
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
@@ -118,7 +118,7 @@ public class MenuSecretaria{
         System.out.print("Data de nascimento: ");
         data_nascimento = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Endereço: ");
+        System.out.print("Endereco: ");
         endereco = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Contato telefonico: ");
@@ -298,7 +298,7 @@ public class MenuSecretaria{
 
         switch(opcao){
             case "1" -> consultasDiaSeguinteComContato();
-            case "2" -> consultasDiaSeguinteSemContato(); //TODO
+            case "2" -> consultasDiaSeguinteSemContato();
             case "0" -> voltar = true;
         }
         
@@ -329,7 +329,7 @@ public class MenuSecretaria{
 
         // Informando a opção selecionada
         System.out.println("");
-        System.out.println("Relatório de consultas relativas ao dia seguinte");
+        System.out.println("Relatorio de consultas relativas ao dia seguinte");
         System.out.println("de pacientes com contato/celular selecionado");
         System.out.println("");
         System.out.println("Consultas desse tipo exibidas a seguir:");
@@ -361,7 +361,7 @@ public class MenuSecretaria{
                 if(proxDia(anoInt, anoIterado, mesInt, mesIterado, diaInt, diaIterado)){
                     consultaIterada.mostrarConsulta();
                     System.out.println("");
-                    System.out.println("Informações de contato do paciente da consulta acima exibida:");
+                    System.out.println("Informacoes de contato do paciente da consulta acima exibida:");
                     if((contatoCelularIterado != null) && (contatoCelularIterado != "")){
                         System.out.println(contatoCelularIterado);
                     }
@@ -374,7 +374,7 @@ public class MenuSecretaria{
         }
         if(qtdConsultas == 0){
             System.out.println("");
-            System.out.println("Não há consultas desse tipo para o dia de amanhã");
+            System.out.println("Nao ha consultas desse tipo para o dia de amanha");
         }
         System.out.println("");
         System.out.println("Pressione Enter para continuar:");
@@ -407,7 +407,7 @@ public class MenuSecretaria{
 
          // Informando a opção selecionada
          System.out.println("");
-         System.out.println("Relatório de consultas relativas ao dia seguinte");
+         System.out.println("Relatorio de consultas relativas ao dia seguinte");
          System.out.println("de pacientes sem contato/celular selecionado");
          System.out.println("");
          System.out.println("Consultas desse tipo exibidas a seguir:");
@@ -444,7 +444,7 @@ public class MenuSecretaria{
         }
         if(qtdConsultas == 0){
             System.out.println("");
-            System.out.println("Não há consultas desse tipo para o dia de amanhã");
+            System.out.println("Nao ha consultas desse tipo para o dia de amanha");
         }
         System.out.println("");
         System.out.println("Pressione Enter para continuar:");
@@ -497,7 +497,7 @@ public class MenuSecretaria{
         System.out.print("Horario: ");
         horario = in.nextLine();
         while(!horario.matches("\\d{2}:\\d{2}")){
-            System.out.println("ERRO: Horário deve estar no formato HH:MM");
+            System.out.println("ERRO: Horario deve estar no formato HH:MM");
             System.out.print("Horario: ");
             horario = in.nextLine();
         }
@@ -507,7 +507,7 @@ public class MenuSecretaria{
         Medico medico = banco.buscarMedico(nomeMedico);
         int i = 0;
         while (medico == null && i < 3){
-            System.out.println("Medico não encontrado");
+            System.out.println("Medico nao encontrado");
             System.out.print("\nNome do Medico: ");
             nomeMedico = in.nextLine();
             medico = banco.buscarMedico(nomeMedico);
@@ -515,8 +515,8 @@ public class MenuSecretaria{
         }
         if(medico == null){
             System.out.println("");
-            System.out.println("Como o nome do médico não foi encontrado");
-            System.out.println("após a terceira tentativa, a criação da consulta");
+            System.out.println("Como o nome do médico nao foi encontrado");
+            System.out.println("apos a terceira tentativa, a criacao da consulta");
             System.out.println("foi cancelada");
             System.out.println("");
             return true;
@@ -536,8 +536,8 @@ public class MenuSecretaria{
         }
         if(paciente == null){
             System.out.println("");
-            System.out.println("Como o nome do paciente não foi encontrado");
-            System.out.println("após a terceira tentativa, a criação da consulta");
+            System.out.println("Como o nome do paciente nao foi encontrado");
+            System.out.println("apos a terceira tentativa, a criacao da consulta");
             System.out.println("foi cancelada");
             System.out.println("");
             return true;
@@ -598,7 +598,7 @@ public class MenuSecretaria{
                     
                     // se o paciente não for encontrado, uma mensagem de erro aparece na tela
                     if (paciente == null){
-                        System.out.println("Paciente não encontrado");
+                        System.out.println("Paciente nao encontrado");
                         
                         /* logo após a mensagem de erro, o programa sai do default
                          e volta a mostrar o menu acima. Isso continua até que o 
@@ -614,7 +614,7 @@ public class MenuSecretaria{
                            cadastradas para o paciente */
                         
                         if (vazia){
-                            System.out.println("O paciente ainda não possui consultas cadastradas!");
+                            System.out.println("O paciente ainda nao possui consultas cadastradas!");
                         } else {
                             // mostrando o resumo de todas consultas do paciente
                             for (Consulta CON : listaConsultas){
@@ -648,7 +648,7 @@ public class MenuSecretaria{
                             if (consultaAtualizar != null){
                                 consultaAtualizar.mostrarConsulta();
                                 System.out.println("+----------------------------------------------+");
-                                System.out.println("|Informe o número do dado que deseja atualizar |");
+                                System.out.println("|Informe o numero do dado que deseja atualizar |");
                                 System.out.println("|                                              |");
                                 System.out.println("|(0) Voltar                                    |");
                                 while(!voltar){
@@ -667,10 +667,10 @@ public class MenuSecretaria{
                                             consultaAtualizar.setData(data);
                                         }
                                         case "2" -> {
-                                            System.out.print("\nHorário: ");
+                                            System.out.print("\nHorario: ");
                                             horario = in.nextLine();
                                             while(!horario.matches("\\d{2}:\\d{2}")){
-                                                System.out.println("ERRO: Horário deve estar no formato HH:MM");
+                                                System.out.println("ERRO: Horario deve estar no formato HH:MM");
                                                 System.out.print("Horario: ");
                                                 horario = in.nextLine();
                                             }

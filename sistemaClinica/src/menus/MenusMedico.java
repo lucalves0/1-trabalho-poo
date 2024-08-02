@@ -173,7 +173,7 @@ public class MenusMedico{
         System.out.println("+------------------------------------+");
         System.out.println("|(1) Receita                         |");
         System.out.println("|(2) Atestado                        |");
-        System.out.println("|(3) Declaração de acompanhamento    |");       
+        System.out.println("|(3) Declaracao de acompanhamento    |");       
         System.out.println("|(4) Clientes atendidos no mes       |");
         System.out.println("|                                    |");
         System.out.println("|(0) Voltar                          |");
@@ -193,10 +193,10 @@ public class MenusMedico{
     }
     
     public void receita(){
-        System.out.println("Receituário selecionado.");
+        System.out.println("Receituario selecionado.");
         in.nextLine();
         System.out.println("");
-        System.out.println("Insira o nome completo do médico a emitir a receita e aperte enter: ");
+        System.out.println("Insira o nome completo do medico a emitir a receita e aperte enter: ");
         System.out.printf(">>> ");
         String nomeMedico = in.nextLine();
         System.out.println("");
@@ -204,7 +204,7 @@ public class MenusMedico{
         System.out.printf(">>> ");
         String nomePaciente = in.nextLine();
         System.out.println("");
-        System.out.println("Agora insira a data de emissão do atestado e aperte enter: ");
+        System.out.println("Agora insira a data de emissao do atestado e aperte enter: ");
         System.out.printf(">>> ");
         String dataReceita = in.nextLine();
         System.out.println("");
@@ -213,19 +213,19 @@ public class MenusMedico{
         ArrayList<String> modosDeUsarPrescritos = new ArrayList<>();
         String medicacao;
         do{
-            System.out.println("Insira o nome da medicação receitada e aperte enter,");
+            System.out.println("Insira o nome da medicacao receitada e aperte enter,");
             System.out.println("ou, caso finalizada a receita, apenas aperte enter:");
             System.out.printf(">>> ");
             medicacao = in.nextLine();
             System.out.println("");
             if(medicacao != ""){
                 medicacoes.add(medicacao);
-                System.out.println("Insira a quantidade da medicação prescrita e aperte enter:");
+                System.out.println("Insira a quantidade da medicacao prescrita e aperte enter:");
                 System.out.printf(">>> ");
                 String quantidadePrescrita = in.nextLine();
                 System.out.println("");
                 quantidadesPrescritas.add(quantidadePrescrita);
-                System.out.println("Insira o modo de usar da medicação prescrita e aperte enter:");
+                System.out.println("Insira o modo de usar da medicacao prescrita e aperte enter:");
                 System.out.printf(">>> ");
                 String modoDeUsarPrescrito = in.nextLine();
                 System.out.println("");
@@ -233,11 +233,11 @@ public class MenusMedico{
             }
         }while(medicacao != "");
         System.out.println("+------------------------------------+");
-        System.out.println("|            Receita Médica          |");
+        System.out.println("|            Receita Medica          |");
         System.out.println("+------------------------------------+");
         System.out.printf("Paciente: %s\n", nomePaciente);
         System.out.println("");
-        System.out.println("Prescrição:");
+        System.out.println("Prescricao:");
         System.out.println("");
         for(int i = 0; i < medicacoes.size(); i++){
             String medPrescrita = medicacoes.get(i);
@@ -247,7 +247,7 @@ public class MenusMedico{
             System.out.printf("%s\n", modoUsarPrescrito);
         }
         System.out.println("");
-        System.out.printf("Médico: %s\n", nomeMedico);
+        System.out.printf("Medico: %s\n", nomeMedico);
         System.out.printf("Data: %s\n", dataReceita);
         System.out.println("");
         System.out.println("Receita emitida. Aperte enter para continuar.");
@@ -257,10 +257,10 @@ public class MenusMedico{
     }
 
     public void atestado(){
-        System.out.println("Declaração de atestado médico selecionado: ");
+        System.out.println("Declaracao de atestado medico selecionado: ");
         in.nextLine();
         System.out.println("");
-        System.out.println("Insira o nome completo do médico a declarar o atestado e aperte enter: ");
+        System.out.println("Insira o nome completo do medico a declarar o atestado e aperte enter: ");
         System.out.printf(">>> ");
         String nomeMedico = in.nextLine();
         System.out.println("");
@@ -272,16 +272,16 @@ public class MenusMedico{
         System.out.printf(">>> ");
         String quantidadeDiasAtestado = in.nextLine();
         System.out.println("");
-        System.out.println("Agora insira a data de emissão do atestado e aperte enter: ");
+        System.out.println("Agora insira a data de emissao do atestado e aperte enter: ");
         System.out.printf(">>> ");
         String dataAtestado = in.nextLine();
         System.out.println("");
         System.out.println("+------------------------------------+");
-        System.out.println("|           Atestado Médico          |");
+        System.out.println("|           Atestado Medico          |");
         System.out.println("+------------------------------------+");
         System.out.printf("Eu, %s,\n", nomeMedico);
-        System.out.printf("forneço o presente atestado médico referente a %s\n", nomePaciente);
-        System.out.printf("para fins de afastamento de suas atividades pelo período de %s dias,\n", quantidadeDiasAtestado);
+        System.out.printf("forneco o presente atestado medico referente a %s\n", nomePaciente);
+        System.out.printf("para fins de afastamento de suas atividades pelo periodo de %s dias,\n", quantidadeDiasAtestado);
         System.out.printf("no dia %s.\n", dataAtestado);
         System.out.println("");
         System.out.println("Atestado realizado. Aperte enter para continuar.");
@@ -292,10 +292,10 @@ public class MenusMedico{
     }
 
     public void declaracaoAcompanhamento(){
-        System.out.println("Declaração de acompanhamento selecionado: ");
+        System.out.println("Declaracao de acompanhamento selecionado: ");
         in.nextLine();
         System.out.println("");
-        System.out.println("Insira o nome completo do médico a declarar acompanhamento e aperte enter: ");
+        System.out.println("Insira o nome completo do medico a declarar acompanhamento e aperte enter: ");
         System.out.printf(">>> ");
         String nomeMedico = in.nextLine();
         System.out.println("");
@@ -312,15 +312,15 @@ public class MenusMedico{
         String dataAcompanhamento = in.nextLine();
         System.out.println("");
         System.out.println("+------------------------------------+");
-        System.out.println("|    DECLARAÇÃO DE ACOMPANHAMENTO    |");
+        System.out.println("|    DECLARACAO DE ACOMPANHAMENTO    |");
         System.out.println("+------------------------------------+");
         System.out.printf("Eu, %s,\n", nomeMedico);
         System.out.printf("declaro que %s\n", nomeAcompanhante);
         System.out.printf("acompanhou %s\n", nomeAcompanhado);
-        System.out.printf("em uma consulta em meu consultório\n");
+        System.out.printf("em uma consulta em meu consultorio\n");
         System.out.printf("no dia %s", dataAcompanhamento);
         System.out.println("");
-        System.out.println("Declaração realizada. Aperte enter para continuar.");
+        System.out.println("Declaracao realizada. Aperte enter para continuar.");
         System.out.printf(">>> ");
         in.nextLine();
         System.out.println("");
@@ -374,7 +374,7 @@ public class MenusMedico{
                 }
             }
         }
-        System.out.printf("Houveram %d atendimentos no mês,\natendendo a %d clientes distintos.\n\n", qtdProntAtendNoMes, qtdClientesNoMes);
+        System.out.printf("Houveram %d atendimentos no mes,\natendendo a %d clientes distintos.\n\n", qtdProntAtendNoMes, qtdClientesNoMes);
         System.out.println("Pressione enter para continuar");
         System.out.printf(">>> ");
         in.nextLine();
@@ -386,7 +386,7 @@ public class MenusMedico{
         if (PPAC != null){
             PPAC.mostrarProntuarioPaciente();
         } else {
-            System.out.println("Prontuário nao encontrado");
+            System.out.println("Prontuario nao encontrado");
         }
         return true;
         
@@ -559,7 +559,7 @@ public class MenusMedico{
             }
             
         } else {
-            System.out.println("Prontuário do Paciente nao encontrado");
+            System.out.println("Prontuario do Paciente nao encontrado");
         }
         return true;
     }
@@ -594,7 +594,7 @@ public class MenusMedico{
 
                 // mostrar histórico de atendimentos do paciente
                 if (resp){
-                    System.out.println("============= HISTÓRICO DE ATENDIMENTOS DO PACIENTE =============");
+                    System.out.println("============= HISTORICO DE ATENDIMENTOS DO PACIENTE =============");
                     for (ProntuarioAtendimento PAT : historico){
                         PAT.resumoProntuarioAtendimento();
                     }
@@ -603,7 +603,7 @@ public class MenusMedico{
                 }  
             }
         } else {
-            System.out.println("Prontuario do Paciente não encontrado!");
+            System.out.println("Prontuario do Paciente nao encontrado!");
         }
         return true;
     }
