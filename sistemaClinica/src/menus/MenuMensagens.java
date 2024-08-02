@@ -26,7 +26,7 @@ public class MenuMensagens {
             System.out.println("|                                   |");
             System.out.println("|(0) Voltar                         |");
             System.out.println("+-----------------------------------+");
-            selecao = in.next();
+            selecao = in.nextLine();
 
             switch(selecao){
                 case "0" -> retornado = false;
@@ -51,16 +51,17 @@ public class MenuMensagens {
     
     public void enviarMensagens(){
     
-        System.out.print("Paciente: ");
+        System.out.print("Informe o nome do paciente: ");
         String nomePac = in.nextLine();
         Paciente pac = banco.buscarPaciente(nomePac);
-        while (pac == null){
+        int j = 0;
+        while (pac == null && j < 3){
             System.out.println("Paciente nao encontrado:");
-            System.out.print("\nPaciente: ");
+            System.out.print("\nInforme o nome do paciente: ");
             nomePac = in.nextLine();
             pac = banco.buscarPaciente(nomePac);
+            j++;
         }
-        
         msgs.enviarMensagens(banco.buscarConsultaPaciente(pac));
 
     }

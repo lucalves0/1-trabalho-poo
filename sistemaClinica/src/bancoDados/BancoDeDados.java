@@ -72,6 +72,14 @@ public class BancoDeDados {
         return null;
     }
     
+    public ArrayList<ProntuarioAtendimento> buscarProntuarioAtendimentos(){
+        return ProntuariosAtendimentos;
+    }
+
+    public ArrayList<Paciente> buscarPacientes(){
+        return Pacientes;
+    }
+
     public ArrayList<Consulta> buscarConsultas(){
         return Consultas;
     }

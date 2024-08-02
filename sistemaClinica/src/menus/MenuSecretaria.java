@@ -6,6 +6,8 @@ package menus;
 import pessoas.*;
 import bancoDados.*;
 import documentos.*;
+import gerenciadorMensagens.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,15 +25,19 @@ public class MenuSecretaria{
             System.out.println("+------------------------------------+");
             System.out.println("|(1) Gerenciar pacientes             |");
             System.out.println("|(2) Gerenciar consultas             |");
+            System.out.println("|(3) Gerar relatorios                |");
             System.out.println("|                                    |");
             System.out.println("|(0) Voltar                          |");
             System.out.println("+------------------------------------+");
-            selecao = in.next();
+            
+            System.out.printf(">>> ");
+            selecao = in.nextLine();
 
             switch(selecao){
                 case "0" -> retornado = false;
                 case "1" -> retornado = menuGerenciarPacientes();
                 case "2" -> retornado = menuGerenciarConsultas();
+                case "3" -> retornado = gerarRelatorio();
             }            
         }
         return true;
@@ -112,7 +118,7 @@ public class MenuSecretaria{
         System.out.print("Data de nascimento: ");
         data_nascimento = in.nextLine();
         System.out.println("+------------------------------------------------------+");
-        System.out.print("Endereço: ");
+        System.out.print("Endereco: ");
         endereco = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Contato telefonico: ");
@@ -268,6 +274,207 @@ public class MenuSecretaria{
         return true;
     }
 
+    public boolean gerarRelatorio(){
+        String opcao;
+        
+        // boolean voltar = false;
+        boolean retornado = true;
+        while(retornado){
+            System.out.println("+------------------------------------+");
+            System.out.println("|             RELATORIOS             |");
+            System.out.println("+------------------------------------+");
+            System.out.println("|(1) Gerar relatorio consultas       |");
+            System.out.println("|do dia seguinte, de pacientes       |");
+            System.out.println("|com email/telefone                  |");
+            System.out.println("|                                    |");
+            System.out.println("|(2) Gerar relatorio consultas       |");
+            System.out.println("|do dia seguinte, de pacientes       |");
+            System.out.println("|sem email/telefone                  |");
+            System.out.println("|                                    |");
+            System.out.println("|                                    |");
+            System.out.println("|(0) Voltar                          |");
+            System.out.println("+------------------------------------+");
+
+            System.out.printf(">>> ");
+            opcao = in.nextLine();
+
+            switch(opcao){
+                case "1" -> retornado = consultasDiaSeguinteComContato();
+                case "2" -> retornado = consultasDiaSeguinteSemContato();
+                case "0" -> retornado = false;
+            }
+        }          
+        return true;
+    }
+
+    public boolean consultasDiaSeguinteComContato(){
+
+        // "Consumindo" a quebra de linha que ficou no buffer
+        // in.nextLine();
+
+        // Obtendo a data de hoje através de um objeto do tipo GerenciadorMensagens
+        GerenciadorMensagens gerenMensag = new GerenciadorMensagens();
+        String dataHoje = gerenMensag.getData();
+
+        // Obtendo dia, mes e ano a partir da data
+        String[] diaMesAnoString = dataHoje.split("/");
+        int diaInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 0);
+        int mesInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 1);
+        int anoInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 2);
+
+        // Obtem uma ArrayList com todas as consultas
+        BancoDeDados banco = new BancoDeDados();
+        ArrayList<Consulta> consultas = banco.buscarConsultas();
+        
+        // Contador para a quantidade de consultas para informar caso não haja nenhuma
+        int qtdConsultas = 0;
+
+        // Informando a opção selecionada
+        System.out.println("");
+        System.out.println("Relatorio de consultas relativas ao dia seguinte");
+        System.out.println("de pacientes com contato/celular selecionado");
+        System.out.println("");
+        System.out.println("Consultas desse tipo exibidas a seguir:");
+        System.out.println("");
+
+        // Iterando por todas as consultas
+        for(int i = 0; i < consultas.size(); i++){
+            
+            // Obtendo a consulta da iteração atual
+            Consulta consultaIterada = consultas.get(i);
+            
+            // Obtendo email e celular do paciente da consulta obtida
+            Paciente pacienteIterado = consultaIterada.getPaciente();
+            String contatoCelularIterado = pacienteIterado.getInfo_contatoCelular();
+            String contatoEmailIterado = pacienteIterado.getInfo_contatoEmail();
+
+            // Verificar se o paciente possui informação de contato email/celular
+            if(((contatoCelularIterado != null) && (contatoCelularIterado  != "")) || 
+            ((contatoEmailIterado != null) && (contatoEmailIterado != ""))){
+                //consultaIterada.mostrarConsulta();
+                // Obtendo dia, mes e ano da consulta iterada
+                String dataIterada = consultaIterada.getData();
+                String[] diaMesAnoIterados = dataIterada.split("/");
+                int diaIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 0);
+                int mesIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 1);
+                int anoIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 2);
+
+                // Verifica se a consulta é relativa ao dia seguinte
+                if(proxDia(anoInt, anoIterado, mesInt, mesIterado, diaInt, diaIterado)){
+                    consultaIterada.mostrarConsulta();
+                    System.out.println("");
+                    System.out.println("Informacoes de contato do paciente da consulta acima exibida:");
+                    if((contatoCelularIterado != null) && (contatoCelularIterado != "")){
+                        System.out.println(contatoCelularIterado);
+                    }
+                    if((contatoEmailIterado != null) && (contatoEmailIterado != "")){
+                        System.out.println(contatoEmailIterado);
+                    }
+                    qtdConsultas++;
+                }
+            }
+        }
+        if(qtdConsultas == 0){
+            System.out.println("");
+            System.out.println("Nao ha consultas desse tipo para o dia de amanha");
+        }
+        System.out.println("");
+        System.out.println("Pressione Enter para continuar:");
+        System.out.printf(">>> ");
+        in.nextLine();
+        System.out.println("");
+        return true;
+    }
+    
+
+    public boolean consultasDiaSeguinteSemContato(){
+
+        // "Consumindo" a quebra de linha que ficou no buffer
+        //in.nextLine();
+
+        // Obtendo a data de hoje através de um objeto do tipo GerenciadorMensagens
+        GerenciadorMensagens gerenMensag = new GerenciadorMensagens();
+        String dataHoje = gerenMensag.getData();
+
+        // Obtendo dia, mes e ano a partir da data
+        String[] diaMesAnoString = dataHoje.split("/");
+        int diaInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 0);
+        int mesInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 1);
+        int anoInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 2);
+
+        // Obtem uma ArrayList com todas as consultas
+        BancoDeDados banco = new BancoDeDados();
+        ArrayList<Consulta> consultas = banco.buscarConsultas();
+
+        // Contador para a quantidade de consultas para informar caso não haja nenhuma
+        int qtdConsultas = 0;
+
+         // Informando a opção selecionada
+         System.out.println("");
+         System.out.println("Relatorio de consultas relativas ao dia seguinte");
+         System.out.println("de pacientes sem contato/celular selecionado");
+         System.out.println("");
+         System.out.println("Consultas desse tipo exibidas a seguir:");
+         System.out.println("");
+
+        // Iterando por todas as consultas
+        for(int i = 0; i < consultas.size(); i++){
+            
+            // Obtendo a consulta da iteração atual
+            Consulta consultaIterada = consultas.get(i);
+            
+            // Obtendo email e celular do paciente da consulta obtida
+            Paciente pacienteIterado = consultaIterada.getPaciente();
+            String contatoCelularIterado = pacienteIterado.getInfo_contatoCelular();
+            String contatoEmailIterado = pacienteIterado.getInfo_contatoEmail();
+
+            // Verificar se o paciente possui informação de contato email/celular
+            if(!(((contatoCelularIterado != null) && (contatoCelularIterado  != "")) || 
+            ((contatoEmailIterado != null) && (contatoEmailIterado != "")))){
+                //consultaIterada.mostrarConsulta();
+                // Obtendo dia, mes e ano da consulta iterada
+                String dataIterada = consultaIterada.getData();
+                String[] diaMesAnoIterados = dataIterada.split("/");
+                int diaIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 0);
+                int mesIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 1);
+                int anoIterado = obtemIntDeStringArrayNaPosN(diaMesAnoIterados, 2);
+
+                // Verifica se a consulta é relativa ao dia seguinte
+                if(proxDia(anoInt, anoIterado, mesInt, mesIterado, diaInt, diaIterado)){
+                    consultaIterada.mostrarConsulta();
+                    qtdConsultas++;
+                }
+            }
+        }
+        if(qtdConsultas == 0){
+            System.out.println("");
+            System.out.println("Nao ha consultas desse tipo para o dia de amanha");
+        }
+        System.out.println("");
+        System.out.println("Pressione Enter para continuar:");
+        System.out.printf(">>> ");
+        in.nextLine();
+        System.out.println("");
+        return true;
+    }
+
+    public int obtemIntDeStringArrayNaPosN(String[] stringArray, int n){
+        String string = stringArray[n];
+        int intObtido = Integer.parseInt(string);
+        return intObtido;
+    }
+
+    public boolean proxDia(int ano1, int ano2, int mes1, int mes2, int dia1, int dia2){
+        if(ano1 == ano2 && mes1 == mes2 && dia1+1 == dia2){
+            return true;
+        }
+        
+        if(ano1 == ano2 && mes1+1 == mes2 && dia2 == 1 && (dia1 >= 29 && dia1 <= 31)){
+            return true;
+        }
+        
+        return false;
+    }
     
 // ---------------- MÉTODO DE GERENCIAMENTO DE CONSULTAS ------------------------------
     public boolean cadastrarConsulta(){
@@ -295,7 +502,7 @@ public class MenuSecretaria{
         System.out.print("Horario: ");
         horario = in.nextLine();
         while(!horario.matches("\\d{2}:\\d{2}")){
-            System.out.println("ERRO: Horário deve estar no formato HH:MM");
+            System.out.println("ERRO: Horario deve estar no formato HH:MM");
             System.out.print("Horario: ");
             horario = in.nextLine();
         }
@@ -305,12 +512,21 @@ public class MenuSecretaria{
         Medico medico = banco.buscarMedico(nomeMedico);
         int i = 0;
         while (medico == null && i < 3){
-            System.out.println("Medico não encontrado");
+            System.out.println("Medico nao encontrado");
             System.out.print("\nNome do Medico: ");
             nomeMedico = in.nextLine();
             medico = banco.buscarMedico(nomeMedico);
             ++i;
         }
+        if(medico == null){
+            System.out.println("");
+            System.out.println("Como o nome do médico nao foi encontrado");
+            System.out.println("apos a terceira tentativa, a criacao da consulta");
+            System.out.println("foi cancelada");
+            System.out.println("");
+            return true;
+        }
+        else{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Nome do paciente: ");
         nomePaciente = in.nextLine();
@@ -323,6 +539,15 @@ public class MenuSecretaria{
             paciente = banco.buscarPaciente(nomePaciente);
             ++j;
         }
+        if(paciente == null){
+            System.out.println("");
+            System.out.println("Como o nome do paciente nao foi encontrado");
+            System.out.println("apos a terceira tentativa, a criacao da consulta");
+            System.out.println("foi cancelada");
+            System.out.println("");
+            return true;
+        }
+        else{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Tipo da consulta: ");
         tipoConsulta = in.next();
@@ -341,6 +566,8 @@ public class MenuSecretaria{
         banco.buscarConsulta(consulta.getId()).mostrarConsulta();
         System.out.println("========================================================");
         return true;
+        }
+        }
     }
     
     public boolean atualizarConsulta(){
@@ -376,7 +603,7 @@ public class MenuSecretaria{
                     
                     // se o paciente não for encontrado, uma mensagem de erro aparece na tela
                     if (paciente == null){
-                        System.out.println("Paciente não encontrado");
+                        System.out.println("Paciente nao encontrado");
                         
                         /* logo após a mensagem de erro, o programa sai do default
                          e volta a mostrar o menu acima. Isso continua até que o 
@@ -392,7 +619,7 @@ public class MenuSecretaria{
                            cadastradas para o paciente */
                         
                         if (vazia){
-                            System.out.println("O paciente ainda não possui consultas cadastradas!");
+                            System.out.println("O paciente ainda nao possui consultas cadastradas!");
                         } else {
                             // mostrando o resumo de todas consultas do paciente
                             for (Consulta CON : listaConsultas){
@@ -426,7 +653,7 @@ public class MenuSecretaria{
                             if (consultaAtualizar != null){
                                 consultaAtualizar.mostrarConsulta();
                                 System.out.println("+----------------------------------------------+");
-                                System.out.println("|Informe o número do dado que deseja atualizar |");
+                                System.out.println("|Informe o numero do dado que deseja atualizar |");
                                 System.out.println("|                                              |");
                                 System.out.println("|(0) Voltar                                    |");
                                 while(!voltar){
@@ -445,10 +672,10 @@ public class MenuSecretaria{
                                             consultaAtualizar.setData(data);
                                         }
                                         case "2" -> {
-                                            System.out.print("\nHorário: ");
+                                            System.out.print("\nHorario: ");
                                             horario = in.nextLine();
                                             while(!horario.matches("\\d{2}:\\d{2}")){
-                                                System.out.println("ERRO: Horário deve estar no formato HH:MM");
+                                                System.out.println("ERRO: Horario deve estar no formato HH:MM");
                                                 System.out.print("Horario: ");
                                                 horario = in.nextLine();
                                             }
