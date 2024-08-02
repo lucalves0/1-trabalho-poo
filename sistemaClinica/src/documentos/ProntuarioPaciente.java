@@ -20,9 +20,9 @@ public class ProntuarioPaciente {
     
     
     public boolean mostrarProntuarioPaciente(){
-        paciente.visualizar_dados();
+        BancoDeDados.visualizarDadosPaciente(paciente);
         if (historicoAtendimentos.isEmpty()){
-            System.out.println("O paciente não possui histórico de atendimentos");
+            System.out.println("O paciente nao possui historico de atendimentos");
         } else {
             for (ProntuarioAtendimento PAT : historicoAtendimentos){
                 PAT.resumoProntuarioAtendimento();

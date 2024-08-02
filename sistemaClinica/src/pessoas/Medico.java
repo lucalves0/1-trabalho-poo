@@ -4,6 +4,7 @@
  */
 package pessoas;
 import java.util.ArrayList;
+import menus.*;
 
 public class Medico {
     // dados do médico
@@ -11,6 +12,7 @@ public class Medico {
     private int id;
     private String nome;
     private String CPF;
+    private MenusMedico menu = new MenusMedico();
     
     // lista de pacientes que atende
     private ArrayList<Paciente> pacientesAtendidos;
@@ -50,6 +52,14 @@ public class Medico {
 
     public ArrayList<Paciente> getPacientesAtendidos() {
         return pacientesAtendidos;
+    }
+
+    public MenusMedico getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MenusMedico menu) {
+        this.menu = menu;
     }
     
     

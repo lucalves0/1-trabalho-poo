@@ -43,42 +43,8 @@ public class Paciente {
         this.doencaCardiaca = card;
         this.cirurgias = cir;
         this.alergias = aler;
-    }
+    }    
     
-    public void visualizar_dados(){
-        System.out.println("+----------------------------+" + "");
-        System.out.println("|====== DADOS PESSOAIS ======|" + "");
-        System.out.println("+---+------------------------+" + "");
-        System.out.println("| 1 |Nome:                   |" + nome);
-        System.out.println("| 2 |Data de nascimento:     |" + data_nascimento);
-        System.out.println("| 3 |Endereco:               |" + endereco);
-        System.out.println("| 4 |Celular:                |" + info_contatoCelular);
-        System.out.println("| 5 |Email:                  |" + info_contatoEmail);
-        System.out.println("| 6 |Tipo do convenio:       |" + tipo_convenio);
-        System.out.println("+---+------------------------+" + "");
-    }
-    
-    public void visualizarDadosCompleto(){
-        System.out.println("+-----------------------------+" + "");
-        System.out.println("|======= DADOS PESSOAIS ======|" + "");
-        System.out.println("+----+------------------------+" + "");
-        System.out.println("| 1  |Nome:                   |" + nome);
-        System.out.println("| 2  |Data de nascimento:     |" + data_nascimento);
-        System.out.println("| 3  |Endereco:               |" + endereco);
-        System.out.println("| 4  |Celular:                |" + info_contatoCelular);
-        System.out.println("| 5  |Email:                  |" + info_contatoEmail);
-        System.out.println("| 6  |Tipo do convenio:       |" + tipo_convenio);
-        System.out.println("|-----------------------------|");
-        System.out.println("| 7  |Eh fumante?:            |" + fuma);
-        System.out.println("| 8  |Bebe?:                  |" + bebe);
-        System.out.println("| 9  |Nivel do colesterol:    |" + nivelColesterol);
-        System.out.println("| 10 |Diabetes:               |" + diabete);
-        System.out.println("| 11 |Doenca cardiaca:        |" + doencaCardiaca);
-        System.out.println("| 12 |Cirurgias realizadas:   |" + cirurgias);
-        System.out.println("| 13 |Alergias:               |" + alergias);
-        System.out.println("+----+------------------------+" + "");        
-    }
-        
     // setters e getters
 
     public void setId(int id) {

@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import pessoas.*;
 import documentos.*;
 
-public class BancoDeDados {
-    // documentos armazenados
-    
+public class BancoDeDados {   
     // lista de pacientes
     private static ArrayList<Paciente> Pacientes = new ArrayList<>();
     // lista de médicos
     private static ArrayList<Medico> Medicos = new ArrayList<>();
+    // lista de secretárias
+    private static ArrayList<Secretahria> Secretahrias = new ArrayList<>();
     // lista de consultas
     private static ArrayList<Consulta> Consultas = new ArrayList<>();
     // lista de prontuarios de pacientes
@@ -21,29 +21,34 @@ public class BancoDeDados {
     // lista de prontuarios de atendimentos
     private static ArrayList<ProntuarioAtendimento> ProntuariosAtendimentos = new ArrayList<>();
     
+    
 // --------------- MÉTODOS PARA ADICIONAR INFORMAÇÕES -----------------------------
-    public void adicionarPaciente(Paciente pac){
-        Pacientes.add(pac);
-        // quando cadastramos um paciente, criamos seu prontuário
-        ProntuarioPaciente PPAC = new ProntuarioPaciente(pac);
-        ProntuariosPacientes.add(PPAC);
+    public static void adicionarPaciente(Paciente pac){
+        if (pac != null){
+            Pacientes.add(pac);
+            // quando cadastramos um paciente, criamos seu prontuário
+            ProntuarioPaciente PPAC = new ProntuarioPaciente(pac);
+            ProntuariosPacientes.add(PPAC);
+        }   
     }
     
-    public void adicionarMedico(Medico med){
-        Medicos.add(med);
+    public static void adicionarMedico(Medico med){
+        if (med != null){
+            Medicos.add(med);
+        }  
     }
     
-    public void adicionarConsulta(Consulta con){
+    public static void adicionarSecretahria(Secretahria SEC){
+        if (SEC != null){
+            Secretahrias.add(SEC);
+        }
+    }
+    
+    public static void adicionarConsulta(Consulta con){
         Consultas.add(con);
     }
-    
-    /*
-    Este método pode não ser útil
-    public void adicionarProntuarioPaciente(ProntuarioPaciente ppac){
-        ProntuariosPacientes.add(ppac);
-    }*/
-    
-    public void adicionarProntuarioAtendimento(ProntuarioAtendimento pat){
+     
+    public static void adicionarProntuarioAtendimento(ProntuarioAtendimento pat){
         String nome;
         ProntuarioPaciente PPAC;
         // adicionando atendimento na lista de atendimentos
@@ -57,9 +62,20 @@ public class BancoDeDados {
 
     
 // ----------------- MÉTODOS PARA ENCONTRAR INFORMAÇÕES -------------------------------
+    public static ArrayList<ProntuarioAtendimento> buscarProntuarioAtendimentos(){
+        return ProntuariosAtendimentos;
+    }
+
+    public static ArrayList<Paciente> buscarPacientes(){
+        return Pacientes;
+    }
+
+    public static ArrayList<Consulta> buscarConsultas(){
+        return Consultas;
+    }   
     
     // Método para encontrar uma paciente pelo nome
-    public Paciente buscarPaciente(String nome){
+    public static Paciente buscarPaciente(String nome){
         if (Pacientes.isEmpty()){
             System.out.println("Não existem pacientes cadastrados");
         } else {
@@ -72,20 +88,8 @@ public class BancoDeDados {
         return null;
     }
     
-    public ArrayList<ProntuarioAtendimento> buscarProntuarioAtendimentos(){
-        return ProntuariosAtendimentos;
-    }
-
-    public ArrayList<Paciente> buscarPacientes(){
-        return Pacientes;
-    }
-
-    public ArrayList<Consulta> buscarConsultas(){
-        return Consultas;
-    }
-    
     // Método para encontrar um paciente recebendo um objeto paciente
-    public Paciente buscarPaciente(Paciente pac){
+    public static Paciente buscarPaciente(Paciente pac){
         Paciente retorno;
         String nome = pac.getNome();
         retorno = buscarPaciente(nome);
@@ -93,7 +97,7 @@ public class BancoDeDados {
     }
     
     // método para encontrar um médico pelo nome
-    public Medico buscarMedico(String nome){
+    public static Medico buscarMedico(String nome){
         if (Medicos.isEmpty()){
             System.out.println("Lista de médicos está vazia");
         }
@@ -105,8 +109,22 @@ public class BancoDeDados {
         return null;
     }
     
+    // método para encontrar uma secretária pelo nome
+    public static Secretahria buscarSecretahria(String nome){
+        if (Secretahrias.isEmpty()){
+            System.out.println("A lista de secretárias está vazia");
+        } else {
+            for (Secretahria SEC : Secretahrias){
+                if (SEC.getNome().equalsIgnoreCase(nome)){
+                    return SEC;
+                }
+            }
+        }
+        return null;
+    }
+    
     // método para encontrar uma consulta pelo ID
-    public Consulta buscarConsulta(int ID){
+    public static Consulta buscarConsulta(int ID){
         for (Consulta CON : Consultas){
             if (CON.getId() == ID){
                 return CON;
@@ -118,7 +136,7 @@ public class BancoDeDados {
     }
     
     // método para encontrar as consultas de um paciente
-    public ArrayList<Consulta> buscarConsultaPaciente(Paciente PAC){
+    public static ArrayList<Consulta> buscarConsultaPaciente(Paciente PAC){
         ArrayList<Consulta> lista = new ArrayList<>();
         
         // verificamos se a lista "Consultas" está vazia
@@ -137,7 +155,7 @@ public class BancoDeDados {
     }
         
     // método para encontrar um prontuário de paciente por nome do paciente
-    public ProntuarioPaciente buscarProntuarioPaciente(String nomePaciente){
+    public static ProntuarioPaciente buscarProntuarioPaciente(String nomePaciente){
         for (ProntuarioPaciente PPAC : ProntuariosPacientes){
             if (PPAC.getPaciente().getNome().equalsIgnoreCase(nomePaciente)){
                 return PPAC;
@@ -149,7 +167,7 @@ public class BancoDeDados {
     }
     
     // método para encontrar um prontuário de atendimento pelo ID
-    public ProntuarioAtendimento buscarProntuarioAtendimento(int ID){
+    public static ProntuarioAtendimento buscarProntuarioAtendimento(int ID){
         for (ProntuarioAtendimento PAT : ProntuariosAtendimentos){
             if (PAT.getId() == ID){
                 return PAT;
@@ -162,8 +180,7 @@ public class BancoDeDados {
     
     
 // ---------------- MÉTODOS PARA REMOVER INFORMAÇÕES ---------------------------------
-    
-    public boolean removerPaciente(String nome){
+    public static boolean removerPaciente(String nome){
         if (Pacientes.isEmpty()){
             System.out.println("Não existem pacientes cadastrados!");
         } else {
@@ -178,7 +195,7 @@ public class BancoDeDados {
         return false;
     }
     
-    public boolean removerProntuarioPaciente(int ID){
+    public static boolean removerProntuarioPaciente(int ID){
         if (ProntuariosPacientes.isEmpty()){
             System.out.println("Não existem prontuários de pacientes cadastrados!");
         } else {
@@ -196,7 +213,7 @@ public class BancoDeDados {
         return false;
     }
             
-    public boolean removerProntuarioAtendimento(int ID){
+    public static boolean removerProntuarioAtendimento(int ID){
         if (ProntuariosAtendimentos.isEmpty()){
             System.out.println("Lista de prontuários está vazia");
         } else {
@@ -220,7 +237,7 @@ public class BancoDeDados {
         return false;
     }
     
-    public boolean removerConsulta(int ID){
+    public static boolean removerConsulta(int ID){
         for (Consulta CON : Consultas){
             if (CON.getId() == ID){
                 Consultas.remove(CON);
@@ -236,7 +253,7 @@ public class BancoDeDados {
     
 // ---------------- MÉTODOS PARA MOSTRAR INFORMAÇÕES ---------------------------------
     
-    public void mostrarMedicos(){
+    public static void mostrarMedicos(){
         if (Medicos.isEmpty()){
             System.out.println("Lista de médicos vazia");
         } else {
@@ -246,7 +263,7 @@ public class BancoDeDados {
         }
     }
     
-    public void mostrarPacientes(){
+    public static void mostrarPacientes(){
         if (Pacientes.isEmpty()){
             System.out.println("A lista de pacientes está vazia");
         } else {
@@ -255,5 +272,62 @@ public class BancoDeDados {
             }
         }
     }
+    
+    public static void mostrarSecretahrias(){
+        if (Secretahrias.isEmpty()){
+            System.out.println("Lista de secretárias está vazia");
+        } else {
+            for (Secretahria SEC : Secretahrias){
+                System.out.println(String.format("||ID: %d |NOME: %s|", SEC.getId(), SEC.getNome()));
+            }
+        }
+    }
+    
+    public static void visualizarDadosPaciente(Paciente paciente){
+        Paciente PAC = buscarPaciente(paciente);
+        System.out.println("+----------------------------+" + "");
+        System.out.println("|====== DADOS PESSOAIS ======|" + "");
+        System.out.println("+---+------------------------+" + "");
+        System.out.println("| 1 |Nome:                   |" + PAC.getNome());
+        System.out.println("| 2 |Data de nascimento:     |" + PAC.getData_nascimento());
+        System.out.println("| 3 |Endereco:               |" + PAC.getEndereco());
+        System.out.println("| 4 |Celular:                |" + PAC.getInfo_contatoCelular());
+        System.out.println("| 5 |Email:                  |" + PAC.getInfo_contatoEmail());
+        System.out.println("| 6 |Tipo do convenio:       |" + PAC.getTipo_convenio());
+        System.out.println("+---+------------------------+" + "");
+    }
+    
+    public static void visualizarDadosPacienteCompleto(Paciente paciente){
+        Paciente PAC = buscarPaciente(paciente);
+        System.out.println("+-----------------------------+" + "");
+        System.out.println("|======= DADOS PESSOAIS ======|" + "");
+        System.out.println("+----+------------------------+" + "");
+        System.out.println("| 1  |Nome:                   |" + PAC.getNome());
+        System.out.println("| 2  |Data de nascimento:     |" + PAC.getData_nascimento());
+        System.out.println("| 3  |Endereco:               |" + PAC.getEndereco());
+        System.out.println("| 4  |Celular:                |" + PAC.getInfo_contatoCelular());
+        System.out.println("| 5  |Email:                  |" + PAC.getInfo_contatoEmail());
+        System.out.println("| 6  |Tipo do convenio:       |" + PAC.getTipo_convenio());
+        System.out.println("|-----------------------------|");
+        System.out.println("| 7  |Eh fumante?:            |" + PAC.getFuma());
+        System.out.println("| 8  |Bebe?:                  |" + PAC.getBebe());
+        System.out.println("| 9  |Nivel do colesterol:    |" + PAC.getNivelColesterol());
+        System.out.println("| 10 |Diabetes:               |" + PAC.getDiabete());
+        System.out.println("| 11 |Doenca cardiaca:        |" + PAC.getDoencaCardiaca());
+        System.out.println("| 12 |Cirurgias realizadas:   |" + PAC.getCirurgias());
+        System.out.println("| 13 |Alergias:               |" + PAC.getAlergias());
+        System.out.println("+----+------------------------+" + "");        
+    }
 
+    public boolean mostrarProntuarioPaciente(String nome){
+        ProntuarioPaciente PPAC = buscarProntuarioPaciente(nome);
+        if (PPAC.getHistoricoAtendimentos().isEmpty()){
+            System.out.println("O paciente nao possui historico de atendimentos");
+        } else {
+            for (ProntuarioAtendimento PAT : PPAC.getHistoricoAtendimentos()){
+                PAT.resumoProntuarioAtendimento();
+            }
+        }
+        return true;
+    }
 }

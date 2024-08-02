@@ -7,30 +7,19 @@ import pessoas.*;
 import bancoDados.*;
 import documentos.*;
 import gerenciadorMensagens.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuSecretaria{
-    // objeto banco de dados
-    BancoDeDados banco = new BancoDeDados();
     Scanner in = new Scanner(System.in);
+    
+    public MenuSecretaria(){}
     
     public boolean menuPrincipal(){
         boolean retornado = true;
+        String selecao;
         while (retornado){
-            String selecao;
-            System.out.println("+------------------------------------+");
-            System.out.println("|======== MENU DA SECRETARIA ========|");
-            System.out.println("+------------------------------------+");
-            System.out.println("|(1) Gerenciar pacientes             |");
-            System.out.println("|(2) Gerenciar consultas             |");
-            System.out.println("|(3) Gerar relatorios                |");
-            System.out.println("|                                    |");
-            System.out.println("|(0) Voltar                          |");
-            System.out.println("+------------------------------------+");
-            
-            System.out.printf(">>> ");
+            MenusMostrar.mostrarMenuSecretariaPrincipal();
             selecao = in.nextLine();
 
             switch(selecao){
@@ -46,19 +35,8 @@ public class MenuSecretaria{
     public boolean menuGerenciarPacientes(){
         boolean retornado = true;
         String selecao;
-        
         while (retornado){
-            System.out.println("+------------------------------------+");
-            System.out.println("|======= GERENCIAR PACIENTES ========|");
-            System.out.println("+------------------------------------+");
-            System.out.println("|(1) Cadastrar paciente              |");
-            System.out.println("|(2) Atualizar dados de pacientes    |");
-            System.out.println("|(3) Deletar paciente                |");
-            System.out.println("|                                    |");
-            System.out.println("|(0) Voltar                          |");
-            System.out.println("+------------------------------------+");
-            System.out.print(">>> ");
-            
+            MenusMostrar.mostrarMenuSecretariaGerenciarPacientes();
             selecao = in.nextLine();
             
             switch(selecao){
@@ -76,16 +54,7 @@ public class MenuSecretaria{
         String selecao;
 
         while (retornado){
-            System.out.println("+------------------------------------+");
-            System.out.println("|======= GERENCIAR CONSULTAS ========|");
-            System.out.println("+------------------------------------+");
-            System.out.println("|(1) Cadastrar consulta              |");
-            System.out.println("|(2) Atualizar dados da consulta     |");
-            System.out.println("|(3) Deletar consulta                |");
-            System.out.println("|                                    |");
-            System.out.println("|(0) Voltar                          |");
-            System.out.println("+------------------------------------+");
-            System.out.print(">>> ");
+            MenusMostrar.mostrarMenuSecretariaGerenciarConsultas();
             selecao = in.nextLine();
             
             switch(selecao){
@@ -137,13 +106,11 @@ public class MenuSecretaria{
         
         // adicionando paciente ao banco de dados
         paciente = new Paciente(nome, data_nascimento, endereco, contatoCelular, contatoEmail, tipo_convenio);
-        banco.adicionarPaciente(paciente);
+        BancoDeDados.adicionarPaciente(paciente);
         
         // mensagem confirmando o cadastro 
         System.out.println("\n========= Paciente cadastrado com sucesso ! ============");
-        // paciente.visualizar_dados();
-        // mudei o método para ter certeza de que o paciente foi cadastrado no banco de dados
-        banco.buscarPaciente(paciente).visualizar_dados();
+        BancoDeDados.visualizarDadosPaciente(paciente);
         System.out.println("========================================================");
         // System.out.println("+------------------------------------------------------+");
         
@@ -176,10 +143,10 @@ public class MenuSecretaria{
                 case "0" -> retornado = false;
                 default -> {
                     // buscando o paciente pelo nome
-                    Paciente paciente = banco.buscarPaciente(nomePaciente);
+                    Paciente paciente = BancoDeDados.buscarPaciente(nomePaciente);
                     
                     if (paciente != null){
-                        paciente.visualizar_dados();
+                        BancoDeDados.visualizarDadosPaciente(paciente);
                     
                     /*
                         System.out.println("+----------------------------+" + "");
@@ -232,7 +199,7 @@ public class MenuSecretaria{
                                 case "6" -> {
                                     System.out.print("\nTipo de convenio: ");
                                     tipoConvenio = in.nextLine();
-                                    while(tipoConvenio != "particular" && tipoConvenio != "plano"){
+                                    while(!"particular".equals(tipoConvenio) && !"plano".equals(tipoConvenio)){
                                         System.out.println("ERRO: Tipo de convenio deve ser 'particular' ou 'plano'");
                                         System.out.print("\nTipo de convenio: ");
                                         tipoConvenio = in.nextLine();
@@ -264,9 +231,9 @@ public class MenuSecretaria{
             switch(nomePaciente){
                 case "0" -> retornado = false;
                 default -> {
-                    Paciente paciente = banco.buscarPaciente(nomePaciente);
+                    Paciente paciente = BancoDeDados.buscarPaciente(nomePaciente);
                     if (paciente != null){
-                        banco.removerPaciente(nomePaciente);
+                        BancoDeDados.removerPaciente(nomePaciente);
                     }
                 }
             }
@@ -280,22 +247,7 @@ public class MenuSecretaria{
         // boolean voltar = false;
         boolean retornado = true;
         while(retornado){
-            System.out.println("+------------------------------------+");
-            System.out.println("|             RELATORIOS             |");
-            System.out.println("+------------------------------------+");
-            System.out.println("|(1) Gerar relatorio consultas       |");
-            System.out.println("|do dia seguinte, de pacientes       |");
-            System.out.println("|com email/telefone                  |");
-            System.out.println("|                                    |");
-            System.out.println("|(2) Gerar relatorio consultas       |");
-            System.out.println("|do dia seguinte, de pacientes       |");
-            System.out.println("|sem email/telefone                  |");
-            System.out.println("|                                    |");
-            System.out.println("|                                    |");
-            System.out.println("|(0) Voltar                          |");
-            System.out.println("+------------------------------------+");
-
-            System.out.printf(">>> ");
+            MenusMostrar.mostrarMenuSecretariaGerarRelatorios();
             opcao = in.nextLine();
 
             switch(opcao){
@@ -323,8 +275,8 @@ public class MenuSecretaria{
         int anoInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 2);
 
         // Obtem uma ArrayList com todas as consultas
-        BancoDeDados banco = new BancoDeDados();
-        ArrayList<Consulta> consultas = banco.buscarConsultas();
+        BancoDeDados BancoDeDados = new BancoDeDados();
+        ArrayList<Consulta> consultas = BancoDeDados.buscarConsultas();
         
         // Contador para a quantidade de consultas para informar caso não haja nenhuma
         int qtdConsultas = 0;
@@ -349,8 +301,8 @@ public class MenuSecretaria{
             String contatoEmailIterado = pacienteIterado.getInfo_contatoEmail();
 
             // Verificar se o paciente possui informação de contato email/celular
-            if(((contatoCelularIterado != null) && (contatoCelularIterado  != "")) || 
-            ((contatoEmailIterado != null) && (contatoEmailIterado != ""))){
+            if(((contatoCelularIterado != null) && (!"".equals(contatoCelularIterado))) || 
+            ((contatoEmailIterado != null) && (!"".equals(contatoEmailIterado)))){
                 //consultaIterada.mostrarConsulta();
                 // Obtendo dia, mes e ano da consulta iterada
                 String dataIterada = consultaIterada.getData();
@@ -364,10 +316,10 @@ public class MenuSecretaria{
                     consultaIterada.mostrarConsulta();
                     System.out.println("");
                     System.out.println("Informacoes de contato do paciente da consulta acima exibida:");
-                    if((contatoCelularIterado != null) && (contatoCelularIterado != "")){
+                    if((contatoCelularIterado != null) && (!"".equals(contatoCelularIterado))){
                         System.out.println(contatoCelularIterado);
                     }
-                    if((contatoEmailIterado != null) && (contatoEmailIterado != "")){
+                    if((contatoEmailIterado != null) && (!"".equals(contatoEmailIterado))){
                         System.out.println(contatoEmailIterado);
                     }
                     qtdConsultas++;
@@ -386,7 +338,6 @@ public class MenuSecretaria{
         return true;
     }
     
-
     public boolean consultasDiaSeguinteSemContato(){
 
         // "Consumindo" a quebra de linha que ficou no buffer
@@ -403,8 +354,8 @@ public class MenuSecretaria{
         int anoInt = obtemIntDeStringArrayNaPosN(diaMesAnoString, 2);
 
         // Obtem uma ArrayList com todas as consultas
-        BancoDeDados banco = new BancoDeDados();
-        ArrayList<Consulta> consultas = banco.buscarConsultas();
+        BancoDeDados BancoDeDados = new BancoDeDados();
+        ArrayList<Consulta> consultas = BancoDeDados.buscarConsultas();
 
         // Contador para a quantidade de consultas para informar caso não haja nenhuma
         int qtdConsultas = 0;
@@ -429,8 +380,8 @@ public class MenuSecretaria{
             String contatoEmailIterado = pacienteIterado.getInfo_contatoEmail();
 
             // Verificar se o paciente possui informação de contato email/celular
-            if(!(((contatoCelularIterado != null) && (contatoCelularIterado  != "")) || 
-            ((contatoEmailIterado != null) && (contatoEmailIterado != "")))){
+            if(!(((contatoCelularIterado != null) && (!"".equals(contatoCelularIterado))) || 
+            ((contatoEmailIterado != null) && (!"".equals(contatoEmailIterado))))){
                 //consultaIterada.mostrarConsulta();
                 // Obtendo dia, mes e ano da consulta iterada
                 String dataIterada = consultaIterada.getData();
@@ -509,13 +460,13 @@ public class MenuSecretaria{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Nome do Medico: ");
         nomeMedico = in.nextLine();
-        Medico medico = banco.buscarMedico(nomeMedico);
+        Medico medico = BancoDeDados.buscarMedico(nomeMedico);
         int i = 0;
         while (medico == null && i < 3){
             System.out.println("Medico nao encontrado");
             System.out.print("\nNome do Medico: ");
             nomeMedico = in.nextLine();
-            medico = banco.buscarMedico(nomeMedico);
+            medico = BancoDeDados.buscarMedico(nomeMedico);
             ++i;
         }
         if(medico == null){
@@ -530,13 +481,13 @@ public class MenuSecretaria{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Nome do paciente: ");
         nomePaciente = in.nextLine();
-        Paciente paciente = banco.buscarPaciente(nomePaciente);
+        Paciente paciente = BancoDeDados.buscarPaciente(nomePaciente);
         int j = 0;
         while (paciente  == null && j < 3){
             System.out.println("Paciente nao encontrado");
             System.out.print("\nNome do Paciente: ");
             nomePaciente = in.nextLine();
-            paciente = banco.buscarPaciente(nomePaciente);
+            paciente = BancoDeDados.buscarPaciente(nomePaciente);
             ++j;
         }
         if(paciente == null){
@@ -559,11 +510,11 @@ public class MenuSecretaria{
         
         // estanciando objeto consulta e adicionando ao banco de dados
         consulta = new Consulta(data, horario, medico, paciente, tipoConsulta);
-        banco.adicionarConsulta(consulta);
+        BancoDeDados.adicionarConsulta(consulta);
         
         // mensagem confirmando o cadastro 
         System.out.println("\n========= Consulta cadastrada com sucesso ! ============");
-        banco.buscarConsulta(consulta.getId()).mostrarConsulta();
+        BancoDeDados.buscarConsulta(consulta.getId()).mostrarConsulta();
         System.out.println("========================================================");
         return true;
         }
@@ -599,7 +550,7 @@ public class MenuSecretaria{
                 case "0" -> retornado = false;
                 default -> {
                     // encontramos o paciente pelo nome
-                    Paciente paciente = banco.buscarPaciente(nomePaciente);
+                    Paciente paciente = BancoDeDados.buscarPaciente(nomePaciente);
                     
                     // se o paciente não for encontrado, uma mensagem de erro aparece na tela
                     if (paciente == null){
@@ -613,7 +564,7 @@ public class MenuSecretaria{
                         /* ativado no caso do paciente ter sido encontrado */
                         /* buscamos todas as consultas do paciente no banco de dados
                            e armazenamos em uma lista "listaConsultas" */
-                        ArrayList<Consulta> listaConsultas = banco.buscarConsultaPaciente(paciente);
+                        ArrayList<Consulta> listaConsultas = BancoDeDados.buscarConsultaPaciente(paciente);
                         boolean vazia = listaConsultas.isEmpty();
                         /* se a lista de consultas for vazia, é porque não exitem consultas
                            cadastradas para o paciente */
@@ -684,13 +635,13 @@ public class MenuSecretaria{
                                         case "3" -> {
                                             System.out.print("\nMedico: ");
                                             nomeMedico = in.nextLine();
-                                            Medico medico = banco.buscarMedico(nomeMedico);
+                                            Medico medico = BancoDeDados.buscarMedico(nomeMedico);
                                             int i = 0;
                                             while (medico == null && i < 3){
                                                 System.out.println("Medico nao encontrado:");
                                                 System.out.print("\nMedico: ");
                                                 nomeMedico = in.nextLine();
-                                                medico = banco.buscarMedico(nomeMedico);
+                                                medico = BancoDeDados.buscarMedico(nomeMedico);
                                                 ++i;
                                             }
                                             if (medico != null){
@@ -700,13 +651,13 @@ public class MenuSecretaria{
                                         case "4" -> {
                                             System.out.print("\nPaciente: ");
                                             nomePaciente = in.nextLine();
-                                            Paciente pac = banco.buscarPaciente(nomePaciente);
+                                            Paciente pac = BancoDeDados.buscarPaciente(nomePaciente);
                                             int j = 0;
                                             while (pac == null && j < 3){
                                                 System.out.println("Paciente nao encontrado:");
                                                 System.out.print("\nPaciente: ");
                                                 nomePaciente = in.nextLine();
-                                                paciente = banco.buscarPaciente(nomePaciente);
+                                                pac = BancoDeDados.buscarPaciente(nomePaciente);
                                                 ++j;
                                             }
                                             if (pac != null){
@@ -716,7 +667,7 @@ public class MenuSecretaria{
                                         case "5" -> {
                                             System.out.print("\nTipo de consulta: ");
                                             tipoConsulta = in.nextLine();
-                                            while(tipoConsulta != "normal" && tipoConsulta != "retorno"){
+                                            while(!"normal".equals(tipoConsulta) && !"retorno".equals(tipoConsulta)){
                                                 System.out.println("ERRO: tipo da consulta deve ser 'normal' ou 'retorno'");
                                                 System.out.print("Tipo da consulta: ");
                                                 tipoConsulta = in.nextLine();
@@ -737,7 +688,6 @@ public class MenuSecretaria{
         }
         return true;
     }
-
     
     public boolean deletarConsulta(){
         int IDBuscado;
@@ -757,13 +707,13 @@ public class MenuSecretaria{
                 case "0" -> retornado = false;
                 default -> {
                     // encontramos o paciente pelo nome
-                    Paciente paciente = banco.buscarPaciente(nomePaciente);
+                    Paciente paciente = BancoDeDados.buscarPaciente(nomePaciente);
                     
                     if (paciente != null){
                         /* ativado no caso do paciente ter sido encontrado */
                         /* buscamos todas as consultas do paciente no banco de dados
                            e armazenamos em uma lista "listaConsultas" */
-                        ArrayList<Consulta> listaConsultas = banco.buscarConsultaPaciente(paciente);
+                        ArrayList<Consulta> listaConsultas = BancoDeDados.buscarConsultaPaciente(paciente);
 
                         if (listaConsultas.isEmpty()){
                             System.out.println("O paciente ainda nao possui consultas cadastradas!");
@@ -785,7 +735,7 @@ public class MenuSecretaria{
                                 in.nextLine();
                                 switch(IDBuscado){
                                     case 0 -> parar = true;
-                                    default -> deletada = banco.removerConsulta(IDBuscado);  
+                                    default -> deletada = BancoDeDados.removerConsulta(IDBuscado);  
                                 }
                             }
                         }       
