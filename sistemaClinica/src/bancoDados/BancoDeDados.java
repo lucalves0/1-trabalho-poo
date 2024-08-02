@@ -61,7 +61,7 @@ public class BancoDeDados {
     // Método para encontrar uma paciente pelo nome
     public Paciente buscarPaciente(String nome){
         if (Pacientes.isEmpty()){
-            System.out.println("Não existem pacientes cadastrados");
+            System.out.println("Nao existem pacientes cadastrados");
         } else {
             for (Paciente paciente : Pacientes){
                 if (paciente.getNome().equalsIgnoreCase(nome)){
@@ -150,7 +150,7 @@ public class BancoDeDados {
     
     // método para encontrar um prontuário de atendimento pelo ID
     public ProntuarioAtendimento buscarProntuarioAtendimento(int ID){
-        for (ProntuarioAtendimento PAT : ProntuariosAtendimentos){
+        for (ProntuarioAtendimento PAT : ProntuariosAtendimentos) {
             if (PAT.getId() == ID){
                 return PAT;
             } else {
@@ -180,15 +180,15 @@ public class BancoDeDados {
     
     public boolean removerProntuarioPaciente(int ID){
         if (ProntuariosPacientes.isEmpty()){
-            System.out.println("Não existem prontuários de pacientes cadastrados!");
+            System.out.println("Nao existem prontuarios de pacientes cadastrados!");
         } else {
             for (ProntuarioPaciente PPAC : ProntuariosPacientes){
                 if (PPAC.getId() == ID){
                     ProntuariosPacientes.remove(PPAC);
-                    System.out.println("Prontuário de Paciente removido!");
+                    System.out.println("Prontuario de Paciente removido!");
                     return true;
                 } else {
-                    System.out.println("Prontuário de Paciente não encontrado!");
+                    System.out.println("Prontuario de Paciente não encontrado!");
                 }
             }
         }

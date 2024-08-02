@@ -241,6 +241,8 @@ public class MenuSecretaria{
                                 }
                             }
                         }
+                    } else {
+                        System.out.println("Paciente nao encontrado no sistema\n");
                     }
                 }   
             }
@@ -636,7 +638,7 @@ public class MenuSecretaria{
                             boolean parar = false;
                             while (consultaAtualizar == null && !parar){
                                 System.out.print("\n|>>> ");
-                                IDBuscado = in.nextInt();
+                                IDBuscado = in.nextInt(); // é inteiro por conta do ID
                                 in.nextLine();
                                 switch(IDBuscado){
                                     case 0 -> parar = true;
@@ -660,6 +662,7 @@ public class MenuSecretaria{
                                 System.out.println("|(0) Voltar                                    |");
                                 while(!voltar){
                                     System.out.print("\n|>>> ");
+                                    // in.nextLine();
                                     selecao = in.nextLine();
                                     switch(selecao){
                                         case "0" -> voltar = true;
@@ -718,7 +721,7 @@ public class MenuSecretaria{
                                         case "5" -> {
                                             System.out.print("\nTipo de consulta: ");
                                             tipoConsulta = in.nextLine();
-                                            while(tipoConsulta != "normal" && tipoConsulta != "retorno"){
+                                            while(!"normal".equals(tipoConsulta) && !"retorno".equals(tipoConsulta)){
                                                 System.out.println("ERRO: tipo da consulta deve ser 'normal' ou 'retorno'");
                                                 System.out.print("Tipo da consulta: ");
                                                 tipoConsulta = in.nextLine();

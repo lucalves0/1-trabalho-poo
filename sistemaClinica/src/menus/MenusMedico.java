@@ -232,7 +232,7 @@ public class MenusMedico{
             System.out.printf(">>> ");
             medicacao = in.nextLine();
             System.out.println("");
-            if(medicacao != ""){
+            if(!"".equals(medicacao)){
                 medicacoes.add(medicacao);
                 System.out.println("Insira a quantidade da medicacao prescrita e aperte enter:");
                 System.out.printf(">>> ");
@@ -245,7 +245,7 @@ public class MenusMedico{
                 System.out.println("");
                 modosDeUsarPrescritos.add(modoDeUsarPrescrito);
             }
-        }while(medicacao != "");
+        }while(!"".equals(medicacao));
         
         System.out.println("+------------------------------------+");
         System.out.println("|            Receita Medica          |");
@@ -341,6 +341,7 @@ public class MenusMedico{
         in.nextLine();
         System.out.println("");
     }
+    
     public void clientesNoMes(){
         // in.nextLine();
         System.out.println("");
@@ -364,8 +365,9 @@ public class MenusMedico{
         int qtdClientesNoMes = 0;
 
         // Itera por todos os atendimentos
-        for(int i = 0; i < prontAtendClientesNoMes.size(); i++){
-            ProntuarioAtendimento prontAtendIterado = prontAtendClientesNoMes.get(i);
+        for (ProntuarioAtendimento prontAtendIterado : prontAtendClientesNoMes){
+        //for(int i = 0; i < prontAtendClientesNoMes.size(); i++){
+            //ProntuarioAtendimento prontAtendIterado = prontAtendClientesNoMes.get(i);
             
             // Obtem a data e mes de atendimento do prontuario iterado
             String dataAtendimento = prontAtendIterado.getDataAtendimento();
@@ -454,7 +456,7 @@ public class MenusMedico{
         
         // adicionando prontuário de atendimento ao banco de dados
         if (medico == null){
-            System.out.println("Não eh possivel cadastrar um prontuario de atendimento sem um Mehdico");
+            System.out.println("Nao eh possivel cadastrar um prontuario de atendimento sem um Medico");
         } else {
             PAT = new ProntuarioAtendimento(dataAtendimento, paciente, medico, sintomas, diagnostico, prescricao, dataRetorno);
             banco.adicionarProntuarioAtendimento(PAT);

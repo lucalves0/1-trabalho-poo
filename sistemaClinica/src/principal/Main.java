@@ -5,6 +5,7 @@
 package principal;
 import menus.*;
 import pessoas.*;
+import documentos.*;
 import bancoDados.*;
 import gerenciadorMensagens.*;
 
@@ -28,14 +29,27 @@ public class Main {
         Paciente Renata = new Paciente("Renata", "12/07/1998", "Avenida Brasil 110", "998446633", "email@email.com", "Particular");
         Paciente Rosana = new Paciente("Rozana", "01/04/1990", "Rua Sao Caetano 223", null, null, "particular");
         Paciente Henrique = new Paciente("Henrique", "23/11/1991", "Rua Rio Branco 2128", "99393-7551", "", "particular");
-       
-    // POVOANDO O BANCO DE DADOS COM PACIENTES 
+    
+// POVOANDO O BANCO DE DADOS COM PACIENTES 
         banco.adicionarPaciente(Enzo);
         banco.adicionarPaciente(Renata);
         banco.adicionarPaciente(Rosana);
         banco.adicionarPaciente(Henrique);
         banco.adicionarMedico(Ricardo);
         banco.adicionarMedico(Roberta);
+    
+// CRIANDO OBJETOS "CONSULTA"
+    //public Consulta(String data, String horario, Medico medico, Paciente paciente, String tipoConsulta)
+        Consulta primeira = new Consulta("21/07/2024", "10:00", Ricardo, Enzo, "retorno");
+        Consulta segunda = new Consulta("21/07/2024", "10:30", Roberta, Rosana, "normal");
+        Consulta terceira = new Consulta("25/07/2024", "10:00", Ricardo, Enzo, "normal");
+        Consulta quarta = new Consulta("26/07/2024", "10:30", Roberta, Rosana, "retorno");
+        
+    // POVOANDO O BANCO DE DADOS COM OS OBJETOS "CONSULTA"
+        banco.adicionarConsulta(primeira);
+        banco.adicionarConsulta(segunda);
+        banco.adicionarConsulta(terceira);
+        banco.adicionarConsulta(quarta);
         
     // MOSTRANDO A LISTA DE PACIENTES E MÉDICOS CADASTRADOS NO SISTEMA
         System.out.println("=============== PACIENTES CADASTRADOS =======================");
