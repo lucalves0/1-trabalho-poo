@@ -28,7 +28,7 @@ public class MenuInicial {
             System.out.println("|(0) Sair do menu (encerrar programa)|");
             System.out.println("+------------------------------------+");
             System.out.print(">>> ");
-            opcao = entrada.next();
+            opcao = entrada.nextLine();
             
             switch (opcao) {
                 case "1" -> menuSec.menuPrincipal();

@@ -128,11 +128,11 @@ public class MenuSecretaria{
         contatoEmail = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Tipo do convenio: ");
-        tipo_convenio = in.next();
+        tipo_convenio = in.nextLine();
         while(!"particular".equals(tipo_convenio) && !"plano".equals(tipo_convenio)){
             System.out.println("ERRO: Convenio deve ser 'particular' ou 'plano'");
             System.out.print("Tipo do convenio: ");
-            tipo_convenio = in.next();
+            tipo_convenio = in.nextLine();
         }
         
         // adicionando paciente ao banco de dados
@@ -267,6 +267,8 @@ public class MenuSecretaria{
                     Paciente paciente = banco.buscarPaciente(nomePaciente);
                     if (paciente != null){
                         banco.removerPaciente(nomePaciente);
+                    } else {
+                        System.out.println("O paciente solicitado nao consta no sistema!");
                     }
                 }
             }
@@ -550,11 +552,11 @@ public class MenuSecretaria{
         else{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Tipo da consulta: ");
-        tipoConsulta = in.next();
+        tipoConsulta = in.nextLine();
         while(!"normal".equals(tipoConsulta) && !"retorno".equals(tipoConsulta)){
             System.out.println("ERRO: tipo da consulta deve ser 'normal' ou 'retorno'");
             System.out.print("Tipo da consulta: ");
-            tipoConsulta = in.next();
+            tipoConsulta = in.nextLine();
         }
         
         // estanciando objeto consulta e adicionando ao banco de dados
