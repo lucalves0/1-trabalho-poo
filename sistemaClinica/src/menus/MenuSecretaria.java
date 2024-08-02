@@ -513,6 +513,15 @@ public class MenuSecretaria{
             medico = banco.buscarMedico(nomeMedico);
             ++i;
         }
+        if(medico == null){
+            System.out.println("");
+            System.out.println("Como o nome do médico não foi encontrado");
+            System.out.println("após a terceira tentativa, a criação da consulta");
+            System.out.println("foi cancelada");
+            System.out.println("");
+            return true;
+        }
+        else{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Nome do paciente: ");
         nomePaciente = in.nextLine();
@@ -525,6 +534,15 @@ public class MenuSecretaria{
             paciente = banco.buscarPaciente(nomePaciente);
             ++j;
         }
+        if(paciente == null){
+            System.out.println("");
+            System.out.println("Como o nome do paciente não foi encontrado");
+            System.out.println("após a terceira tentativa, a criação da consulta");
+            System.out.println("foi cancelada");
+            System.out.println("");
+            return true;
+        }
+        else{
         System.out.println("+------------------------------------------------------+");
         System.out.print("Tipo da consulta: ");
         tipoConsulta = in.next();
@@ -543,6 +561,8 @@ public class MenuSecretaria{
         banco.buscarConsulta(consulta.getId()).mostrarConsulta();
         System.out.println("========================================================");
         return true;
+        }
+        }
     }
     
     public boolean atualizarConsulta(){
