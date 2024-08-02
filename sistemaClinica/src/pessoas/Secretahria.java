@@ -55,7 +55,5 @@ public class Secretahria {
     public void setMenu(MenuSecretaria menu) {
         this.menu = menu;
     }
-    
-    
-    
+ 
 }

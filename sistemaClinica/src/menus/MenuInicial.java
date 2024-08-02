@@ -17,7 +17,18 @@ public class MenuInicial {
         
         Scanner entrada = new Scanner(System.in);
         while (retornado){
-            MenusMostrar.mostrarMenuInicialPrincipal();
+            System.out.println("+------------------------------------+");
+            System.out.println("|         CLINICA PURA SAUDE         |");
+            System.out.println("+------------------------------------+");
+            System.out.println("|Deseja logar em qual sistema:       |");
+            System.out.println("+------------------------------------+");
+            System.out.println("|(1) Secretaria                      |");
+            System.out.println("|(2) Consultorio medico              |");
+            System.out.println("|(3) Gerenciamento de Mensagens      |");
+            System.out.println("|                                    |");
+            System.out.println("|(0) Sair do menu (encerrar programa)|");
+            System.out.println("+------------------------------------+");
+            System.out.print(">>> ");
             opcao = entrada.nextLine();
             
             switch (opcao) {

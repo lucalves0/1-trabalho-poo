@@ -4,7 +4,6 @@
  */
 package documentos;
 import pessoas.*;
-import bancoDados.*;
 import java.util.ArrayList;
 
 public class ProntuarioPaciente {
@@ -16,20 +15,7 @@ public class ProntuarioPaciente {
     public ProntuarioPaciente(Paciente PAC){
         this.historicoAtendimentos = new ArrayList<>();
         this.paciente = PAC;
-    }
-    
-    
-    public boolean mostrarProntuarioPaciente(){
-        BancoDeDados.visualizarDadosPaciente(paciente);
-        if (historicoAtendimentos.isEmpty()){
-            System.out.println("O paciente nao possui historico de atendimentos");
-        } else {
-            for (ProntuarioAtendimento PAT : historicoAtendimentos){
-                PAT.resumoProntuarioAtendimento();
-            }
-        }
-        return true;
-    }    
+    }   
     
 // setters e getters
 

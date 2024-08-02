@@ -38,17 +38,6 @@ public class Consulta {
     }
     
     // outros métodos
-    public void mostrarConsulta(){
-        System.out.println("+-----------------------+");
-        System.out.println("|====== CONSULTA =======|");
-        System.out.println("+---+-------------------+");
-        System.out.println("| 1 |Data:              |" + data);
-        System.out.println("| 2 |Horario:           |" + horario);
-        System.out.println("| 3 |Medico:            |" + medico.getNome());
-        System.out.println("| 4 |Paciente:          |" + paciente.getNome());
-        System.out.println("| 5 |Tipo Consulta:     |" + tipoConsulta);
-        System.out.println("+---+-------------------+");
-    }
     
     public void resumoConsulta(){
         System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |HORARIO: %s |MÉDICO: %s |PACIENTE : %s |TIPO: %s |", id, data, horario, medico.getNome(), paciente.getNome(), tipoConsulta));

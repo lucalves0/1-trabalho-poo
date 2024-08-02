@@ -32,25 +32,6 @@ public class ProntuarioAtendimento {
         this.dataRetorno = dataRetorno;
     }
     
-    // outros métodos
-    public void mostrarProntuarioAtendimento(){
-        System.out.println("+-------------------------------------------------+");
-        System.out.println("|=========== PRONTUÁRIO DE ATENDIMENTO ===========|");
-        System.out.println("+-------------------------------------------------+");
-        System.out.println("| - |ID           | " + id);
-        System.out.println("| 1 |DATA         | " + dataAtendimento);
-        System.out.println("| 2 |PACIENTE     | " + paciente.getNome());
-        System.out.println("| 3 |MEDICO       | " + medico.getNome());
-        System.out.println("| 4 |SINTOMAS     | " + sintomas);
-        System.out.println("| 5 |DIAGNÓSTICO  | " + diagnostico);
-        System.out.println("| 6 |PRESCRIÇÃO   | " + prescricao);
-        System.out.println("| 7 |RETORNO      | " + dataRetorno);
-    }
-    
-    public void resumoProntuarioAtendimento(){
-        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |MEDICO: %s |", id, dataAtendimento, paciente.getNome(), medico.getNome()));
-    }
-    
     //setters e getters
 
     public void setDataAtendimento(String dataAtendimento) {

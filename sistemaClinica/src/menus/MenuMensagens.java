@@ -9,6 +9,7 @@ import bancoDados.*;
 import java.util.Scanner;
 
 public class MenuMensagens {
+    
     GerenciadorMensagens msgs = new GerenciadorMensagens();
     Scanner in = new Scanner(System.in);
     
@@ -16,7 +17,15 @@ public class MenuMensagens {
         boolean retornado = true;
         while (retornado){
             String selecao;
-            MenusMostrar.mostrarMenuMensagensPrincipal();
+            System.out.println("+-----------------------------------+");
+            System.out.println("|======== MENU DE MENSAGENS ========|");
+            System.out.println("+-----------------------------------+");
+            System.out.println("|(1) Gerenciar Mensagens Enviadas   |");
+            System.out.println("|(2) Enviar Mensagem de Aviso       |");
+            System.out.println("|                                   |");
+            System.out.println("|(0) Voltar                         |");
+            System.out.println("+-----------------------------------+");
+            System.out.print("|>>> ");
             selecao = in.nextLine();
 
             switch(selecao){
