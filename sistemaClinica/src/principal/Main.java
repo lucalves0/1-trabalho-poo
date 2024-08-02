@@ -26,7 +26,7 @@ public class Main {
         
         Paciente Enzo = new Paciente("Enzo", "16/10/2001", "Rua Seibo Kakazu, 1271", "997711590", "enzo@gmail.com", "Particular");
         Paciente Renata = new Paciente("Renata", "12/07/1998", "Avenida Brasil 110", "998446633", "email@email.com", "Particular");
-        Paciente Rosana = new Paciente("Rozana", "01/04/1990", "Rua São Caetano 223", null, null, "particular");
+        Paciente Rosana = new Paciente("Rozana", "01/04/1990", "Rua Sao Caetano 223", null, null, "particular");
         Paciente Henrique = new Paciente("Henrique", "23/11/1991", "Rua Rio Branco 2128", "99393-7551", "", "particular");
        
     // POVOANDO O BANCO DE DADOS COM PACIENTES 
@@ -38,8 +38,11 @@ public class Main {
         banco.adicionarMedico(Roberta);
         
     // MOSTRANDO A LISTA DE PACIENTES E MÉDICOS CADASTRADOS NO SISTEMA
+        System.out.println("=============== PACIENTES CADASTRADOS =======================");
         banco.mostrarPacientes();
+        System.out.println("\n=============== MEDICOS CADASTRADOS =======================");
         banco.mostrarMedicos();  
+        System.out.println("\n");
         
         mnInicial.menuPrincipal();
         System.out.println("=============== Programa Encerrado! =======================");

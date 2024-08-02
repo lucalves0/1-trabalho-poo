@@ -232,7 +232,7 @@ public class MenuSecretaria{
                                 case "6" -> {
                                     System.out.print("\nTipo de convenio: ");
                                     tipoConvenio = in.nextLine();
-                                    while(tipoConvenio != "particular" && tipoConvenio != "plano"){
+                                    while(!"particular".equals(tipoConvenio) && !"plano".equals(tipoConvenio)){
                                         System.out.println("ERRO: Tipo de convenio deve ser 'particular' ou 'plano'");
                                         System.out.print("\nTipo de convenio: ");
                                         tipoConvenio = in.nextLine();
