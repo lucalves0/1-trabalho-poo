@@ -69,11 +69,11 @@ public class Paciente {
         System.out.println("| 5  |Email:                  |" + info_contatoEmail);
         System.out.println("| 6  |Tipo do convenio:       |" + tipo_convenio);
         System.out.println("|-----------------------------|");
-        System.out.println("| 7  |É fumante?:             |" + fuma);
+        System.out.println("| 7  |Eh fumante?:            |" + fuma);
         System.out.println("| 8  |Bebe?:                  |" + bebe);
         System.out.println("| 9  |Nivel do colesterol:    |" + nivelColesterol);
-        System.out.println("| 10  |Diabetes:               |" + diabete);
-        System.out.println("| 11 |Doença cardíaca:        |" + doencaCardiaca);
+        System.out.println("| 10 |Diabetes:               |" + diabete);
+        System.out.println("| 11 |Doenca cardiaca:        |" + doencaCardiaca);
         System.out.println("| 12 |Cirurgias realizadas:   |" + cirurgias);
         System.out.println("| 13 |Alergias:               |" + alergias);
         System.out.println("+----+------------------------+" + "");        

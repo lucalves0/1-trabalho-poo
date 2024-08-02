@@ -39,22 +39,29 @@ public class MenusMedico{
                 case "2" -> {
                     System.out.println("+------------------------------------+");
                     System.out.println("|Informe o nome do paciente:         |");
+                    System.out.println("|                                    |");
+                    System.out.println("|(0) Voltar                          |");
+                    System.out.println("+------------------------------------+");
                     System.out.print("|>>> ");
                     nomePaciente = in.nextLine();
-                    Paciente pac = banco.buscarPaciente(nomePaciente);
-                    int j = 0;
-                    while (pac == null && j < 3){
-                        System.out.println("Paciente nao encontrado:");
-                        System.out.print("\nPaciente: ");
-                        nomePaciente = in.nextLine();
-                        pac = banco.buscarPaciente(nomePaciente);
-                        ++j;
+                    switch(nomePaciente){
+                        case "0" -> System.out.println("");
+                        default -> {
+                            Paciente pac = banco.buscarPaciente(nomePaciente);
+                            int j = 0;
+                            while (pac == null && j < 3){
+                                System.out.println("Paciente nao encontrado:");
+                                System.out.print("\nInforme o nome do Paciente: ");
+                                nomePaciente = in.nextLine();
+                                pac = banco.buscarPaciente(nomePaciente);
+                                ++j;
+                            }
+                            if (pac != null){
+                                retornado = menuFichaPaciente(nomePaciente);
+                            }
+                        }
                     }
-                    if (pac != null){
-                        retornado = menuFichaPaciente(nomePaciente);
-                    }
-                    
-                }
+                }           
                 case "3" -> retornado = menuRelatorios();
                 case "0" -> {
                     voltar = true;
@@ -76,29 +83,35 @@ public class MenusMedico{
         System.out.println("|=========== PRONTUARIOS ============|");
         System.out.println("+------------------------------------+");
         System.out.println("|Informe o nome do paciente          |");
+        System.out.println("|                                    |");
+        System.out.println("|(0) Voltar                          |");
+        System.out.println("+------------------------------------+");
         System.out.print("|>>> ");
         NomePaciente = in.nextLine();
         System.out.println("+------------------------------------+");
         
-        System.out.println(NomePaciente);
-        
-        Paciente pac = banco.buscarPaciente(NomePaciente);
-        int j = 0;
-        
-        while (pac == null && j < 3){
-            System.out.println("Paciente nao encontrado:");
-            System.out.print("\nPaciente: ");
-            NomePaciente = in.nextLine();
-            pac = banco.buscarPaciente(NomePaciente);
-            ++j;
+        switch(NomePaciente){
+            case "0" -> System.out.println("");
+            default -> {
+                System.out.println(NomePaciente);
+                Paciente pac = banco.buscarPaciente(NomePaciente);
+                int j = 0;
+                while (pac == null && j < 3){
+                    System.out.println("Paciente nao encontrado:");
+                    System.out.print("\nInforme o nome do paciente: ");
+                    NomePaciente = in.nextLine();
+                    pac = banco.buscarPaciente(NomePaciente);
+                    ++j;
+                }
+                if (pac != null){
+                    // voltar = false;
+                    menuProntuariosSecundario(NomePaciente);
+                }
+            }
         }
         
-        if (pac != null){
-            voltar = false;
-            menuProntuariosSecundario(NomePaciente);
-        }
         
-        return voltar;
+        return true; //voltar;
     }
     
     public boolean menuProntuariosSecundario(String nome){
@@ -117,7 +130,7 @@ public class MenusMedico{
             System.out.println("|(0) Voltar                              |");
             System.out.print("|>>> ");
             selecao = in.nextLine();
-            System.out.println("+------------------------------------+");            
+            System.out.println("+----------------------------------------+");            
             
             switch(selecao){
                 case "0" -> {
@@ -168,33 +181,34 @@ public class MenusMedico{
         String opcao;
         
         boolean voltar = false;
-        System.out.println("+------------------------------------+");
-        System.out.println("|             RELATORIOS             |");
-        System.out.println("+------------------------------------+");
-        System.out.println("|(1) Receita                         |");
-        System.out.println("|(2) Atestado                        |");
-        System.out.println("|(3) Declaracao de acompanhamento    |");       
-        System.out.println("|(4) Clientes atendidos no mes       |");
-        System.out.println("|                                    |");
-        System.out.println("|(0) Voltar                          |");
-        System.out.println("+------------------------------------+");
-        System.out.print(">>> ");
-        opcao = in.next();
-
-        switch(opcao){
-            case "1" -> receita();
-            case "2" -> atestado();
-            case "3" -> declaracaoAcompanhamento();
-            case "4" -> clientesNoMes();
-            case "0" -> voltar = true;
-        }
-        
-        return voltar;
+        boolean retornado = true;
+        while (retornado){
+            System.out.println("+------------------------------------+");
+            System.out.println("|             RELATORIOS             |");
+            System.out.println("+------------------------------------+");
+            System.out.println("|(1) Receita                         |");
+            System.out.println("|(2) Atestado                        |");
+            System.out.println("|(3) Declaracao de acompanhamento    |");       
+            System.out.println("|(4) Clientes atendidos no mes       |");
+            System.out.println("|                                    |");
+            System.out.println("|(0) Voltar                          |");
+            System.out.println("+------------------------------------+");
+            System.out.print(">>> ");
+            opcao = in.nextLine();
+            switch(opcao){
+                case "1" -> receita();
+                case "2" -> atestado();
+                case "3" -> declaracaoAcompanhamento();
+                case "4" -> clientesNoMes();
+                case "0" -> retornado = false;
+            }
+        }  
+        return true;
     }
     
     public void receita(){
         System.out.println("Receituario selecionado.");
-        in.nextLine();
+        // in.nextLine();
         System.out.println("");
         System.out.println("Insira o nome completo do medico a emitir a receita e aperte enter: ");
         System.out.printf(">>> ");
@@ -232,6 +246,7 @@ public class MenusMedico{
                 modosDeUsarPrescritos.add(modoDeUsarPrescrito);
             }
         }while(medicacao != "");
+        
         System.out.println("+------------------------------------+");
         System.out.println("|            Receita Medica          |");
         System.out.println("+------------------------------------+");
@@ -246,6 +261,7 @@ public class MenusMedico{
             System.out.printf("%s ------- %s\n", medPrescrita, qtdPrescrita);
             System.out.printf("%s\n", modoUsarPrescrito);
         }
+        
         System.out.println("");
         System.out.printf("Medico: %s\n", nomeMedico);
         System.out.printf("Data: %s\n", dataReceita);
@@ -258,7 +274,7 @@ public class MenusMedico{
 
     public void atestado(){
         System.out.println("Declaracao de atestado medico selecionado: ");
-        in.nextLine();
+        // in.nextLine();
         System.out.println("");
         System.out.println("Insira o nome completo do medico a declarar o atestado e aperte enter: ");
         System.out.printf(">>> ");
@@ -326,7 +342,7 @@ public class MenusMedico{
         System.out.println("");
     }
     public void clientesNoMes(){
-        in.nextLine();
+        // in.nextLine();
         System.out.println("");
 
         // Invoca o gerenciador de mensagens para obter a data de hoje
@@ -437,8 +453,12 @@ public class MenusMedico{
         dataRetorno = in.nextLine();
         
         // adicionando prontuário de atendimento ao banco de dados
-        PAT = new ProntuarioAtendimento(dataAtendimento, paciente, medico, sintomas, diagnostico, prescricao, dataRetorno);
-        banco.adicionarProntuarioAtendimento(PAT);
+        if (medico == null){
+            System.out.println("Não eh possivel cadastrar um prontuario de atendimento sem um Mehdico");
+        } else {
+            PAT = new ProntuarioAtendimento(dataAtendimento, paciente, medico, sintomas, diagnostico, prescricao, dataRetorno);
+            banco.adicionarProntuarioAtendimento(PAT);
+        }
 
         // System.out.println("+------------------------------------------------------+");
         return true;
@@ -622,7 +642,7 @@ public class MenusMedico{
         System.out.println("+------------------------------------------------------+");
         System.out.println("|========= CADASTRO DE DADOS COMPLEMENTARES ===========|");
         System.out.println("+------------------------------------------------------+");
-        System.out.print("É fumante?: ");
+        System.out.print("Eh fumante?: ");
         fuma = in.nextLine();
         System.out.println("+------------------------------------------------------+");
         System.out.print("Bebe?: ");
@@ -678,7 +698,7 @@ public class MenusMedico{
             switch(selecao){
                 case "0" -> voltar = true;
                 case "7" -> {
-                    System.out.print("\nÉ fumante?: ");
+                    System.out.print("\nEh fumante?: ");
                     fuma = in.nextLine();
                     PAC.setFuma(fuma);
                 }

@@ -31,7 +31,7 @@ public class MenuSecretaria{
             System.out.println("+------------------------------------+");
             
             System.out.printf(">>> ");
-            selecao = in.next();
+            selecao = in.nextLine();
 
             switch(selecao){
                 case "0" -> retornado = false;
@@ -277,38 +277,40 @@ public class MenuSecretaria{
     public boolean gerarRelatorio(){
         String opcao;
         
-        boolean voltar = false;
-        System.out.println("+------------------------------------+");
-        System.out.println("|             RELATORIOS             |");
-        System.out.println("+------------------------------------+");
-        System.out.println("|(1) Gerar relatorio consultas       |");
-        System.out.println("|do dia seguinte, de pacientes       |");
-        System.out.println("|com email/telefone                  |");
-        System.out.println("|                                    |");
-        System.out.println("|(2) Gerar relatorio consultas       |");
-        System.out.println("|do dia seguinte, de pacientes       |");
-        System.out.println("|sem email/telefone                  |");
-        System.out.println("|                                    |");
-        System.out.println("|                                    |");
-        System.out.println("|(0) Voltar                          |");
-        System.out.println("+------------------------------------+");
-        
-        System.out.printf(">>> ");
-        opcao = in.next();
+        // boolean voltar = false;
+        boolean retornado = true;
+        while(retornado){
+            System.out.println("+------------------------------------+");
+            System.out.println("|             RELATORIOS             |");
+            System.out.println("+------------------------------------+");
+            System.out.println("|(1) Gerar relatorio consultas       |");
+            System.out.println("|do dia seguinte, de pacientes       |");
+            System.out.println("|com email/telefone                  |");
+            System.out.println("|                                    |");
+            System.out.println("|(2) Gerar relatorio consultas       |");
+            System.out.println("|do dia seguinte, de pacientes       |");
+            System.out.println("|sem email/telefone                  |");
+            System.out.println("|                                    |");
+            System.out.println("|                                    |");
+            System.out.println("|(0) Voltar                          |");
+            System.out.println("+------------------------------------+");
 
-        switch(opcao){
-            case "1" -> consultasDiaSeguinteComContato();
-            case "2" -> consultasDiaSeguinteSemContato();
-            case "0" -> voltar = true;
-        }
-        
-        return voltar;
+            System.out.printf(">>> ");
+            opcao = in.nextLine();
+
+            switch(opcao){
+                case "1" -> retornado = consultasDiaSeguinteComContato();
+                case "2" -> retornado = consultasDiaSeguinteSemContato();
+                case "0" -> retornado = false;
+            }
+        }          
+        return true;
     }
 
-    public void consultasDiaSeguinteComContato(){
+    public boolean consultasDiaSeguinteComContato(){
 
         // "Consumindo" a quebra de linha que ficou no buffer
-        in.nextLine();
+        // in.nextLine();
 
         // Obtendo a data de hoje através de um objeto do tipo GerenciadorMensagens
         GerenciadorMensagens gerenMensag = new GerenciadorMensagens();
@@ -381,12 +383,14 @@ public class MenuSecretaria{
         System.out.printf(">>> ");
         in.nextLine();
         System.out.println("");
+        return true;
     }
+    
 
-    public void consultasDiaSeguinteSemContato(){
+    public boolean consultasDiaSeguinteSemContato(){
 
         // "Consumindo" a quebra de linha que ficou no buffer
-        in.nextLine();
+        //in.nextLine();
 
         // Obtendo a data de hoje através de um objeto do tipo GerenciadorMensagens
         GerenciadorMensagens gerenMensag = new GerenciadorMensagens();
@@ -451,6 +455,7 @@ public class MenuSecretaria{
         System.out.printf(">>> ");
         in.nextLine();
         System.out.println("");
+        return true;
     }
 
     public int obtemIntDeStringArrayNaPosN(String[] stringArray, int n){
