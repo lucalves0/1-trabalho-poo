@@ -23,8 +23,13 @@ public class GerenciadorMensagens {
         for(Consulta con : Consultas){
         
             if(this.proxDia(dataAtual, con.getData())){
-                enviarSMS(con.getPaciente(), con);
-                enviarEmail(con.getPaciente(), con);
+                
+                if(con.getPaciente().getInfo_contatoCelular() != null){
+                    enviarSMS(con.getPaciente(), con);
+                }
+                if(con.getPaciente().getInfo_contatoEmail() != null){
+                    enviarEmail(con.getPaciente(), con);
+                }
             }
             
         }
