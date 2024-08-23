@@ -16,7 +16,7 @@ public class MenuSecretaria{
     BancoDeDados banco = new BancoDeDados();
     Scanner in = new Scanner(System.in);
     
-    public boolean menuPrincipal(){
+    public boolean menuPrincipal(Secretahria SEC){
         boolean retornado = true;
         while (retornado){
             String selecao;

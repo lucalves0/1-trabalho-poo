@@ -21,6 +21,44 @@ public class BancoDeDados {
     // lista de prontuarios de atendimentos
     private static ArrayList<ProntuarioAtendimento> ProntuariosAtendimentos = new ArrayList<>();
     
+ // -------- SETTERS E GETTERS --------------   
+    public static ArrayList<Medico> getMedicos(){    
+        return Medicos;
+    }
+
+    public static void setMedicos(ArrayList<Medico> Medicos) {
+        BancoDeDados.Medicos = Medicos;
+    }
+
+    public static ArrayList<Consulta> getConsultas() {
+        return Consultas;
+    }
+
+    public static void setConsultas(ArrayList<Consulta> Consultas) {
+        BancoDeDados.Consultas = Consultas;
+    }
+
+    public static ArrayList<ProntuarioPaciente> getProntuariosPacientes() {
+        return ProntuariosPacientes;
+    }
+
+    public static void setProntuariosPacientes(ArrayList<ProntuarioPaciente> ProntuariosPacientes) {
+        BancoDeDados.ProntuariosPacientes = ProntuariosPacientes;
+    }
+
+    public static ArrayList<ProntuarioAtendimento> getProntuariosAtendimentos() {
+        return ProntuariosAtendimentos;
+    }
+
+    public static void setProntuariosAtendimentos(ArrayList<ProntuarioAtendimento> ProntuariosAtendimentos) {
+        BancoDeDados.ProntuariosAtendimentos = ProntuariosAtendimentos;
+    }
+
+    public ArrayList<Paciente> getPacientes() {
+        return Pacientes;
+    }
+    
+    
 // --------------- MÉTODOS PARA ADICIONAR INFORMAÇÕES -----------------------------
     public void adicionarPaciente(Paciente pac){
         Pacientes.add(pac);
@@ -42,23 +80,13 @@ public class BancoDeDados {
     public void adicionarProntuarioPaciente(ProntuarioPaciente ppac){
         ProntuariosPacientes.add(ppac);
     }*/
-    
-    public void adicionarProntuarioAtendimento(ProntuarioAtendimento pat){
-        String nome;
-        ProntuarioPaciente PPAC;
-        // adicionando atendimento na lista de atendimentos
-        ProntuariosAtendimentos.add(pat);
-        
-        // adicionando o atendimento na lista de histórico de atendimentos do paciente
-        nome = pat.getPaciente().getNome();
-        PPAC = buscarProntuarioPaciente(nome);
-        PPAC.setNovoAtendimento(pat);
-    }
+
 
     
 // ----------------- MÉTODOS PARA ENCONTRAR INFORMAÇÕES -------------------------------
     
     // Método para encontrar uma paciente pelo nome
+    /*
     public Paciente buscarPaciente(String nome){
         if (Pacientes.isEmpty()){
             System.out.println("Nao existem pacientes cadastrados");
@@ -71,13 +99,10 @@ public class BancoDeDados {
         }   
         return null;
     }
+    */
     
     public ArrayList<ProntuarioAtendimento> buscarProntuarioAtendimentos(){
         return ProntuariosAtendimentos;
-    }
-
-    public ArrayList<Paciente> buscarPacientes(){
-        return Pacientes;
     }
 
     public ArrayList<Consulta> buscarConsultas(){
@@ -85,12 +110,6 @@ public class BancoDeDados {
     }
     
     // Método para encontrar um paciente recebendo um objeto paciente
-    public Paciente buscarPaciente(Paciente pac){
-        Paciente retorno;
-        String nome = pac.getNome();
-        retorno = buscarPaciente(nome);
-        return retorno;
-    }
     
     // método para encontrar um médico pelo nome
     public Medico buscarMedico(String nome){
@@ -134,31 +153,7 @@ public class BancoDeDados {
             System.out.println("Não existem consultas cadastradas");
         }
         return lista;
-    }
-        
-    // método para encontrar um prontuário de paciente por nome do paciente
-    public ProntuarioPaciente buscarProntuarioPaciente(String nomePaciente){
-        for (ProntuarioPaciente PPAC : ProntuariosPacientes){
-            if (PPAC.getPaciente().getNome().equalsIgnoreCase(nomePaciente)){
-                return PPAC;
-            } else {
-                System.out.println("Prontuario do Paciente não encontrado");
-            }
-        }
-        return null;
-    }
-    
-    // método para encontrar um prontuário de atendimento pelo ID
-    public ProntuarioAtendimento buscarProntuarioAtendimento(int ID){
-        for (ProntuarioAtendimento PAT : ProntuariosAtendimentos) {
-            if (PAT.getId() == ID){
-                return PAT;
-            } else {
-                System.out.println("Prontuario de Atendimento não encontrado");
-            }
-        }
-        return null;
-    }
+    }  
     
     
 // ---------------- MÉTODOS PARA REMOVER INFORMAÇÕES ---------------------------------
@@ -241,7 +236,7 @@ public class BancoDeDados {
             System.out.println("Lista de médicos vazia");
         } else {
             for (Medico MED : Medicos){
-                System.out.println(String.format("|ID: %d |NOME: %s|", MED.getId(), MED.getNome()));
+                System.out.println(String.format("|ID: %d |NOME: %s|", MED.getID(), MED.getNome()));
             }
         }
     }

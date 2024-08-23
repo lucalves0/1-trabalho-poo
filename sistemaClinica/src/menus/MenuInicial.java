@@ -3,10 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package menus;
+import pessoas.*;
 import java.util.Scanner;
 
 public class MenuInicial {
-    public void menuPrincipal(){
+    public void menuPrincipal(Medico MED, Secretahria SEC){
         String opcao;
         boolean retornado = true;
         
@@ -31,8 +32,8 @@ public class MenuInicial {
             opcao = entrada.nextLine();
             
             switch (opcao) {
-                case "1" -> menuSec.menuPrincipal();
-                case "2" -> menuMed.menuPrincipal();
+                case "1" -> menuSec.menuPrincipal(SEC);
+                case "2" -> menuMed.menuPrincipal(MED);
                 case "3" -> menuMsg.menuPrincipal();
                 case "0" -> retornado = false;
                 default -> System.out.println("Acao nao encontrada!"); 
