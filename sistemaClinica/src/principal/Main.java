@@ -8,6 +8,7 @@ import pessoas.*;
 import documentos.*;
 import bancoDados.*;
 import gerenciadorMensagens.*;
+import janelas.*;
 
 public class Main {
     public static void main(String args[]){
@@ -58,7 +59,15 @@ public class Main {
         banco.mostrarMedicos();  
         System.out.println("\n");
         
-        mnInicial.menuPrincipal();
-        System.out.println("=============== Programa Encerrado! =======================");
+        // mnInicial.menuPrincipal();
+        // System.out.println("=============== Programa Encerrado! =======================");
+        
+        //java.awt.EventQueue.invokeLater(new Runnable() {
+        //    public void run() {
+        //        new JanelaInicial().setVisible(true);
+        //    }
+        //});
+        JanelaInicial janelaInicial = new JanelaInicial();
+        janelaInicial.setVisible(true);
     }
 }
