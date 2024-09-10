@@ -4,11 +4,19 @@
  */
 package documentos;
 import pessoas.*;
-import bancoDados.*;
 import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "PRONTUARIOS DE PACIENTE")
 public class ProntuarioPaciente {
-    private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    //private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private Paciente paciente;
     private final ArrayList<ProntuarioAtendimento> historicoAtendimentos;

@@ -4,9 +4,19 @@
  */
 package documentos;
 import pessoas.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+// A classe consulta deve ser uma classe Pojo
+
+@Entity
+@Table(name = "CONSULTAS")
 public class Consulta {
-    private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    // private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String data;
     private String horario;
@@ -17,11 +27,11 @@ public class Consulta {
     
     //métodos construtores de consulta
     public Consulta(){
-        id = ++contadorID;
+        // id = ++contadorID;
     }
     
     public Consulta(String data, String horario, Medico medico, Paciente paciente, String tipoConsulta){
-        id = ++contadorID;
+        // id = ++contadorID;
         
         this.data = data;
         this.horario = horario;

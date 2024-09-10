@@ -3,10 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package documentos;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import pessoas.*;
 
+// A classe Prontuario de Atendimento deve ser pojo
+
+@Entity
+@Table(name = "PRONTUARIOS DE ATENDIMENTO")
 public class ProntuarioAtendimento {
-    private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    // private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String dataAtendimento;
     private Paciente paciente;
@@ -18,11 +28,11 @@ public class ProntuarioAtendimento {
     
     // métodos construtores
     public ProntuarioAtendimento(){
-        id = ++contadorID;
+        //id = ++contadorID;
     }
     
     public ProntuarioAtendimento(String dataAtendimento, Paciente paciente, Medico medico, String sintomas, String diagnostico, String prescricao, String dataRetorno){
-        id = ++contadorID;
+        //id = ++contadorID;
         this.dataAtendimento = dataAtendimento;
         this.paciente = paciente;
         this.medico = medico;
