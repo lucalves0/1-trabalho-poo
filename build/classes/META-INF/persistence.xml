@@ -3,12 +3,12 @@
   <persistence-unit name="DBCLIENT" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/DBCLIENT"/>
-      <property name="javax.persistence.jdbc.user" value="DBCLIENT"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sistemaClinicaDB"/>
+      <property name="javax.persistence.jdbc.user" value="sistemaClinica"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.password" value="DBCLIENT"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
