@@ -19,7 +19,7 @@ public class Paciente {
     private Integer info_contatoCelular;
     private String info_contatoEmail;
     private String tipo_convenio;
-    private ArrayList<Medico> medicos;
+    private ArrayList<String> medicos;
     
     // Dados gerenciado pelo médico
     private String fuma;
@@ -42,7 +42,6 @@ public class Paciente {
         this.info_contatoEmail = info_contatoEmail;
         this.tipo_convenio = tipo_convenio;
     }
-    
     
     // setter para dados complementares
     public void setDadosComplementares(String fuma, String bebe, String col, String diab, String card, String cir, String aler){
@@ -111,11 +110,11 @@ public class Paciente {
         this.id = id;
     }
 
-    public ArrayList<Medico> getMedicos() {
+    public ArrayList<String> getMedicos() {
         return medicos;
     }
 
-    public void setMedicos(ArrayList<Medico> medicos) {
+    public void setMedicos(ArrayList<String> medicos) {
         this.medicos = medicos;
     }
 

@@ -4,7 +4,6 @@
  */
 package gerenciadorMensagens;
 
-import bancoDados.*;
 import java.util.ArrayList;
 import pessoas.*;
 import documentos.*;

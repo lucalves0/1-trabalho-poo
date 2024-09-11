@@ -1,4 +1,4 @@
-package menus;
+/*package menus;
 
 import gerenciadorMensagens.*;
 import pessoas.*;
@@ -64,3 +64,4 @@ public class MenuMensagens {
     }
     
 }
+*/
