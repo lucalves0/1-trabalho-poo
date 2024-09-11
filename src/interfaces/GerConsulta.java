@@ -186,6 +186,7 @@ public class GerConsulta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de Pacientes Cadastrados");
+        setPreferredSize(new java.awt.Dimension(684, 464));
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
