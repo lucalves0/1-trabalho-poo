@@ -1,0 +1,4 @@
+documentos.Consulta=javax.persistence.Entity
+documentos.Consulta_=javax.persistence.metamodel.StaticMetamodel,javax.annotation.processing.Generated
+pessoas.Paciente=javax.persistence.Entity
+pessoas.Paciente_=javax.persistence.metamodel.StaticMetamodel,javax.annotation.processing.Generated

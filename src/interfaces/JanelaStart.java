@@ -33,8 +33,9 @@ public class JanelaStart extends javax.swing.JFrame {
         
         Exit.addActionListener(e ->{
         
-            this.dispose();
             emf.close();
+            this.dispose();
+            System.exit(0);
             
         });
     
