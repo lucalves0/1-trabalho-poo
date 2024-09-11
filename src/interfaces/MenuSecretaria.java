@@ -15,6 +15,11 @@ public class MenuSecretaria extends javax.swing.JFrame {
             new GerPacientes(emf).setVisible(true);
         });
         
+        btnGerConsultas.addActionListener(e -> {
+            setVisible(false);
+            new GerConsulta(emf).setVisible(true);
+        });
+        
         Voltar.addActionListener(e -> {
             this.dispose();
             new JanelaStart(emf).setVisible(true);

@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import documentos.Consulta;
 
 public class Secretaria extends Funcionario{
     // método construtor
@@ -28,6 +29,23 @@ public class Secretaria extends Funcionario{
         return pacientes;
 
     }
+
+    public List<Consulta> searchConsultaList(EntityManagerFactory emf, Integer id){
+        
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        Query query = em.createQuery("SELECT c FROM Consulta c WHERE c.id = :idConsulta");
+        query.setParameter("idConsulta", id);
+
+        List<Consulta> consultas = query.getResultList();
+        
+        em.close();
+        
+        return consultas;
+
+    }
+
     
     public Paciente searchPaciente(EntityManagerFactory emf, Integer id){
         
@@ -41,6 +59,21 @@ public class Secretaria extends Funcionario{
         em.close();
         
         return pac;
+
+    }
+    
+    public Consulta searchConsulta(EntityManagerFactory emf, Integer id){
+        
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        Consulta con = em.find(Consulta.class, id);
+        em.getTransaction().commit();
+        
+        em.close();
+        
+        return con;
 
     }
     
@@ -60,6 +93,22 @@ public class Secretaria extends Funcionario{
         
     }
     
+    public List<Consulta> searchConsultaByPaciente(EntityManagerFactory emf, Integer id){
+    
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        Query query = em.createQuery("SELECT c FROM Consulta c WHERE c.idPaciente = :nomeBuscar");
+        query.setParameter("nomeBuscar", id); // Busca por nomes que contenham a string
+
+        List<Consulta> consultas = query.getResultList();
+        
+        em.close();
+        
+        return consultas;
+        
+    }
+    
     public void removeCadPaciente(EntityManagerFactory emf, Paciente pac){
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
@@ -67,6 +116,19 @@ public class Secretaria extends Funcionario{
         em.getTransaction().begin();
         pac = em.merge(pac);
         em.remove(pac);
+        em.getTransaction().commit();
+
+        // Fechar o EntityManager e a fábrica
+        em.close();
+    }
+    
+    public void removeCadConsulta(EntityManagerFactory emf, Consulta con){
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+ 
+        em.getTransaction().begin();
+        con = em.merge(con);
+        em.remove(con);
         em.getTransaction().commit();
 
         // Fechar o EntityManager e a fábrica
@@ -88,6 +150,21 @@ public class Secretaria extends Funcionario{
 
     }
     
+    public void postCadConsulta(EntityManagerFactory emf, Consulta con){
+        
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        // Transformamos este paciente em um objeto persistente 
+        em.getTransaction().begin();
+        em.persist(con);
+        em.getTransaction().commit();
+
+        // Fechar o EntityManager e a fábrica
+        em.close();
+
+    }
+    
     public void updateCadPaciente(EntityManagerFactory emf, Paciente pac){
         
         // Criaremos a EntityManager através da fabrica
@@ -96,6 +173,21 @@ public class Secretaria extends Funcionario{
         // Transformamos este paciente em um objeto persistente 
         em.getTransaction().begin();
         em.merge(pac);
+        em.getTransaction().commit();
+
+        // Fechar o EntityManager e a fábrica
+        em.close();
+
+    }
+    
+    public void updateCadConsulta(EntityManagerFactory emf, Consulta con){
+        
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        // Transformamos este paciente em um objeto persistente 
+        em.getTransaction().begin();
+        em.merge(con);
         em.getTransaction().commit();
 
         // Fechar o EntityManager e a fábrica

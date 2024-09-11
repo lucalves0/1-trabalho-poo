@@ -4,9 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.CascadeType;
-import pessoas.*;
 
 @Entity
 public class Consulta {
@@ -18,21 +15,20 @@ public class Consulta {
     private String horario;
     private String medico;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Paciente paciente;
+    private Integer idPaciente;
     
     private String tipoConsulta;
     private String duracao;
     
     public Consulta(){}
     
-    public Consulta(Integer id, String data, String horario, String medico, Paciente paciente, String tipoConsulta){
+    public Consulta(Integer id, String data, String horario, String medico, Integer idPaciente, String tipoConsulta){
         
         this.id = id;
         this.dataConsulta = data;
         this.horario = horario;
         this.medico = medico;
-        this.paciente = paciente;
+        this.idPaciente = idPaciente;
         this.tipoConsulta = tipoConsulta;
         
         if("normal".equals(tipoConsulta.toLowerCase())){
@@ -57,8 +53,8 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setPaciente(Integer idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
     public void setTipoConsulta(String tipoConsulta) {
@@ -89,8 +85,8 @@ public class Consulta {
         return medico;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public Integer getPaciente() {
+        return idPaciente;
     }
 
     public String getTipoConsulta() {

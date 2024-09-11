@@ -1,7 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ *//*
 package gerenciadorMensagens;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class GerenciadorMensagens {
             
         }
         
-    }
+    }*/
     
     /* public void enviarSMS(Paciente paciente, Consulta consulta){
         
@@ -69,7 +69,7 @@ public class GerenciadorMensagens {
         System.out.println("Att.\nClinica Pura Saude.");
         System.out.println("----------------------------------------------------\n\n");
         
-    }*/ 
+    }*/ /*
     
     public boolean proxDia(String d1, String d2){
     
@@ -108,3 +108,4 @@ public class GerenciadorMensagens {
     }
     
 }
+*/
