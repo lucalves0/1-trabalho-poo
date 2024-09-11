@@ -83,7 +83,7 @@ public class Secretaria extends Funcionario{
         EntityManager em = emf.createEntityManager();
 
         Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE :nomeBuscar");
-        query.setParameter("nomeBuscar", "%" + name + "%"); // Busca por nomes que contenham a string
+        query.setParameter("nomeBuscar", "%" + name + "%");
 
         List<Paciente> pacientes = query.getResultList();
         
@@ -99,7 +99,7 @@ public class Secretaria extends Funcionario{
         EntityManager em = emf.createEntityManager();
 
         Query query = em.createQuery("SELECT c FROM Consulta c WHERE c.idPaciente = :nomeBuscar");
-        query.setParameter("nomeBuscar", id); // Busca por nomes que contenham a string
+        query.setParameter("nomeBuscar", id);
 
         List<Consulta> consultas = query.getResultList();
         
@@ -155,7 +155,7 @@ public class Secretaria extends Funcionario{
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
 
-        // Transformamos este paciente em um objeto persistente 
+        // Transformamos esta consulta em um objeto persistente 
         em.getTransaction().begin();
         em.persist(con);
         em.getTransaction().commit();
@@ -185,7 +185,7 @@ public class Secretaria extends Funcionario{
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
 
-        // Transformamos este paciente em um objeto persistente 
+        // Transformamos esta consulta em um objeto persistente 
         em.getTransaction().begin();
         em.merge(con);
         em.getTransaction().commit();

@@ -2,7 +2,6 @@ package interfaces;
 
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
-import pessoas.Paciente;
 import pessoas.Secretaria;
 import documentos.Consulta;
 

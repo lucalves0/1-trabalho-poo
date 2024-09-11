@@ -32,7 +32,7 @@ public class GerConsulta extends javax.swing.JFrame {
                 DefaultListModel<String> listModel = new DefaultListModel<>();
 
                 for (Consulta con : consultas) {
-                    String infoPaciente = String.format("Identificador da Consulta: %d | "
+                    String infoCon = String.format("Identificador da Consulta: %d | "
                                                       + "Data da Consulta: %s | " 
                                                       + "Horario da Consulta: %s | " 
                                                       + "Medico: %s | " 
@@ -46,7 +46,7 @@ public class GerConsulta extends javax.swing.JFrame {
                                                         con.getPaciente(),
                                                         con.getTipoConsulta(),
                                                         con.getDuracao());
-                    listModel.addElement(infoPaciente);
+                    listModel.addElement(infoCon);
                 }
                 listPacientesCad.setModel(listModel);
             }
@@ -57,9 +57,9 @@ public class GerConsulta extends javax.swing.JFrame {
             setVisible(false);
 
             // Código para abrir a nova tela
-            CadConsulta telaCadPaciente = new CadConsulta(emf);
-            telaCadPaciente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            telaCadPaciente.setVisible(true);
+            CadConsulta telaCadConsulta = new CadConsulta(emf);
+            telaCadConsulta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaCadConsulta.setVisible(true);
         });
 
         upPaciente.addActionListener(e -> {
@@ -84,13 +84,13 @@ public class GerConsulta extends javax.swing.JFrame {
                         List<Consulta> consultas = sec.searchConsultaList(emf, idPaciente);
 
                         if (!consultas.isEmpty()) {
-                            // Se o paciente for encontrado, oculta a tela atual e abre a nova tela
+                            // Se a consulta for encontrada, oculta a tela atual e abre a nova tela
                             setVisible(false);
-                            UpInforConsulta telaUpInforPacientes = new UpInforConsulta(idPaciente, emf);
-                            telaUpInforPacientes.setVisible(true);
-                            telaUpInforPacientes.setLocationRelativeTo(null); // Opcional: centraliza a nova tela
+                            UpInforConsulta telaUpInforConsultas = new UpInforConsulta(idPaciente, emf);
+                            telaUpInforConsultas.setVisible(true);
+                            telaUpInforConsultas.setLocationRelativeTo(null); // Opcional: centraliza a nova tela
                         } else {
-                            // Exibe mensagem informando que o paciente não foi encontrado
+                            // Exibe mensagem informando que a Consulta não foi encontrada
                             JOptionPane.showMessageDialog(null, "Consulta com o ID '" + idPaciente + "' não encontrado.", "Consulta não encontrada", JOptionPane.WARNING_MESSAGE);
                         }
 
@@ -113,17 +113,17 @@ public class GerConsulta extends javax.swing.JFrame {
             
             if (confirmacao == JOptionPane.YES_OPTION) {
                 
-                // Solicita o ID do paciente ao usuário
-                String idPacienteStr = JOptionPane.showInputDialog(null, "Digite o ID da consulta que deseja remover do sistema");
+                // Solicita o ID da consulta ao usuário
+                String idConsultaStr = JOptionPane.showInputDialog(null, "Digite o ID da consulta que deseja remover do sistema");
                 
                 // Verifica se o ID foi inserido ou se o usuário clicou em cancelar
-                if (idPacienteStr != null && !idPacienteStr.trim().isEmpty()) {
+                if (idConsultaStr != null && !idConsultaStr.trim().isEmpty()) {
                     try {
                         // Tenta converter o ID para um inteiro
-                        Integer idPaciente = Integer.parseInt(idPacienteStr);
+                        Integer idConsulta = Integer.parseInt(idConsultaStr);
 
                         // Criar a query para buscar pacientes pelo ID
-                        List<Consulta> lst = sec.searchConsultaList(emf, idPaciente);
+                        List<Consulta> lst = sec.searchConsultaList(emf, idConsulta);
                         Consulta con;
                         
                         if(lst.isEmpty()){
@@ -134,7 +134,7 @@ public class GerConsulta extends javax.swing.JFrame {
 
                         if (con != null){
                             int conf = JOptionPane.showConfirmDialog(null, 
-                            "Ao apagar o paciente você perderá todas as informações relacionado ao paciente. Deseja excluir mesmo?", 
+                            "Ao apagar a consulta você perderá todas as informações relacionado a ela. Deseja excluir mesmo?", 
                             "Confirmar", 
                             JOptionPane.YES_NO_OPTION, 
                             JOptionPane.INFORMATION_MESSAGE);
