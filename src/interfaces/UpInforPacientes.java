@@ -2,38 +2,21 @@ package interfaces;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import pessoas.Paciente;
+import pessoas.Secretaria;
 
 public class UpInforPacientes extends javax.swing.JFrame {
 
-    public UpInforPacientes(Integer idPaciente) {
+    private static EntityManagerFactory emf;
+    
+    public UpInforPacientes(Integer idPaciente, EntityManagerFactory emf) {
         initComponents();
         setLocationRelativeTo(null);
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("DBCLIENT");
-        Paciente paciente = getPacienteCad(emf, idPaciente);
-        btnSalvarPaciente.addActionListener(evt -> postCadPaciente(emf, paciente));
+        Secretaria sec = new Secretaria("Teste", "123");
         
-        btnCancelarPaciente.addActionListener(evt -> {
-        
-            emf.close();
-            setVisible(false);
-            new GerPacientes().setVisible(true);
-        
-        });
- 
-        
-    }
-    
-    private Paciente getPacienteCad(EntityManagerFactory emf, Integer idPaciente){ 
-        EntityManager em = emf.createEntityManager();
-        Paciente paciente = new Paciente();
-        
-        em.getTransaction().begin();
-        paciente = em.find(Paciente.class, idPaciente);
-        em.getTransaction().commit();
+        Paciente paciente = sec.searchPaciente(emf, idPaciente);
         
         txtNomePaciente.setText(paciente.getNome());
         txtDataNascimentoPaciente.setText(paciente.getData_nascimento());
@@ -41,55 +24,42 @@ public class UpInforPacientes extends javax.swing.JFrame {
         txtInfoContatoPaciente.setText(String.valueOf(paciente.getInfo_contatoCelular()));
         txtInfoEmailPaciente.setText(paciente.getInfo_contatoEmail());
         cbxTpConvenioPaciente.setSelectedItem(paciente.getTipo_convenio());
+       
+        btnSalvarPaciente.addActionListener(evt ->{
         
-        em.close();
+            try {
+                
+                paciente.setNome(txtNomePaciente.getText());
+                paciente.setData_nascimento(txtDataNascimentoPaciente.getText());
+                paciente.setEndereco(txtEnderecoPaciente.getText());
+                paciente.setInfo_contatoCelular(Integer.parseInt(txtInfoContatoPaciente.getText()));
+                paciente.setInfo_contatoEmail(txtInfoEmailPaciente.getText());
+                paciente.setTipo_convenio((String) cbxTpConvenioPaciente.getSelectedItem());
+                
+                sec.updateCadPaciente(emf, paciente);
+                
+                this.dispose();
+                new GerPacientes(emf).setVisible(true);
+            
+            }catch (NumberFormatException e) {
+                
+                // Se não for um número, exibe a mensagem de erro
+                JOptionPane.showMessageDialog(null, "Por favor, insira um número para o contato válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+                txtInfoContatoPaciente.setText("");
+                txtInfoContatoPaciente.requestFocus();
+                
+            }
         
-        return paciente;
-    }
-    
-    private void postCadPaciente(EntityManagerFactory emf, Paciente paciente){  
-             
-        String nome = txtNomePaciente.getText();
-        String dataNascimento = txtDataNascimentoPaciente.getText();
-        String endereco = txtEnderecoPaciente.getText();
-
-        String infoContato = txtInfoContatoPaciente.getText();
-
-        try {
-            // Tenta converter o valor para inteiro
-            Integer infoContatoCelular = Integer.parseInt(infoContato);
-
-            // Criaremos a EntityManager através da fabrica
-            EntityManager em = emf.createEntityManager();
-
-            paciente.setNome(nome);
-            paciente.setData_nascimento(dataNascimento);
-            paciente.setEndereco(endereco);
-            paciente.setInfo_contatoCelular(infoContatoCelular); // Configura o valor de contato celular
-            paciente.setInfo_contatoEmail(txtInfoEmailPaciente.getText());
-            paciente.setTipo_convenio((String) cbxTpConvenioPaciente.getSelectedItem());
-
-            // Transformamos este paciente em um objeto persistente 
-            em.getTransaction().begin();
-            em.merge(paciente);
-            em.getTransaction().commit();
-
-            // Fechar o EntityManager e a fábrica
-            em.close();
-            emf.close();
-
-            // Fechar a tela atual e abrir a tela principal
-            this.dispose();
-            new GerPacientes().setVisible(true);
-
-        } catch (NumberFormatException e) {
-            // Se não for um número, exibe a mensagem de erro
-            JOptionPane.showMessageDialog(null, "Por favor, insira um número para o contato válido.", "Erro", JOptionPane.ERROR_MESSAGE);
-            txtInfoContatoPaciente.setText("");
-            txtInfoContatoPaciente.requestFocus();
-        }
-
-    }
+        });
+        
+        btnCancelarPaciente.addActionListener(evt -> {
+        
+            setVisible(false);
+            new GerPacientes(emf).setVisible(true);
+        
+        });
+ 
+    }  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -222,7 +192,7 @@ public class UpInforPacientes extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpInforPacientes(0).setVisible(true);
+                new UpInforPacientes(0, emf).setVisible(true);
             }
         });
     }

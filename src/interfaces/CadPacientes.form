@@ -196,7 +196,6 @@
     </Container>
     <Component class="java.awt.Button" name="btnSalvarPaciente">
       <Properties>
-        <Property name="actionCommand" type="java.lang.String" value=""/>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="cc" red="0" type="rgb"/>
         </Property>
@@ -205,9 +204,6 @@
         </Property>
         <Property name="label" type="java.lang.String" value="Salvar"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Salvar"/>
-      </AccessibilityProperties>
     </Component>
     <Component class="java.awt.Button" name="btnCancelarPaciente">
       <Properties>

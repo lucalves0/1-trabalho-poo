@@ -1,15 +1,23 @@
 package interfaces;
 
-public class MenuSecretaria extends javax.swing.JFrame {
+import javax.persistence.EntityManagerFactory;
 
-    public MenuSecretaria() {
+public class MenuSecretaria extends javax.swing.JFrame {
+    
+    private static EntityManagerFactory emf;
+    
+    public MenuSecretaria(EntityManagerFactory emf) {
         initComponents();
         setLocationRelativeTo(null);    // Centraliza ao meio do monitor
         
         btnGerPacientes.addActionListener(e -> {
-        
             setVisible(false);
-            new GerPacientes().setVisible(true);
+            new GerPacientes(emf).setVisible(true);
+        });
+        
+        Voltar.addActionListener(e -> {
+            this.dispose();
+            new JanelaStart(emf).setVisible(true);
         });
     }
 
@@ -25,10 +33,10 @@ public class MenuSecretaria extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        Voltar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu da secretaria");
-        setPreferredSize(new java.awt.Dimension(684, 464));
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -38,6 +46,7 @@ public class MenuSecretaria extends javax.swing.JFrame {
         jLabel1.setAlignmentX(0.5F);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Selecione abaixo o tipo de gerenciamento que deseja realizar: ");
 
         btnGerConsultas.setText("Gerenciar consultas");
@@ -49,6 +58,7 @@ public class MenuSecretaria extends javax.swing.JFrame {
         });
 
         btnGerPacientes.setText("Gerenciar pacientes");
+        btnGerPacientes.setAlignmentX(0.5F);
         btnGerPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGerPacientesActionPerformed(evt);
@@ -59,42 +69,48 @@ public class MenuSecretaria extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(188, 188, 188)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGerPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGerConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(140, 140, 140))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGerPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGerConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 166, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(40, 40, 40)
-                .addComponent(btnGerPacientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(58, 58, 58)
                 .addComponent(btnGerConsultas)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnGerPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
 
-        jMenu1.setText("Relátorios");
+        jMenu1.setText("Ações");
 
-        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jMenuItem1.setText("Gerar relátorio");
         jMenu1.add(jMenuItem1);
+
+        Voltar.setText("Voltar");
+        Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Voltar);
 
         jMenuBar1.add(jMenu1);
 
@@ -111,15 +127,20 @@ public class MenuSecretaria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGerPacientesActionPerformed
 
+    private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VoltarActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuSecretaria().setVisible(true);
+                new MenuSecretaria(emf).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Voltar;
     private javax.swing.JButton btnGerConsultas;
     private javax.swing.JButton btnGerPacientes;
     private javax.swing.JLabel jLabel1;

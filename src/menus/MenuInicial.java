@@ -1,10 +1,10 @@
-package menus;
+/*package menus;
 
 import pessoas.*;
 import java.util.Scanner;
 
 public class MenuInicial {
-    public void menuPrincipal(Medico MED, Secretahria SEC){
+    public void menuPrincipal(Medico MED, Secretaria SEC){
         String opcao;
         boolean retornado = true;
         
@@ -39,3 +39,4 @@ public class MenuInicial {
         }
     }
 }
+*/

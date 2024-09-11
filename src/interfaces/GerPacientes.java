@@ -1,39 +1,70 @@
 package interfaces;
 
 import java.util.List;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pessoas.Paciente;
+import pessoas.Secretaria;
 
 public class GerPacientes extends javax.swing.JFrame {
     
-    private EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
     
-    public GerPacientes() {
+    public GerPacientes(EntityManagerFactory emf) {
         initComponents();
         setLocationRelativeTo(null);
+        
+        Secretaria sec = new Secretaria("Teste", "123");
+        
+        btnBuscarPaciente.addActionListener(avt -> {
+            String nomeBuscar = txtBuscaNomePaciente.getText();
+            List<Paciente> pacientes = sec.searchPacienteByName(emf, nomeBuscar);
 
-        // Inicializa o EntityManagerFactory e atribui ao atributo da classe
-        emf = Persistence.createEntityManagerFactory("DBCLIENT");
-        buscarPacientesCad(emf);
+            if (pacientes.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        null, 
+                        "Nenhum paciente encontrado com o nome " + nomeBuscar + ".", 
+                        "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
+            } else {
+
+                DefaultListModel<String> listModel = new DefaultListModel<>();
+
+                for (Paciente paciente : pacientes) {
+                    String infoPaciente = String.format("Identificador do paciente: %d | "
+                                                      + "Nome do paciente: %s | " 
+                                                      + "Data de Nascimento: %s | " 
+                                                      + "Endereco: %s | " 
+                                                      + "Celular: %d | " 
+                                                      + "Email: %s |" 
+                                                      + "Convenio: %s |" , 
+                                                        paciente.getId(), 
+                                                        paciente.getNome(),
+                                                        paciente.getData_nascimento(),
+                                                        paciente.getEndereco(),
+                                                        paciente.getInfo_contatoCelular(),
+                                                        paciente.getInfo_contatoEmail(),
+                                                        paciente.getTipo_convenio());
+                    listModel.addElement(infoPaciente);
+                }
+                listPacientesCad.setModel(listModel);
+            }
+
+        });
 
         cadPacientes.addActionListener(e -> {
             setVisible(false);
 
             // Código para abrir a nova tela
-            CadPacientes telaCadPaciente = new CadPacientes();
+            CadPacientes telaCadPaciente = new CadPacientes(emf);
             telaCadPaciente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             telaCadPaciente.setVisible(true);
         });
 
         upPaciente.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
-            "Recomendamos que antes de prosseguir, verifique o identificados do paciente. Deseja prosseguir?", 
+            "Recomendamos que antes de prosseguir, verifique o identificador do paciente. Deseja prosseguir?", 
             "Confirmar", 
             JOptionPane.YES_NO_OPTION, 
             JOptionPane.INFORMATION_MESSAGE);
@@ -48,29 +79,21 @@ public class GerPacientes extends javax.swing.JFrame {
                         // Tenta converter o ID para um inteiro
                         Integer idPaciente = Integer.parseInt(idPacienteStr);
 
-                        EntityManager em = emf.createEntityManager();
+                        // Criar a query para buscar pacientes pelo ID
 
-                        try {
-                            // Criar a query para buscar pacientes pelo ID
-                            Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.id = :idPaciente");
-                            query.setParameter("idPaciente", idPaciente);
+                        List<Paciente> pacientes = sec.searchPacienteList(emf, idPaciente);
 
-                            List<Paciente> pacientes = query.getResultList();
-
-                            if (!pacientes.isEmpty()) {
-                                // Se o paciente for encontrado, oculta a tela atual e abre a nova tela
-                                setVisible(false);
-                                UpInforPacientes telaUpInforPacientes = new UpInforPacientes(idPaciente);
-                                telaUpInforPacientes.setVisible(true);
-                                telaUpInforPacientes.setLocationRelativeTo(null); // Opcional: centraliza a nova tela
-                            } else {
-                                // Exibe mensagem informando que o paciente não foi encontrado
-                                JOptionPane.showMessageDialog(null, "Paciente com o ID '" + idPaciente + "' não encontrado.", "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
-                            }
-                        } finally {
-                            // Fechar o EntityManager
-                            em.close();
+                        if (!pacientes.isEmpty()) {
+                            // Se o paciente for encontrado, oculta a tela atual e abre a nova tela
+                            setVisible(false);
+                            UpInforPacientes telaUpInforPacientes = new UpInforPacientes(idPaciente, emf);
+                            telaUpInforPacientes.setVisible(true);
+                            telaUpInforPacientes.setLocationRelativeTo(null); // Opcional: centraliza a nova tela
+                        } else {
+                            // Exibe mensagem informando que o paciente não foi encontrado
+                            JOptionPane.showMessageDialog(null, "Paciente com o ID '" + idPaciente + "' não encontrado.", "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
                         }
+
                     } catch (NumberFormatException ex) {
                         // Exibe mensagem de erro se o ID não for um número válido
                         JOptionPane.showMessageDialog(null, "ID inválido. Por favor, insira um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -99,35 +122,31 @@ public class GerPacientes extends javax.swing.JFrame {
                         // Tenta converter o ID para um inteiro
                         Integer idPaciente = Integer.parseInt(idPacienteStr);
 
-                        EntityManager em = emf.createEntityManager();
-
-                        try {
-                            // Criar a query para buscar pacientes pelo ID
-                            em.getTransaction().begin();
-                            Paciente paciente = new Paciente();
-                            paciente = em.find(Paciente.class, idPaciente);
-
-                            if (paciente != null){
-                                int conf = JOptionPane.showConfirmDialog(null, 
-                                "Ao apagar o paciente você perderá todas as informações relacionado ao paciente. Deseja excluir mesmo?", 
-                                "Confirmar", 
-                                JOptionPane.YES_NO_OPTION, 
-                                JOptionPane.INFORMATION_MESSAGE);
-                                
-                                if (confirmacao == JOptionPane.YES_OPTION){
-                                    em.remove(paciente);
-                                }   
-                            }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
-                            }
-                            
-                            em.getTransaction().commit();
-                            
-                        } finally {
-                            // Fechar o EntityManager
-                            em.close();
+                        // Criar a query para buscar pacientes pelo ID
+                        List<Paciente> lst = sec.searchPacienteList(emf, idPaciente);
+                        Paciente paciente;
+                        
+                        if(lst.isEmpty()){
+                            paciente = null;
+                        }else{
+                            paciente = lst.get(0);
                         }
+
+                        if (paciente != null){
+                            int conf = JOptionPane.showConfirmDialog(null, 
+                            "Ao apagar o paciente você perderá todas as informações relacionado ao paciente. Deseja excluir mesmo?", 
+                            "Confirmar", 
+                            JOptionPane.YES_NO_OPTION, 
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                            if (confirmacao == JOptionPane.YES_OPTION){
+                                sec.removeCadPaciente(emf, paciente);
+                            }   
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                            
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "ID inválido. Por favor, insira um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
@@ -138,57 +157,12 @@ public class GerPacientes extends javax.swing.JFrame {
             }
         
         });
-
-        // Adicionar WindowListener para fechar o EMF quando a janela for fechada
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                // Fechar a EntityManagerFactory quando a janela for fechada
-                if (emf != null && emf.isOpen()) {
-                    emf.close();
-                }
-                dispose(); // Fechar a janela
-            }
+     
+        Voltar.addActionListener(e -> {
+            this.dispose();
+            new MenuSecretaria(emf).setVisible(true);
         });
         
-    }
-    
-    private void buscarPacientesCad(EntityManagerFactory emf){
-
-        btnBuscarPaciente.addActionListener(avt -> {
-            String nomeBuscar = txtBuscaNomePaciente.getText();
-            EntityManager em = emf.createEntityManager();
-
-            try {
-                
-                // Criar a query usando parâmetros nomeados para evitar SQL injection
-                Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE :nomeBuscar");
-                query.setParameter("nomeBuscar", "%" + nomeBuscar + "%"); // Busca por nomes que contenham a string
-
-                List<Paciente> pacientes = query.getResultList(); 
-
-                if (pacientes.isEmpty()) {
-                    JOptionPane.showMessageDialog(
-                            null, 
-                            "Nenhum paciente encontrado com o nome " + nomeBuscar + ".", 
-                            "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
-                } else {
- 
-                    DefaultListModel<String> listModel = new DefaultListModel<>();
-
-                    for (Paciente paciente : pacientes) {
-                        String infoPaciente = String.format("Identificador do paciente: %d | Nome do paciente: %s", 
-                                                            paciente.getId(), 
-                                                            paciente.getNome());
-                        listModel.addElement(infoPaciente);
-                    }
-                    listPacientesCad.setModel(listModel);
-                }
-            } finally {
-                // Fechar o EntityManager
-                em.close();
-            }
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -208,10 +182,10 @@ public class GerPacientes extends javax.swing.JFrame {
         cadPacientes = new javax.swing.JMenuItem();
         upPaciente = new javax.swing.JMenuItem();
         deletePacientes = new javax.swing.JMenuItem();
+        Voltar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de Pacientes Cadastrados");
-        setPreferredSize(new java.awt.Dimension(684, 464));
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
@@ -263,8 +237,6 @@ public class GerPacientes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnBuscarPaciente.getAccessibleContext().setAccessibleName("Buscar");
-
         getContentPane().add(panelGerPacientes);
 
         jMenu1.setText("Ações");
@@ -284,6 +256,9 @@ public class GerPacientes extends javax.swing.JFrame {
         deletePacientes.setText("Remover pacientes");
         jMenu1.add(deletePacientes);
 
+        Voltar.setText("Voltar");
+        jMenu1.add(Voltar);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -298,12 +273,13 @@ public class GerPacientes extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GerPacientes().setVisible(true); 
+                new GerPacientes(emf).setVisible(true); 
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Voltar;
     private java.awt.Button btnBuscarPaciente;
     private javax.swing.JMenuItem cadPacientes;
     private javax.swing.JMenuItem deletePacientes;

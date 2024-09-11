@@ -174,12 +174,5 @@ public class Paciente {
     public void setAlergias(String alergias) {
         this.alergias = alergias;
     }
-    
-    
-    
-    
-    
-    
-    
-   
+
 }

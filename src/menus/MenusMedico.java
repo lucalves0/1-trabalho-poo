@@ -1,4 +1,4 @@
-package menus;
+/*package menus;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -401,7 +401,7 @@ public class MenusMedico{
         return true;
         
     }*/
-    
+    /*
     
 
     
@@ -423,7 +423,7 @@ public class MenusMedico{
                 for (ProntuarioAtendimento PAT : historico){
                     PAT.resumoProntuarioAtendimento();
                 }
-            }*/
+            }*//*
             System.out.println("=================================================================");
             /*if (!historicoVazio){
                 System.out.println("Qual dos prontuarios voce deseja remover?");
@@ -445,10 +445,10 @@ public class MenusMedico{
             }
         } else {
             System.out.println("Prontuario do Paciente nao encontrado!");
-        }*/
+        }*//*
         return true;
     }
     
 
     
-}
+}*/
