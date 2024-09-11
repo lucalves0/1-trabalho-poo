@@ -1,10 +1,9 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ *//*
 package gerenciadorMensagens;
 
-import bancoDados.*;
 import java.util.ArrayList;
 import pessoas.*;
 import documentos.*;
@@ -25,18 +24,18 @@ public class GerenciadorMensagens {
             if(this.proxDia(dataAtual, con.getData())){
                 
                 if(con.getPaciente().getInfo_contatoCelular() != null){
-                    enviarSMS(con.getPaciente(), con);
+                    //enviarSMS(con.getPaciente(), con);
                 }
                 if(con.getPaciente().getInfo_contatoEmail() != null){
-                    enviarEmail(con.getPaciente(), con);
+                    // enviarEmail(con.getPaciente(), con);
                 }
             }
             
         }
         
-    }
+    }*/
     
-    public void enviarSMS(Paciente paciente, Consulta consulta){
+    /* public void enviarSMS(Paciente paciente, Consulta consulta){
         
         String celular = paciente.getInfo_contatoCelular();
     
@@ -70,7 +69,7 @@ public class GerenciadorMensagens {
         System.out.println("Att.\nClinica Pura Saude.");
         System.out.println("----------------------------------------------------\n\n");
         
-    }
+    }*/ /*
     
     public boolean proxDia(String d1, String d2){
     
@@ -109,3 +108,4 @@ public class GerenciadorMensagens {
     }
     
 }
+*/

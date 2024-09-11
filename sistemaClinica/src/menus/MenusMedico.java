@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package menus;
+/*package menus;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import bancoDados.*;
@@ -133,7 +130,7 @@ public class MenusMedico{
                     //voltar = true;
                     retornado = false;
                 }
-                case "1" -> retornado = consultarProntuarioPaciente(nome);
+                // case "1" -> retornado = consultarProntuarioPaciente(nome);
                 case "2" -> retornado = MED.cadastrarProntuarioAtendimento(nome);
                 case "3" -> retornado = MED.atualizarProntuarioAtendimento(nome);
                 case "4" -> retornado = apagarProntuarioAtendimento(nome);
@@ -394,7 +391,7 @@ public class MenusMedico{
         System.out.println("");
     }
 // ------------------------   MÉTODOS DE GERENCIAMENTO  ----------------------------------
-    public boolean consultarProntuarioPaciente(String nome){
+    /* public boolean consultarProntuarioPaciente(String nome){
         ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
         if (PPAC != null){
             PPAC.mostrarProntuarioPaciente();
@@ -403,8 +400,8 @@ public class MenusMedico{
         }
         return true;
         
-    }
-    
+    }*/
+    /*
     
 
     
@@ -413,7 +410,7 @@ public class MenusMedico{
         int IDBuscado;
         
         // objetos
-        ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
+       /* ProntuarioPaciente PPAC = banco.buscarProntuarioPaciente(nome);
         if (PPAC != null){
             ArrayList<ProntuarioAtendimento> historico = PPAC.getHistoricoAtendimentos();
 
@@ -426,18 +423,18 @@ public class MenusMedico{
                 for (ProntuarioAtendimento PAT : historico){
                     PAT.resumoProntuarioAtendimento();
                 }
-            }
+            }*//*
             System.out.println("=================================================================");
-            if (!historicoVazio){
+            /*if (!historicoVazio){
                 System.out.println("Qual dos prontuarios voce deseja remover?");
                 System.out.print("Digite o ID: ");
                 IDBuscado = in.nextInt();
                 in.nextLine();
 
-                boolean resp = banco.removerProntuarioAtendimento(IDBuscado);
+                // boolean resp = banco.removerProntuarioAtendimento(IDBuscado);
 
                 // mostrar histórico de atendimentos do paciente
-                if (resp){
+                    if (resp){
                     System.out.println("============= HISTORICO DE ATENDIMENTOS DO PACIENTE =============");
                     for (ProntuarioAtendimento PAT : historico){
                         PAT.resumoProntuarioAtendimento();
@@ -448,10 +445,10 @@ public class MenusMedico{
             }
         } else {
             System.out.println("Prontuario do Paciente nao encontrado!");
-        }
+        }*//*
         return true;
     }
     
 
     
-}
+}*/

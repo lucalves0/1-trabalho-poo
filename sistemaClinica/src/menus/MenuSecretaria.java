@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package menus;
+/*package menus;
+
 import pessoas.*;
 import bancoDados.*;
 import documentos.*;
@@ -143,7 +140,7 @@ public class MenuSecretaria{
         System.out.println("\n========= Paciente cadastrado com sucesso ! ============");
         // paciente.visualizar_dados();
         // mudei o método para ter certeza de que o paciente foi cadastrado no banco de dados
-        banco.buscarPaciente(paciente).visualizar_dados();
+        // banco.buscarPaciente(paciente).visualizar_dados();
         System.out.println("========================================================");
         // System.out.println("+------------------------------------------------------+");
         
@@ -181,7 +178,7 @@ public class MenuSecretaria{
                     if (paciente != null){
                         paciente.visualizar_dados();
                     
-                    /*
+                    
                         System.out.println("+----------------------------+" + "");
                         System.out.println("|====== DADOS PESSOAIS ======|" + "");
                         System.out.println("+---+------------------------+" + "");
@@ -192,7 +189,7 @@ public class MenuSecretaria{
                         System.out.println("| 5 |Email:                  |" + info_contatoEmail);
                         System.out.println("| 6 |Tipo do convenio:       |" + tipo_convenio);
                         System.out.println("+---+------------------------+" + "");
-                    */
+                    
                     
                         System.out.println("+----------------------------------------------+");
                         System.out.println("|Informe o numero do dado que deseja atualizar |");
@@ -609,19 +606,19 @@ public class MenuSecretaria{
                     if (paciente == null){
                         System.out.println("Paciente nao encontrado");
                         
-                        /* logo após a mensagem de erro, o programa sai do default
+                        logo após a mensagem de erro, o programa sai do default
                          e volta a mostrar o menu acima. Isso continua até que o 
-                         usuário volte ou digite o nome de um paciente válido*/
+                         usuário volte ou digite o nome de um paciente válido
                                 
                     } else {
-                        /* ativado no caso do paciente ter sido encontrado */
-                        /* buscamos todas as consultas do paciente no banco de dados
-                           e armazenamos em uma lista "listaConsultas" */
+                         ativado no caso do paciente ter sido encontrado 
+                         buscamos todas as consultas do paciente no banco de dados
+                           e armazenamos em uma lista "listaConsultas" 
                         ArrayList<Consulta> listaConsultas = banco.buscarConsultaPaciente(paciente);
                         boolean vazia = listaConsultas.isEmpty();
-                        /* se a lista de consultas for vazia, é porque não exitem consultas
-                           cadastradas para o paciente */
-                        
+                        se a lista de consultas for vazia, é porque não exitem consultas
+                           cadastradas para o paciente 
+                       
                         if (vazia){
                             System.out.println("O paciente ainda nao possui consultas cadastradas!");
                         } else {
@@ -765,9 +762,9 @@ public class MenuSecretaria{
                     Paciente paciente = banco.buscarPaciente(nomePaciente);
                     
                     if (paciente != null){
-                        /* ativado no caso do paciente ter sido encontrado */
-                        /* buscamos todas as consultas do paciente no banco de dados
-                           e armazenamos em uma lista "listaConsultas" */
+                         ativado no caso do paciente ter sido encontrado 
+                         buscamos todas as consultas do paciente no banco de dados
+                           e armazenamos em uma lista "listaConsultas" 
                         ArrayList<Consulta> listaConsultas = banco.buscarConsultaPaciente(paciente);
 
                         if (listaConsultas.isEmpty()){
@@ -802,3 +799,4 @@ public class MenuSecretaria{
     }
         
 }
+*/

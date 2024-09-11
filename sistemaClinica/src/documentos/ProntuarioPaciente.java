@@ -1,22 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package documentos;
 import pessoas.*;
 import java.util.ArrayList;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-
-@Entity
-@Table(name = "PRONTUARIOS DE PACIENTE")
 public class ProntuarioPaciente {
-    //private static int contadorID = 0; // Contador estático para gerar IDs únicos
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private Paciente paciente;
     private final ArrayList<ProntuarioAtendimento> historicoAtendimentos;
@@ -26,9 +12,8 @@ public class ProntuarioPaciente {
         this.paciente = PAC;
     }
     
-    
     public boolean mostrarProntuarioPaciente(){
-        paciente.visualizar_dados();
+        // paciente.visualizar_dados();
         if (historicoAtendimentos.isEmpty()){
             System.out.println("O paciente não possui histórico de atendimentos");
         } else {
