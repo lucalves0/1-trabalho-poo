@@ -1,5 +1,9 @@
 package pessoas;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 /**
  * A classe funcionário generaliza Secretahria e Medico
@@ -17,6 +21,21 @@ public class Funcionario {
         this.CPF = cpf;
     }
     
+    public List<Paciente> searchPacienteByName(EntityManagerFactory emf, String name){
+    
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE :nomeBuscar");
+        query.setParameter("nomeBuscar", "%" + name + "%");
+
+        List<Paciente> pacientes = query.getResultList();
+        
+        em.close();
+        
+        return pacientes;
+        
+    }
 // SETTERS E GETTERS
 
     public String getNome() {
