@@ -19,7 +19,7 @@ public class Paciente {
     private Integer info_contatoCelular;
     private String info_contatoEmail;
     private String tipo_convenio;
-    private ArrayList<String> medicos;
+    //private ArrayList<String> medicos;
     
     // Dados gerenciado pelo médico
     private String fuma;
@@ -33,6 +33,7 @@ public class Paciente {
     public Paciente() {
     }
 
+    /*
     public Paciente(Integer id, String nome, String data_nascimento, String endereco, Integer info_contatoCelular, String info_contatoEmail, String tipo_convenio) {
         this.id = id;
         this.nome = nome;
@@ -53,6 +54,7 @@ public class Paciente {
         this.cirurgias = cir;
         this.alergias = aler;
     }
+*/
 
     public String getNome() {
         return nome;
@@ -110,13 +112,13 @@ public class Paciente {
         this.id = id;
     }
 
-    public ArrayList<String> getMedicos() {
+    /*public ArrayList<String> getMedicos() {
         return medicos;
-    }
+    }*/
 
-    public void setMedicos(ArrayList<String> medicos) {
+    /*public void setMedicos(ArrayList<String> medicos) {
         this.medicos = medicos;
-    }
+    }*/
 
     public String getFuma() {
         return fuma;

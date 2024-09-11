@@ -21,6 +21,8 @@ public class Funcionario {
         this.CPF = cpf;
     }
     
+    
+    
     public List<Paciente> searchPacienteByName(EntityManagerFactory emf, String name){
     
         // Criaremos a EntityManager através da fabrica

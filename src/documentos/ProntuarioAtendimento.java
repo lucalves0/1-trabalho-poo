@@ -1,12 +1,22 @@
 package documentos;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import pessoas.*;
 
+@Entity
+@Table(name = "PRONTUARIOS DE ATENDIMENTO")
 public class ProntuarioAtendimento {
-    private static int contadorID = 0; // Contador estático para gerar IDs únicos
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
     private String dataAtendimento;
+    @ManyToOne
     private Paciente paciente;
-    private Medico medico;
+    //private Medico medico;
     private String sintomas;
     private String diagnostico;
     private String prescricao;
@@ -14,11 +24,9 @@ public class ProntuarioAtendimento {
     
     // métodos construtores
     public ProntuarioAtendimento(){
-        id = ++contadorID;
     }
-    
+    /*
     public ProntuarioAtendimento(String dataAtendimento, Paciente paciente, Medico medico, String sintomas, String diagnostico, String prescricao, String dataRetorno){
-        id = ++contadorID;
         this.dataAtendimento = dataAtendimento;
         this.paciente = paciente;
         this.medico = medico;
@@ -27,8 +35,9 @@ public class ProntuarioAtendimento {
         this.prescricao = prescricao;
         this.dataRetorno = dataRetorno;
     }
-    
+    */
     // outros métodos
+    /*
     public void mostrarProntuarioAtendimento(){
         
         System.out.println("+-------------------------------------------------+");
@@ -43,9 +52,10 @@ public class ProntuarioAtendimento {
         System.out.println("| 6 |PRESCRIÇÃO   | " + prescricao);
         System.out.println("| 7 |RETORNO      | " + dataRetorno);
     }
+    */
     
     public void resumoProntuarioAtendimento(){
-        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |MEDICO: %s |", id, dataAtendimento, paciente.getNome(), medico.getNome()));
+        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", id, dataAtendimento, paciente.getNome()));
     }
     
     //setters e getters
@@ -58,9 +68,9 @@ public class ProntuarioAtendimento {
         this.paciente = pac;
     }
     
-    public void setMedico(Medico medico) {
+    /*public void setMedico(Medico medico) {
         this.medico = medico;
-    }
+    }*/
 
     public void setSintomas(String sintomas) {
         this.sintomas = sintomas;
@@ -90,9 +100,9 @@ public class ProntuarioAtendimento {
         return dataAtendimento;
     }
 
-    public Medico getMedico() {
+    /*public Medico getMedico() {
         return medico;
-    }
+    }*/
 
     public String getSintomas() {
         return sintomas;

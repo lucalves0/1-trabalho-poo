@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import documentos.Consulta;
+import documentos.ProntuarioAtendimento;
 
 public class Secretaria extends Funcionario{
     // método construtor
@@ -107,6 +108,10 @@ public class Secretaria extends Funcionario{
         
         return consultas;
         
+    }
+    
+    public void serchProntuarioAtendimentoByPaciente(EntityManagerFactory emf, Paciente PAC){
+        EntityManager em = emf.createEntityManager();
     }
     
     public void removeCadPaciente(EntityManagerFactory emf, Paciente pac){
