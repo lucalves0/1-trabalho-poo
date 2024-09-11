@@ -28,7 +28,7 @@ public class JanelaStart extends javax.swing.JFrame {
         
         BtnMedic.addActionListener(e -> {
             setVisible(false);
-            new MenuSecretaria(emf).setVisible(true);
+            new MenuMedicoInicial(emf).setVisible(true);
         });
         
         Exit.addActionListener(e ->{
