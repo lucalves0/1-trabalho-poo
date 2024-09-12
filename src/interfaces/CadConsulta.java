@@ -4,6 +4,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
 import serviços.Secretaria;
 import registros.Consulta;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class CadConsulta extends javax.swing.JFrame {
     
@@ -11,20 +14,21 @@ public class CadConsulta extends javax.swing.JFrame {
     
     public CadConsulta(EntityManagerFactory emf) {
         initComponents();
-        setLocationRelativeTo(null);  
+        setLocationRelativeTo(null);
         
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Secretaria sec = new Secretaria();
         
-        btnSalvarPaciente.addActionListener(evt ->{
+        btnSalvarConsulta.addActionListener(evt ->{
         
             try {
                 
                 Consulta con = new Consulta();
-                con.setData(txtNomePaciente.getText());
-                con.setHorario(txtDataNascimentoPaciente.getText());
-                con.setMedico(txtEnderecoPaciente.getText());
-                con.setPaciente(Integer.parseInt(txtInfoContatoPaciente.getText()));
-                con.setTipoConsulta((String) cbxTpConvenioPaciente.getSelectedItem());
+                con.setData(LocalDate.parse(txtDataConsulta.getText(), formatter).format(formatter));
+                con.setHorario(txtHorarioConsulta.getText());
+                con.setMedico(txtMedico.getText());
+                con.setPaciente(Integer.parseInt(txtIdPaciente.getText()));
+                con.setTipoConsulta((String) cbxTpConsulta.getSelectedItem());
                 con.setDuracao(con.getTipoConsulta());
                 
                 sec.postCadConsulta(emf, con);
@@ -36,14 +40,19 @@ public class CadConsulta extends javax.swing.JFrame {
                 
                 // Se não for um número, exibe a mensagem de erro
                 JOptionPane.showMessageDialog(null, "Por favor, insira um número para o identificador válido.", "Erro", JOptionPane.ERROR_MESSAGE);
-                txtInfoContatoPaciente.setText("");
-                txtInfoContatoPaciente.requestFocus();
+                txtIdPaciente.setText("");
+                txtIdPaciente.requestFocus();
+                
+            }catch (DateTimeParseException e) {
+            
+                JOptionPane.showMessageDialog(null, "Por favor, insira uma data válida. [dd/mm/yyyy]", "Erro", JOptionPane.ERROR_MESSAGE);
+                txtDataConsulta.setText("");
+                txtDataConsulta.requestFocus();
                 
             }
-        
         });
         
-        btnCancelarPaciente.addActionListener(evt -> {
+        btnCancelar.addActionListener(evt -> {
         
             setVisible(false);
             new GerConsulta(emf).setVisible(true);
@@ -59,20 +68,20 @@ public class CadConsulta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         panelFormPaciente = new javax.swing.JPanel();
         label1 = new java.awt.Label();
-        txtNomePaciente = new java.awt.TextField();
+        txtDataConsulta = new java.awt.TextField();
         label2 = new java.awt.Label();
-        txtDataNascimentoPaciente = new java.awt.TextField();
+        txtHorarioConsulta = new java.awt.TextField();
         label3 = new java.awt.Label();
-        txtEnderecoPaciente = new java.awt.TextField();
+        txtMedico = new java.awt.TextField();
         label4 = new java.awt.Label();
-        txtInfoContatoPaciente = new java.awt.TextField();
+        txtIdPaciente = new java.awt.TextField();
         label5 = new java.awt.Label();
-        cbxTpConvenioPaciente = new javax.swing.JComboBox<>();
-        btnSalvarPaciente = new java.awt.Button();
-        btnCancelarPaciente = new java.awt.Button();
+        cbxTpConsulta = new javax.swing.JComboBox<>();
+        btnSalvarConsulta = new java.awt.Button();
+        btnCancelar = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tela de cadastro de pacientes");
+        setTitle("Tela de cadastro de consultas");
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
 
@@ -87,51 +96,51 @@ public class CadConsulta extends javax.swing.JFrame {
         label1.setText("Data:");
         panelFormPaciente.add(label1);
 
-        txtNomePaciente.setPreferredSize(new java.awt.Dimension(1, 1));
-        txtNomePaciente.addActionListener(new java.awt.event.ActionListener() {
+        txtDataConsulta.setPreferredSize(new java.awt.Dimension(1, 1));
+        txtDataConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomePacienteActionPerformed(evt);
+                txtDataConsultaActionPerformed(evt);
             }
         });
-        panelFormPaciente.add(txtNomePaciente);
+        panelFormPaciente.add(txtDataConsulta);
 
         label2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         label2.setText("Horário:");
         panelFormPaciente.add(label2);
 
-        txtDataNascimentoPaciente.setPreferredSize(new java.awt.Dimension(1, 1));
-        panelFormPaciente.add(txtDataNascimentoPaciente);
+        txtHorarioConsulta.setPreferredSize(new java.awt.Dimension(1, 1));
+        panelFormPaciente.add(txtHorarioConsulta);
 
         label3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         label3.setText("Médico:");
         panelFormPaciente.add(label3);
 
-        txtEnderecoPaciente.setPreferredSize(new java.awt.Dimension(1, 1));
-        panelFormPaciente.add(txtEnderecoPaciente);
+        txtMedico.setPreferredSize(new java.awt.Dimension(1, 1));
+        panelFormPaciente.add(txtMedico);
 
         label4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         label4.setText("Identificador do Paciente:");
         panelFormPaciente.add(label4);
 
-        txtInfoContatoPaciente.setPreferredSize(new java.awt.Dimension(1, 1));
-        panelFormPaciente.add(txtInfoContatoPaciente);
+        txtIdPaciente.setPreferredSize(new java.awt.Dimension(1, 1));
+        panelFormPaciente.add(txtIdPaciente);
 
         label5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         label5.setText("Tipo da consulta:");
         panelFormPaciente.add(label5);
 
-        cbxTpConvenioPaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cbxTpConvenioPaciente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Retorno" }));
-        cbxTpConvenioPaciente.setPreferredSize(new java.awt.Dimension(1, 1));
-        panelFormPaciente.add(cbxTpConvenioPaciente);
+        cbxTpConsulta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cbxTpConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Retorno" }));
+        cbxTpConsulta.setPreferredSize(new java.awt.Dimension(1, 1));
+        panelFormPaciente.add(cbxTpConsulta);
 
-        btnSalvarPaciente.setBackground(new java.awt.Color(0, 204, 51));
-        btnSalvarPaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnSalvarPaciente.setLabel("Salvar");
+        btnSalvarConsulta.setBackground(new java.awt.Color(0, 204, 51));
+        btnSalvarConsulta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnSalvarConsulta.setLabel("Salvar");
 
-        btnCancelarPaciente.setBackground(new java.awt.Color(255, 51, 0));
-        btnCancelarPaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCancelarPaciente.setLabel("Voltar");
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 0));
+        btnCancelar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCancelar.setLabel("Voltar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,9 +156,9 @@ public class CadConsulta extends javax.swing.JFrame {
                         .addComponent(panelFormPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(152, 152, 152)
-                        .addComponent(btnCancelarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalvarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSalvarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 181, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -161,17 +170,17 @@ public class CadConsulta extends javax.swing.JFrame {
                 .addComponent(panelFormPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalvarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePacienteActionPerformed
+    private void txtDataConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataConsultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomePacienteActionPerformed
+    }//GEN-LAST:event_txtDataConsultaActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -182,9 +191,9 @@ public class CadConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button btnCancelarPaciente;
-    private java.awt.Button btnSalvarPaciente;
-    private javax.swing.JComboBox<String> cbxTpConvenioPaciente;
+    private java.awt.Button btnCancelar;
+    private java.awt.Button btnSalvarConsulta;
+    private javax.swing.JComboBox<String> cbxTpConsulta;
     private javax.swing.JLabel jLabel1;
     private java.awt.Label label1;
     private java.awt.Label label2;
@@ -192,9 +201,9 @@ public class CadConsulta extends javax.swing.JFrame {
     private java.awt.Label label4;
     private java.awt.Label label5;
     private javax.swing.JPanel panelFormPaciente;
-    private java.awt.TextField txtDataNascimentoPaciente;
-    private java.awt.TextField txtEnderecoPaciente;
-    private java.awt.TextField txtInfoContatoPaciente;
-    private java.awt.TextField txtNomePaciente;
+    private java.awt.TextField txtDataConsulta;
+    private java.awt.TextField txtHorarioConsulta;
+    private java.awt.TextField txtIdPaciente;
+    private java.awt.TextField txtMedico;
     // End of variables declaration//GEN-END:variables
 }
