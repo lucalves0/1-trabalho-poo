@@ -21,7 +21,35 @@ public class Funcionario {
         this.CPF = cpf;
     }
     
+    public void postCadPaciente(EntityManagerFactory emf, Paciente pac){
+        
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+        // criamos um prontuário de paciente
+        
+        // Transformamos este paciente em um objeto persistente 
+        em.getTransaction().begin();
+        em.persist(pac);
+        em.getTransaction().commit();       
+
+        // Fechar o EntityManager e a fábrica
+        em.close();
+    }
     
+    public void updateCadPaciente(EntityManagerFactory emf, Paciente pac){
+        
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+        // criamos um prontuário de paciente
+        
+        // Transformamos este paciente em um objeto persistente 
+        em.getTransaction().begin();
+        em.merge(pac);
+        em.getTransaction().commit();       
+
+        // Fechar o EntityManager e a fábrica
+        em.close();
+    }
     
     public List<Paciente> searchPacienteByName(EntityManagerFactory emf, String name){
     

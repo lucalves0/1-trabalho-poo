@@ -20,16 +20,16 @@ public class Medico extends Funcionario{
     }
     
     // SETS e GETS
-    public ProntuarioPaciente buscarProntuarioPaciente(EntityManagerFactory emf, Paciente paciente){
+    public List<ProntuarioPaciente> buscarProntuarioPaciente(EntityManagerFactory emf, Integer id){
         EntityManager em = emf.createEntityManager();
         
-        Query query = em.createQuery("SELECT p FROM ProntuarioPaciente p WHERE p.paciente = :paciente");
-        query.setParameter("paciente", paciente);
+        Query query = em.createQuery("SELECT p FROM ProntuarioPaciente p WHERE p.idpaciente = :id");
+        query.setParameter("id", id);
         
-        ProntuarioPaciente PPAC = (ProntuarioPaciente) query.getSingleResult();
+        List<ProntuarioPaciente> listaProntuarios = query.getResultList();
         
         em.close();
-        return PPAC;
+        return listaProntuarios;
     }
     
     public void cadastrarProntuarioAtendimento(EntityManagerFactory emf, ProntuarioAtendimento PAT){

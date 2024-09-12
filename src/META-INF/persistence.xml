@@ -4,6 +4,8 @@
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>documentos.Consulta</class>
     <class>pessoas.Paciente</class>
+    <class>documentos.ProntuarioAtendimento</class>
+    <class>documentos.ProntuarioPaciente</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sistemaClinicaDB"/>
       <property name="javax.persistence.jdbc.user" value="sistemaClinica"/>

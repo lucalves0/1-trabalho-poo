@@ -1,12 +1,18 @@
 package pessoas;
 
+import documentos.ProntuarioAtendimento;
+import documentos.ProntuarioPaciente;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "PACIENTES")
 public class Paciente {
     
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +27,8 @@ public class Paciente {
     private String tipo_convenio;
     //private ArrayList<String> medicos;
     
+    private ArrayList<ProntuarioAtendimento> historicoAtendimentos = new ArrayList<>();
+    
     // Dados gerenciado pelo médico
     private String fuma;
     private String bebe;
@@ -29,32 +37,9 @@ public class Paciente {
     private String doencaCardiaca;
     private String cirurgias;
     private String alergias;
-
+    
     public Paciente() {
     }
-
-    /*
-    public Paciente(Integer id, String nome, String data_nascimento, String endereco, Integer info_contatoCelular, String info_contatoEmail, String tipo_convenio) {
-        this.id = id;
-        this.nome = nome;
-        this.data_nascimento = data_nascimento;
-        this.endereco = endereco;
-        this.info_contatoCelular = info_contatoCelular;
-        this.info_contatoEmail = info_contatoEmail;
-        this.tipo_convenio = tipo_convenio;
-    }
-    
-    // setter para dados complementares
-    public void setDadosComplementares(String fuma, String bebe, String col, String diab, String card, String cir, String aler){
-        this.fuma = fuma;
-        this.bebe = bebe;
-        this.nivelColesterol = col;
-        this.diabete = diab;
-        this.doencaCardiaca = card;
-        this.cirurgias = cir;
-        this.alergias = aler;
-    }
-*/
 
     public String getNome() {
         return nome;
@@ -119,7 +104,10 @@ public class Paciente {
     /*public void setMedicos(ArrayList<String> medicos) {
         this.medicos = medicos;
     }*/
-
+    
+    public ArrayList<ProntuarioAtendimento> getHistoricoAtendimento(){
+        return historicoAtendimentos;
+    }
     public String getFuma() {
         return fuma;
     }

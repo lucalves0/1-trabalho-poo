@@ -12,11 +12,9 @@ import pessoas.*;
 public class ProntuarioAtendimento {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
     private String dataAtendimento;
-    @ManyToOne
-    private Paciente paciente;
-    //private Medico medico;
+    private Integer idpaciente;
+    private String nomepaciente;
     private String sintomas;
     private String diagnostico;
     private String prescricao;
@@ -55,7 +53,7 @@ public class ProntuarioAtendimento {
     */
     
     public void resumoProntuarioAtendimento(){
-        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", id, dataAtendimento, paciente.getNome()));
+        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", id, dataAtendimento, nomepaciente));
     }
     
     //setters e getters
@@ -64,8 +62,12 @@ public class ProntuarioAtendimento {
         this.dataAtendimento = dataAtendimento;
     }
 
-    public void setPaciente(Paciente pac){
-        this.paciente = pac;
+    public void setPaciente(Integer idpaciente){
+        this.idpaciente = idpaciente;
+    }
+    
+    public void setNomePaciente(String nomepaciente){
+        this.nomepaciente = nomepaciente;
     }
     
     /*public void setMedico(Medico medico) {
@@ -92,14 +94,19 @@ public class ProntuarioAtendimento {
         return id;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public Integer getPaciente() {
+        return idpaciente;
+    }
+    
+    public String getNomePaciente(){
+        return nomepaciente;
     }
     
     public String getDataAtendimento() {
         return dataAtendimento;
     }
 
+    
     /*public Medico getMedico() {
         return medico;
     }*/

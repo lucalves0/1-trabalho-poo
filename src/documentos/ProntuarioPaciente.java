@@ -9,19 +9,18 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PRONTUÁRIOS DOS PACIENTES")
+@Table(name="PRONTUARIOS_PACIENTES")
 public class ProntuarioPaciente {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    private Integer idpaciente;
+    private String nomePaciente;
+    private final ArrayList<ProntuarioAtendimento> historicoAtendimentos = null;
     
-    @OneToOne
-    private Paciente paciente;
-    private final ArrayList<ProntuarioAtendimento> historicoAtendimentos;
-    
-    public ProntuarioPaciente(Paciente PAC){
+    /*public ProntuarioPaciente(Paciente PAC){
         this.historicoAtendimentos = new ArrayList<>();
         this.paciente = PAC;
-    }
+    }*/
     /*
     public boolean mostrarProntuarioPaciente(){
         // paciente.visualizar_dados();
@@ -37,8 +36,12 @@ public class ProntuarioPaciente {
     */
 // setters e getters
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setPaciente(Integer idpaciente) {
+        this.idpaciente = idpaciente;
+    }
+    
+    public void setNomePaciente(String nome){
+        this.nomePaciente = nome;
     }
 
     public void setNovoAtendimento(ProntuarioAtendimento pat) {
@@ -49,8 +52,12 @@ public class ProntuarioPaciente {
         return id;
     }
     
-    public Paciente getPaciente() {
-        return paciente;
+    public Integer getPaciente() {
+        return idpaciente;
+    }
+    
+    public String getNomePaciente(){
+        return nomePaciente;
     }
 
     public ArrayList<ProntuarioAtendimento> getHistoricoAtendimentos() {

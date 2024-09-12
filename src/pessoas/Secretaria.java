@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import documentos.Consulta;
 import documentos.ProntuarioAtendimento;
+import documentos.ProntuarioPaciente;
 
 public class Secretaria extends Funcionario{
     // método construtor
@@ -144,15 +145,28 @@ public class Secretaria extends Funcionario{
         
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
-
+        // criamos um prontuário de paciente
+        
         // Transformamos este paciente em um objeto persistente 
         em.getTransaction().begin();
         em.persist(pac);
+        em.getTransaction().commit();       
+
+        // Fechar o EntityManager e a fábrica
+        em.close();
+    }
+    
+    public void postProntuarioPaciente(EntityManagerFactory emf, ProntuarioPaciente PPAC){
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        // Transformamos esta consulta em um objeto persistente 
+        em.getTransaction().begin();
+        em.persist(PPAC);
         em.getTransaction().commit();
 
         // Fechar o EntityManager e a fábrica
         em.close();
-
     }
     
     public void postCadConsulta(EntityManagerFactory emf, Consulta con){
