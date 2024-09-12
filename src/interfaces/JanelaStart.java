@@ -23,14 +23,19 @@ public class JanelaStart extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         btnSecretaria.addActionListener(e -> {
-            setVisible(false);
+            this.dispose();
             new MenuSecretaria(emf).setVisible(true);
         });
         
         BtnMedic.addActionListener(e -> {
-            setVisible(false);
+            this.dispose();
             Medico med = new Medico();
             new MenuMedicoInicial(emf, med).setVisible(true);
+        });
+        
+        BtnMessage.addActionListener(e -> {
+            this.dispose();
+            new GerMensagens(emf).setVisible(true);
         });
         
         Exit.addActionListener(e ->{

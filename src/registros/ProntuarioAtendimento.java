@@ -1,66 +1,50 @@
 package registros;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import serviços.*;
 
 @Entity
-@Table(name = "PRONTUARIOS DE ATENDIMENTO")
-public class ProntuarioAtendimento {
+@Table(name = "PRONTUARIOS_ATENDIMENTO")
+public class ProntuarioAtendimento implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String dataAtendimento;
-    private Integer idpaciente;
-    private String nomepaciente;
-    private String sintomas;
-    private String diagnostico;
-    private String prescricao;
-    private String dataRetorno;
+    private Integer id;
+    private String dataAtendimento = "";
+    //private Integer idpaciente;
+    //private String nomepaciente;
+    
+    @ManyToOne
+    private Paciente paciente;
+    private String sintomas = "";
+    private String diagnostico = "";
+    private String prescricao = "";
+    private String dataRetorno = "";
     
     // métodos construtores
     public ProntuarioAtendimento(){
     }
-    /*
-    public ProntuarioAtendimento(String dataAtendimento, Paciente paciente, Medico medico, String sintomas, String diagnostico, String prescricao, String dataRetorno){
-        this.dataAtendimento = dataAtendimento;
-        this.paciente = paciente;
-        this.medico = medico;
-        this.sintomas = sintomas;
-        this.diagnostico = diagnostico;
-        this.prescricao = prescricao;
-        this.dataRetorno = dataRetorno;
-    }
-    */
-    // outros métodos
-    /*
-    public void mostrarProntuarioAtendimento(){
-        
-        System.out.println("+-------------------------------------------------+");
-        System.out.println("|=========== PRONTUÁRIO DE ATENDIMENTO ===========|");
-        System.out.println("+-------------------------------------------------+");
-        System.out.println("| - |ID           | " + id);
-        System.out.println("| 1 |DATA         | " + dataAtendimento);
-        System.out.println("| 2 |PACIENTE     | " + paciente.getNome());
-        System.out.println("| 3 |MEDICO       | " + medico.getNome());
-        System.out.println("| 4 |SINTOMAS     | " + sintomas);
-        System.out.println("| 5 |DIAGNÓSTICO  | " + diagnostico);
-        System.out.println("| 6 |PRESCRIÇÃO   | " + prescricao);
-        System.out.println("| 7 |RETORNO      | " + dataRetorno);
-    }
-    */
     
+    /*
     public void resumoProntuarioAtendimento(){
-        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", id, dataAtendimento, nomepaciente));
-    }
+        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", id, dataAtendimento, this));
+    }*/
     
     //setters e getters
 
+    public Paciente getPaciente(){
+        return paciente;
+    }
+    public void setPaciente(Paciente paciente){
+        this.paciente = paciente;
+    }
     public void setDataAtendimento(String dataAtendimento) {
         this.dataAtendimento = dataAtendimento;
     }
-
+/*
     public void setPaciente(Integer idpaciente){
         this.idpaciente = idpaciente;
     }
@@ -68,7 +52,7 @@ public class ProntuarioAtendimento {
     public void setNomePaciente(String nomepaciente){
         this.nomepaciente = nomepaciente;
     }
-    
+    */
     /*public void setMedico(Medico medico) {
         this.medico = medico;
     }*/
@@ -89,10 +73,10 @@ public class ProntuarioAtendimento {
         this.dataRetorno = dataRetorno;
     }
     
-    public int getId(){
+    public Integer getId(){
         return id;
     }
-
+/*
     public Integer getPaciente() {
         return idpaciente;
     }
@@ -100,7 +84,7 @@ public class ProntuarioAtendimento {
     public String getNomePaciente(){
         return nomepaciente;
     }
-    
+    */
     public String getDataAtendimento() {
         return dataAtendimento;
     }

@@ -1,12 +1,13 @@
 package interfaces;
 
 import java.util.List;
+import java.util.ArrayList;
+import registros.Consulta;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import registros.Paciente;
 import serviços.Secretaria;
+import serviços.GerenciadorMensagens;
 
 public class GerMensagens extends javax.swing.JFrame {
     
@@ -17,9 +18,28 @@ public class GerMensagens extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         Secretaria sec = new Secretaria();
-        
+        GerenciadorMensagens germsg = new GerenciadorMensagens();
         DefaultListModel<String> listModel = new DefaultListModel<>();
-
+        
+        List<Consulta> Consultas = sec.searchAllConsultas(emf);
+        List<Paciente> Pacientes = new ArrayList<>();
+        
+        for(int i = 0; i < Consultas.size(); i++){
+            Paciente pac = sec.searchPaciente(emf, Consultas.get(i).getPaciente());
+            Pacientes.add(pac);
+        }
+        
+        System.out.println("Até aqui");
+        System.out.println(Consultas.size());
+        System.out.println(Pacientes.size());
+        
+        List<String> Mensagens = germsg.enviarMensagens(Consultas, Pacientes);
+        
+        for(int i = 0; i < Mensagens.size(); i++){
+            listModel.addElement(Mensagens.get(i));
+        }
+        
+        listMsgs.setModel(listModel);
      
         Voltar.addActionListener(e -> {
             this.dispose();

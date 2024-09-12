@@ -32,6 +32,20 @@ public class Secretaria extends Departamento{
         return pacientes;
 
     }
+    
+        public List<Consulta> searchAllConsultas(EntityManagerFactory emf){
+        
+        // Criaremos a EntityManager através da fabrica
+        EntityManager em = emf.createEntityManager();
+
+        Query query = em.createQuery("SELECT c FROM Consulta c");
+        List<Consulta> consultas = query.getResultList();
+        
+        em.close();
+        
+        return consultas;
+
+    }
 
     public List<Consulta> searchConsultaList(EntityManagerFactory emf, Integer id){
         

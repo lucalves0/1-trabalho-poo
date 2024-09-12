@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import registros.Paciente;
 import registros.Consulta;
+import java.util.List;
 import java.util.ArrayList;
 
 public class GerenciadorMensagens{
@@ -15,9 +16,9 @@ public class GerenciadorMensagens{
     public GerenciadorMensagens(){}
 
     // Métodos para o Envio de Mensagens:
-    public ArrayList<String> enviarMensagens(ArrayList<Consulta> Consultas, ArrayList<Paciente> Pacientes){
+    public List<String> enviarMensagens(List<Consulta> Consultas, List<Paciente> Pacientes){
     
-        ArrayList<String> Mensagens = new ArrayList();
+        List<String> Mensagens = new ArrayList<>();
         for(int i = 0; i < Consultas.size(); i++){
         
             if(!dataAtual.isEqual(LocalDate.now())){
