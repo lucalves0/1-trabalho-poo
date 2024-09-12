@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import serviços.Secretaria;
+import servicos.Secretaria;
 import registros.Consulta;
 
 public class GerConsulta extends javax.swing.JFrame {

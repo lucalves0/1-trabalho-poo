@@ -5,7 +5,7 @@
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
-import serviços.Medico;
+import servicos.Medico;
 
 /**
  *

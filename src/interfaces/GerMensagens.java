@@ -6,8 +6,8 @@ import registros.Consulta;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
 import registros.Paciente;
-import serviços.Secretaria;
-import serviços.GerenciadorMensagens;
+import servicos.Secretaria;
+import servicos.GerenciadorMensagens;
 
 public class GerMensagens extends javax.swing.JFrame {
     

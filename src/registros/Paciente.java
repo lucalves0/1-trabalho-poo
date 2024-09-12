@@ -1,7 +1,7 @@
 package registros;
 
+import java.io.Serializable;
 import registros.ProntuarioAtendimento;
-import registros.ProntuarioPaciente;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PACIENTES")
-public class Paciente {
+public class Paciente implements Serializable{
     
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -25,9 +25,6 @@ public class Paciente {
     private Integer info_contatoCelular;
     private String info_contatoEmail;
     private String tipo_convenio;
-    //private ArrayList<String> medicos;
-    
-    private ArrayList<ProntuarioAtendimento> historicoAtendimentos = new ArrayList<>();
     
     // Dados gerenciado pelo médico
     private String fuma;
@@ -96,18 +93,7 @@ public class Paciente {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    /*public ArrayList<String> getMedicos() {
-        return medicos;
-    }*/
-
-    /*public void setMedicos(ArrayList<String> medicos) {
-        this.medicos = medicos;
-    }*/
     
-    public ArrayList<ProntuarioAtendimento> getHistoricoAtendimento(){
-        return historicoAtendimentos;
-    }
     public String getFuma() {
         return fuma;
     }

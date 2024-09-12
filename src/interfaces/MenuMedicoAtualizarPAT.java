@@ -6,7 +6,7 @@ package interfaces;
 
 import registros.ProntuarioAtendimento;
 import javax.persistence.EntityManagerFactory;
-import serviços.Medico;
+import servicos.Medico;
 
 /**
  *

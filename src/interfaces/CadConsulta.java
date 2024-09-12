@@ -2,7 +2,7 @@ package interfaces;
 
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
-import serviços.Secretaria;
+import servicos.Secretaria;
 import registros.Consulta;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

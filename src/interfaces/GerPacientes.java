@@ -6,7 +6,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import registros.Paciente;
-import serviços.Secretaria;
+import servicos.Secretaria;
 
 public class GerPacientes extends javax.swing.JFrame {
     

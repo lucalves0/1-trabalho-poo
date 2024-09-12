@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
-import serviços.Secretaria;
+import servicos.Secretaria;
 import registros.Consulta;
 
 public class UpInforConsulta extends javax.swing.JFrame {

@@ -3,7 +3,7 @@ package interfaces;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
 import registros.Paciente;
-import serviços.Secretaria;
+import servicos.Secretaria;
 
 public class UpInforPacientes extends javax.swing.JFrame {
 

@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import serviços.Medico;
+import servicos.Medico;
 import registros.Paciente;
 
 /**
