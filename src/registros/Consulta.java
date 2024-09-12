@@ -1,4 +1,4 @@
-package documentos;
+package registros;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

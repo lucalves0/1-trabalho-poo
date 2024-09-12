@@ -9,8 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import pessoas.Medico;
-import pessoas.Paciente;
+import serviços.Medico;
+import registros.Paciente;
 
 public class MenuMedicoInicial extends javax.swing.JFrame {
     private EntityManagerFactory EMF;

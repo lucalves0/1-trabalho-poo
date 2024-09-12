@@ -1,7 +1,7 @@
-package pessoas;
+package registros;
 
-import documentos.ProntuarioAtendimento;
-import documentos.ProntuarioPaciente;
+import registros.ProntuarioAtendimento;
+import registros.ProntuarioPaciente;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

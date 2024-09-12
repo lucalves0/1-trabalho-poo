@@ -5,8 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import pessoas.Paciente;
-import pessoas.Secretaria;
+import registros.Paciente;
+import serviços.Secretaria;
 
 public class GerPacientes extends javax.swing.JFrame {
     
@@ -16,7 +16,7 @@ public class GerPacientes extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        Secretaria sec = new Secretaria("Teste", "123");
+        Secretaria sec = new Secretaria();
         
         btnBuscarPaciente.addActionListener(avt -> {
             String nomeBuscar = txtBuscaNomePaciente.getText();

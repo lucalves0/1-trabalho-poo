@@ -1,24 +1,24 @@
-package pessoas;
-import java.util.ArrayList;
+package serviços;
+import registros.Paciente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 /**
- * A classe funcionário generaliza Secretahria e Medico
+ * A classe Departamentos generaliza Secretaria e Medico
  */
-public class Funcionario {
-    private static int contadorID = 0; // Contador estático para gerar IDs únicos
-    private int ID;
+public class Departamento {
     protected String nome;
-    protected String CPF;
+    
+    // Diferentes Departamentos tem níveis de acesso diferentes!
+    // Secretaria tem nivel 1 e médico tem nível 2
+    protected Integer nivelAcesso;
     
     // CONSTRUTORES
-    public Funcionario(String nome, String cpf){
-        ID = contadorID++;
+    public Departamento(String nome, Integer nivelAcesso){
         this.nome = nome;
-        this.CPF = cpf;
+        this.nivelAcesso = nivelAcesso;
     }
     
     public void postCadPaciente(EntityManagerFactory emf, Paciente pac){
@@ -76,16 +76,12 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public String getCPF() {
-        return CPF;
+    public Integer getNivelAcesso() {
+        return this.nivelAcesso;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
-
-    public int getID() {
-        return ID;
+    public void setNivelAcesso(Integer nivelAcesso){
+        this.nivelAcesso = nivelAcesso;
     }
     
 }

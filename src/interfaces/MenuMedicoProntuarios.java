@@ -4,15 +4,15 @@
  */
 package interfaces;
 
-import documentos.ProntuarioAtendimento;
-import documentos.ProntuarioPaciente;
+import registros.ProntuarioAtendimento;
+import registros.ProntuarioPaciente;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import pessoas.Medico;
-import pessoas.Paciente;
+import serviços.Medico;
+import registros.Paciente;
 
 public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private EntityManagerFactory EMF;

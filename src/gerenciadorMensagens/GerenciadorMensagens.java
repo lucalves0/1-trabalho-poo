@@ -2,8 +2,8 @@ package gerenciadorMensagens;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import pessoas.Paciente;
-import documentos.Consulta;
+import registros.Paciente;
+import registros.Consulta;
 import java.util.ArrayList;
 
 public class GerenciadorMensagens{
@@ -42,11 +42,11 @@ public class GerenciadorMensagens{
         
     }
     
-    public String enviarSMS(Consulta con, Paciente pac){
+    private String enviarSMS(Consulta con, Paciente pac){
         return "SMS Enviado para " + pac.getNome() + " para o número " + pac.getInfo_contatoCelular() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
     }
     
-    public String enviarEmail(Consulta con, Paciente pac){
+    private String enviarEmail(Consulta con, Paciente pac){
         return "Email Enviado para " + pac.getNome() + " para o email " + pac.getInfo_contatoEmail() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
     }
 

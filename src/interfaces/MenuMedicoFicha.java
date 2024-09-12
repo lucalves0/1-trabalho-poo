@@ -5,8 +5,8 @@
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
-import pessoas.Medico;
-import pessoas.Paciente;
+import serviços.Medico;
+import registros.Paciente;
 
 public class MenuMedicoFicha extends javax.swing.JFrame {
     private EntityManagerFactory EMF;

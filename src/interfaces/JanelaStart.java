@@ -5,7 +5,7 @@
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
-import pessoas.Medico;
+import serviços.Medico;
 
 /**
  *
@@ -29,8 +29,8 @@ public class JanelaStart extends javax.swing.JFrame {
         
         BtnMedic.addActionListener(e -> {
             setVisible(false);
-            Medico PEDRO = new Medico("PEDRO", "456");
-            new MenuMedicoInicial(emf, PEDRO).setVisible(true);
+            Medico med = new Medico();
+            new MenuMedicoInicial(emf, med).setVisible(true);
         });
         
         Exit.addActionListener(e ->{

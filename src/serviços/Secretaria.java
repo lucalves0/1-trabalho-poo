@@ -1,17 +1,18 @@
-package pessoas;
+package serviços;
 
+import registros.Paciente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import documentos.Consulta;
-import documentos.ProntuarioAtendimento;
-import documentos.ProntuarioPaciente;
+import registros.Consulta;
+import registros.ProntuarioAtendimento;
+import registros.ProntuarioPaciente;
 
-public class Secretaria extends Funcionario{
+public class Secretaria extends Departamento{
     
-    public Secretaria(String nome, String CPF){
-        super(nome, CPF);
+    public Secretaria(){
+        super("Secretaria", 1);
     }
     
     // Métodos de cadastro de Pacientes
@@ -79,22 +80,6 @@ public class Secretaria extends Funcionario{
 
     }
     
-    public List<Paciente> searchPacienteByName(EntityManagerFactory emf, String name){
-    
-        // Criaremos a EntityManager através da fabrica
-        EntityManager em = emf.createEntityManager();
-
-        Query query = em.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE :nomeBuscar");
-        query.setParameter("nomeBuscar", "%" + name + "%");
-
-        List<Paciente> pacientes = query.getResultList();
-        
-        em.close();
-        
-        return pacientes;
-        
-    }
-    
     public List<Consulta> searchConsultaByPaciente(EntityManagerFactory emf, Integer id){
     
         // Criaremos a EntityManager através da fabrica
@@ -112,7 +97,7 @@ public class Secretaria extends Funcionario{
     }
     
     public void serchProntuarioAtendimentoByPaciente(EntityManagerFactory emf, Paciente PAC){
-        EntityManager em = emf.createEntityManager();
+        //EntityManager em = emf.createEntityManager();
     }
     
     public void removeCadPaciente(EntityManagerFactory emf, Paciente pac){
@@ -136,21 +121,6 @@ public class Secretaria extends Funcionario{
         con = em.merge(con);
         em.remove(con);
         em.getTransaction().commit();
-
-        // Fechar o EntityManager e a fábrica
-        em.close();
-    }
-    
-    public void postCadPaciente(EntityManagerFactory emf, Paciente pac){
-        
-        // Criaremos a EntityManager através da fabrica
-        EntityManager em = emf.createEntityManager();
-        // criamos um prontuário de paciente
-        
-        // Transformamos este paciente em um objeto persistente 
-        em.getTransaction().begin();
-        em.persist(pac);
-        em.getTransaction().commit();       
 
         // Fechar o EntityManager e a fábrica
         em.close();
@@ -184,21 +154,6 @@ public class Secretaria extends Funcionario{
 
     }
     
-    public void updateCadPaciente(EntityManagerFactory emf, Paciente pac){
-        
-        // Criaremos a EntityManager através da fabrica
-        EntityManager em = emf.createEntityManager();
-
-        // Transformamos este paciente em um objeto persistente 
-        em.getTransaction().begin();
-        em.merge(pac);
-        em.getTransaction().commit();
-
-        // Fechar o EntityManager e a fábrica
-        em.close();
-
-    }
-    
     public void updateCadConsulta(EntityManagerFactory emf, Consulta con){
         
         // Criaremos a EntityManager através da fabrica
@@ -212,23 +167,5 @@ public class Secretaria extends Funcionario{
         // Fechar o EntityManager e a fábrica
         em.close();
 
-    }
-    
-    // sets e gets
-    
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-    
-    public void setCPF(String CPF){
-        this.CPF = CPF;
-    }
-    
-    public String getNome(){
-        return this.nome;
-    }
-    
-    public String getCPF(){
-        return this.CPF;
     }
 }

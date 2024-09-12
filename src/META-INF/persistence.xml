@@ -2,10 +2,10 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <persistence-unit name="DBCLIENT" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <class>documentos.Consulta</class>
-    <class>pessoas.Paciente</class>
-    <class>documentos.ProntuarioAtendimento</class>
-    <class>documentos.ProntuarioPaciente</class>
+    <class>registros.ProntuarioPaciente</class>
+    <class>registros.ProntuarioAtendimento</class>
+    <class>registros.Consulta</class>
+    <class>registros.Paciente</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/DBCLIENT"/>
       <property name="javax.persistence.jdbc.user" value="adm"/>

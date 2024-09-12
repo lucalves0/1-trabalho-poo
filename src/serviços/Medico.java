@@ -1,9 +1,9 @@
-package pessoas;
+package serviços;
 
 //import java.util.ArrayList;
 
-import documentos.ProntuarioAtendimento;
-import documentos.ProntuarioPaciente;
+import registros.ProntuarioAtendimento;
+import registros.ProntuarioPaciente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,12 +11,12 @@ import javax.persistence.Query;
 
 //import java.util.Scanner;
 
-public class Medico extends Funcionario{
+public class Medico extends Departamento{
     //private Scanner in = new Scanner(System.in);
     
     // método construtor
-    public Medico(String nome, String CPF){
-        super(nome, CPF);
+    public Medico(){
+        super("Medico", 2);
     }
     
     // SETS e GETS
@@ -46,22 +46,6 @@ public class Medico extends Funcionario{
         em.merge(PAT);
         em.getTransaction().commit();
         em.close();
-    }
-    
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-    
-    public void setCPF(String CPF){
-        this.CPF = CPF;
-    }
-    
-    public String getNome(){
-        return this.nome;
-    }
-    
-    public String getCPF(){
-        return this.CPF;
     }
     
 }

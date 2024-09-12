@@ -4,9 +4,9 @@
  */
 package interfaces;
 
-import documentos.ProntuarioAtendimento;
+import registros.ProntuarioAtendimento;
 import javax.persistence.EntityManagerFactory;
-import pessoas.Medico;
+import serviços.Medico;
 
 public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
     private EntityManagerFactory EMF;

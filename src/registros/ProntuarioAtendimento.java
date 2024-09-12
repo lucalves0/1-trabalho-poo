@@ -1,11 +1,10 @@
-package documentos;
+package registros;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import pessoas.*;
 
 @Entity
 @Table(name = "PRONTUARIOS DE ATENDIMENTO")

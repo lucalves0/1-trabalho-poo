@@ -1,5 +1,4 @@
-package documentos;
-import pessoas.*;
+package registros;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

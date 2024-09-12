@@ -2,8 +2,8 @@ package interfaces;
 
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
-import pessoas.Paciente;
-import pessoas.Secretaria;
+import registros.Paciente;
+import serviços.Secretaria;
 
 public class UpInforPacientes extends javax.swing.JFrame {
 
@@ -13,7 +13,7 @@ public class UpInforPacientes extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        Secretaria sec = new Secretaria("Teste", "123");
+        Secretaria sec = new Secretaria();
         
         Paciente paciente = sec.searchPaciente(emf, idPaciente);
         
