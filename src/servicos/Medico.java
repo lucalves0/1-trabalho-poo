@@ -6,10 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
-//import java.util.Scanner;
-
 public class Medico extends Departamento{
-    //private Scanner in = new Scanner(System.in);
     
     // método construtor
     public Medico(){

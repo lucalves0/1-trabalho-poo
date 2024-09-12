@@ -56,23 +56,9 @@ public class ProntuarioAtendimento implements Serializable{
     public Integer getId(){
         return id;
     }
-/*
-    public Integer getPaciente() {
-        return idpaciente;
-    }
-    
-    public String getNomePaciente(){
-        return nomepaciente;
-    }
-    */
     public String getDataAtendimento() {
         return dataAtendimento;
     }
-
-    
-    /*public Medico getMedico() {
-        return medico;
-    }*/
 
     public String getSintomas() {
         return sintomas;
