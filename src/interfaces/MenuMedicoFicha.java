@@ -8,10 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import pessoas.Medico;
 import pessoas.Paciente;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoFicha extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private MenuMedicoInicial PAGINA_ANTERIOR;
@@ -27,7 +23,7 @@ public class MenuMedicoFicha extends javax.swing.JFrame {
         this.PACIENTE = paciente;
         initComponents();
         iniciaCampos();
-        
+        setLocationRelativeTo(null);
     }
 
     /**

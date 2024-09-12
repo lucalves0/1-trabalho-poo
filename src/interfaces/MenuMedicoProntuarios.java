@@ -14,10 +14,6 @@ import javax.swing.JOptionPane;
 import pessoas.Medico;
 import pessoas.Paciente;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private MenuMedicoInicial MENU_ANTERIOR;
@@ -34,6 +30,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         this.PACIENTE = paciente;
         this.HISTORICO_ATENDIMENTOS = paciente.getHistoricoAtendimento();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

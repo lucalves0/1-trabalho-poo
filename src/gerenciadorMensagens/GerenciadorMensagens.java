@@ -1,111 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- *//*
 package gerenciadorMensagens;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import pessoas.Paciente;
+import documentos.Consulta;
 import java.util.ArrayList;
-import pessoas.*;
-import documentos.*;
 
-public class GerenciadorMensagens {
-    
+public class GerenciadorMensagens{
+
     // Data Atual
-    private static String dataAtual;
+    private static LocalDate dataAtual = LocalDate.now();
     
-    // ----------------------- MÉTODOS PARA O ENVIO DE MENSAGENS -----------------------
-    
+    // Construtor
     public GerenciadorMensagens(){}
+
+    // Métodos para o Envio de Mensagens:
+    public ArrayList<String> enviarMensagens(ArrayList<Consulta> Consultas, ArrayList<Paciente> Pacientes){
     
-    public void enviarMensagens(ArrayList<Consulta> Consultas){
-    
-        for(Consulta con : Consultas){
+        ArrayList<String> Mensagens = new ArrayList();
+        for(int i = 0; i < Consultas.size(); i++){
         
-            if(this.proxDia(dataAtual, con.getData())){
+            if(!dataAtual.isEqual(LocalDate.now())){
+                dataAtual = LocalDate.now();
+            }
+            
+            LocalDate dataConsulta = LocalDate.parse(Consultas.get(i).getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+            if(dataAtual.plusDays(1).isEqual(dataConsulta)){
                 
-                if(con.getPaciente().getInfo_contatoCelular() != null){
-                    //enviarSMS(con.getPaciente(), con);
+                if(Pacientes.get(i).getInfo_contatoCelular() != null){
+                    Mensagens.add(enviarSMS(Consultas.get(i), Pacientes.get(i)));
                 }
-                if(con.getPaciente().getInfo_contatoEmail() != null){
-                    // enviarEmail(con.getPaciente(), con);
+                if(Pacientes.get(i).getInfo_contatoEmail() != null){
+                    Mensagens.add(enviarEmail(Consultas.get(i), Pacientes.get(i)));
                 }
             }
             
         }
         
-    }*/
-    
-    /* public void enviarSMS(Paciente paciente, Consulta consulta){
-        
-        String celular = paciente.getInfo_contatoCelular();
-    
-        System.out.println("SMS ENVIADO PARA " + celular);
-        System.out.println("----------------------------------------------------");
-        System.out.println("Prezado(a) " + paciente.getNome() + ",\n");
-        System.out.println("Enviamos este SMS para lembra-lo de sua consulta");
-        System.out.println("com o Dr. " + consulta.getMedico().getNome() + " agendada para amanha");
-        System.out.println("dia " + consulta.getData() + " no horario " + consulta.getHorario() + " com duracao de");
-        System.out.println(consulta.getDuracao() + " sendo do tipo " + consulta.getTipoConsulta() + ".");
-        System.out.println("\nContamos com a sua presença, avise-nos caso");
-        System.out.println("algum imprevisto ocorra.\n");
-        System.out.println("Att.\nClinica Pura Saude.");
-        System.out.println("----------------------------------------------------\n\n");
+        return Mensagens;
         
     }
     
-    public void enviarEmail(Paciente paciente, Consulta consulta){
-    
-        String email = paciente.getInfo_contatoEmail();
-    
-        System.out.println("EMAIL ENVIADO PARA " + email);
-        System.out.println("----------------------------------------------------");
-        System.out.println("Prezado(a) " + paciente.getNome() + ",\n");
-        System.out.println("Enviamos este e-mail para lembra-lo de sua consulta");
-        System.out.println("com o Dr. " + consulta.getMedico().getNome() + " agendada para amanha");
-        System.out.println("dia " + consulta.getData() + " no horario " + consulta.getHorario() + " com duracao de");
-        System.out.println(consulta.getDuracao() + " sendo do tipo " + consulta.getTipoConsulta() + ".");
-        System.out.println("\nContamos com a sua presença, avise-nos caso");
-        System.out.println("algum imprevisto ocorra.\n");
-        System.out.println("Att.\nClinica Pura Saude.");
-        System.out.println("----------------------------------------------------\n\n");
-        
-    }*/ /*
-    
-    public boolean proxDia(String d1, String d2){
-    
-        int dia1 = Integer.parseInt(d1.substring(0, 2));
-        int mes1 = Integer.parseInt(d1.substring(3, 5));
-        int ano1 = Integer.parseInt(d1.substring(6, 10));
-        
-        int dia2 = Integer.parseInt(d2.substring(0, 2));
-        int mes2 = Integer.parseInt(d2.substring(3, 5));
-        int ano2 = Integer.parseInt(d2.substring(6, 10));
-        
-        if(ano1 == ano2 && mes1 == mes2 && dia1+1 == dia2){
-            return true;
-        }
-        
-        if(ano1 == ano2 && mes1+1 == mes2 && dia2 == 1 && (dia1 >= 29 && dia1 <= 31)){
-            return true;
-        }
-        
-        return false;
-        
+    public String enviarSMS(Consulta con, Paciente pac){
+        return "SMS Enviado para " + pac.getNome() + " para o número " + pac.getInfo_contatoCelular() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
     }
     
-    // ----------------------- SETS E GETS -----------------------
-    
-    public void setData(String data){
-        if(data.matches("\\d{2}/\\d{2}/\\d{4}")){
-            dataAtual = data;
-        }else{
-            System.out.println("ERRO: Data deve ser no formato DD/MM/YYYY");
-        }
+    public String enviarEmail(Consulta con, Paciente pac){
+        return "Email Enviado para " + pac.getNome() + " para o email " + pac.getInfo_contatoEmail() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
     }
-    
-    public String getData(){
-        return dataAtual;
-    }
-    
+
 }
-*/

@@ -8,10 +8,6 @@ import documentos.ProntuarioAtendimento;
 import javax.persistence.EntityManagerFactory;
 import pessoas.Medico;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private ProntuarioAtendimento PRONTUARIO_ATENDIMENTO;
@@ -30,6 +26,7 @@ public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
         jTextField4.setText(PAT.getPrescricao());
         jTextField5.setText(PAT.getDataRetorno());
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

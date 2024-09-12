@@ -9,7 +9,7 @@ import documentos.ProntuarioAtendimento;
 import documentos.ProntuarioPaciente;
 
 public class Secretaria extends Funcionario{
-    // método construtor
+    
     public Secretaria(String nome, String CPF){
         super(nome, CPF);
     }

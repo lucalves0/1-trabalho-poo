@@ -12,10 +12,6 @@ import javax.swing.JOptionPane;
 import pessoas.Medico;
 import pessoas.Paciente;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoInicial extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private Medico MEDICO;
@@ -27,6 +23,7 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
         this.EMF = emf;
         this.MEDICO = medico;
         initComponents();
+        setLocationRelativeTo(null);
         jButton6.setVisible(false);
     }
 
