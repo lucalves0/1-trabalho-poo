@@ -17,17 +17,6 @@ public class Medico extends Departamento{
     }
     
     // SETS e GETS
-    public List<ProntuarioPaciente> buscarProntuarioPaciente(EntityManagerFactory emf, Integer id){
-        EntityManager em = emf.createEntityManager();
-        
-        Query query = em.createQuery("SELECT p FROM ProntuarioPaciente p WHERE p.idpaciente = :id");
-        query.setParameter("id", id);
-        
-        List<ProntuarioPaciente> listaProntuarios = query.getResultList();
-        
-        em.close();
-        return listaProntuarios;
-    }
     
     public List<ProntuarioAtendimento> buscaHistoricoAtendimento(EntityManagerFactory emf, Paciente paciente){
         EntityManager em = emf.createEntityManager();

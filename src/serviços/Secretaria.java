@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import registros.Consulta;
-import registros.ProntuarioAtendimento;
-import registros.ProntuarioPaciente;
 
 public class Secretaria extends Departamento{
     
@@ -134,19 +132,6 @@ public class Secretaria extends Departamento{
         em.getTransaction().begin();
         con = em.merge(con);
         em.remove(con);
-        em.getTransaction().commit();
-
-        // Fechar o EntityManager e a fábrica
-        em.close();
-    }
-    
-    public void postProntuarioPaciente(EntityManagerFactory emf, ProntuarioPaciente PPAC){
-        // Criaremos a EntityManager através da fabrica
-        EntityManager em = emf.createEntityManager();
-
-        // Transformamos esta consulta em um objeto persistente 
-        em.getTransaction().begin();
-        em.persist(PPAC);
         em.getTransaction().commit();
 
         // Fechar o EntityManager e a fábrica
