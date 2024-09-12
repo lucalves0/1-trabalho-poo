@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import registros.ProntuarioAtendimento;
@@ -13,10 +9,6 @@ import javax.swing.JOptionPane;
 import servicos.Medico;
 import registros.Paciente;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private static MenuMedicoInicial MENU_ANTERIOR;
@@ -24,9 +16,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private Paciente PACIENTE;
     private List<ProntuarioAtendimento> HISTORICO_ATENDIMENTOS;
     private String OPCAO_SELECIONADA;
-    /**
-     * Creates new form MenuMedicoProntuarios
-     */
+
     public MenuMedicoProntuarios(EntityManagerFactory emf, MenuMedicoInicial menuAnterior, Medico medico, Paciente paciente) {
         this.EMF = emf;
         MenuMedicoProntuarios.MENU_ANTERIOR = menuAnterior;
@@ -553,18 +543,9 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         jLabel13.setText(this.PACIENTE.getDoencaCardiaca());
         jLabel14.setText(this.PACIENTE.getCirurgias());
         jLabel15.setText(this.PACIENTE.getAlergias());
-        //JDprontuarioPaciente.setVisible(true);
-        
-        
-        //List<Paciente> listaPacientes = this.MEDICO.searchPacienteByName(this.EMF, nomeBuscado);
-        
-        //this.PACIETNES_BUSCADOS = listaPacientes;
         
         if (!this.HISTORICO_ATENDIMENTOS.isEmpty()) {
-            /*JOptionPane.showMessageDialog(
-                    null, 
-                    "Nenhum paciente encontrado com o nome " + nomeBuscado + ".", 
-                    "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);*/
+
             DefaultListModel<String> listModel = new DefaultListModel<>();
             for (ProntuarioAtendimento PAT : this.HISTORICO_ATENDIMENTOS) {
                 String infoPaciente = String.format("Id atendimento: %d | "
@@ -583,15 +564,13 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
     // BOTÃO CADASTRAR PRONTUÁRIO DE ATENDIMENTO
     private void JBcadastrarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBcadastrarPATMouseClicked
-        // TODO add your handling code here:
         limpaJDcadastrarPAT();
         JDcadastrarPAT.setLocationRelativeTo(null);
         JDcadastrarPAT.setVisible(true);
     }//GEN-LAST:event_JBcadastrarPATMouseClicked
 
     private void JBatualizarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBatualizarPATMouseClicked
-        // TODO add your handling code here:
-        // busacar o histórico de prontuários de atendimento por meio do prontuário do paciente
+        // buscar o histórico de prontuários de atendimento por meio do prontuário do paciente
         
         this.OPCAO_SELECIONADA = "ATUALIZAR";
         setHISTORICO_ATENDIMENTO();

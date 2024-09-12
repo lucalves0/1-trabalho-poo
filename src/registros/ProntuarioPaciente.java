@@ -1,13 +1,19 @@
 package registros;
+
 import java.util.ArrayList;
 
 public class ProntuarioPaciente {
+    
     private int id;
     private Integer idpaciente;
     private String nomePaciente;
     private final ArrayList<ProntuarioAtendimento> historicoAtendimentos = null;
     
-// setters e getters
+    // Constutor
+    
+    ProntuarioPaciente(){}
+    
+    // setters e getters
 
     public void setPaciente(Integer idpaciente) {
         this.idpaciente = idpaciente;

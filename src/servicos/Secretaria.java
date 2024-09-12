@@ -6,9 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import registros.Consulta;
-import registros.ProntuarioAtendimento;
 
 public class Secretaria extends Departamento{
+    
+    // Construtor
     
     public Secretaria(){
         super("Secretaria", 1);
@@ -122,7 +123,7 @@ public class Secretaria extends Departamento{
         em.remove(pac);
         em.getTransaction().commit();
 
-        // Fechar o EntityManager e a fábrica
+        // Fechar o EntityManager
         em.close();
     }
     
@@ -135,7 +136,7 @@ public class Secretaria extends Departamento{
         em.remove(con);
         em.getTransaction().commit();
 
-        // Fechar o EntityManager e a fábrica
+        // Fechar o EntityManager
         em.close();
     }
     
@@ -149,7 +150,7 @@ public class Secretaria extends Departamento{
         em.persist(con);
         em.getTransaction().commit();
 
-        // Fechar o EntityManager e a fábrica
+        // Fechar o EntityManager
         em.close();
 
     }
@@ -164,7 +165,7 @@ public class Secretaria extends Departamento{
         em.merge(con);
         em.getTransaction().commit();
 
-        // Fechar o EntityManager e a fábrica
+        // Fechar o EntityManager
         em.close();
 
     }

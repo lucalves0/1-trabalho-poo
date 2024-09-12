@@ -8,7 +8,7 @@ public class MenuSecretaria extends javax.swing.JFrame {
     
     public MenuSecretaria(EntityManagerFactory emf) {
         initComponents();
-        setLocationRelativeTo(null);    // Centraliza ao meio do monitor
+        setLocationRelativeTo(null);
         
         btnGerPacientes.addActionListener(e -> {
             setVisible(false);

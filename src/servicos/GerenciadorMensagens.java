@@ -44,11 +44,15 @@ public class GerenciadorMensagens{
     }
     
     private String enviarSMS(Consulta con, Paciente pac){
-        return "SMS Enviado para " + pac.getNome() + " para o número " + pac.getInfo_contatoCelular() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
+        return "SMS Enviado para " + pac.getNome() + " para o número " + pac.getInfo_contatoCelular() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData() + " com o médico " + con.getMedico();
     }
     
     private String enviarEmail(Consulta con, Paciente pac){
-        return "Email Enviado para " + pac.getNome() + " para o email " + pac.getInfo_contatoEmail() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
+        return "Email Enviado para " + pac.getNome() + " para o email " + pac.getInfo_contatoEmail() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData() + " com o médico " + con.getMedico();
+    }
+    
+    public LocalDate getDataAtual(){
+        return dataAtual;
     }
 
 }

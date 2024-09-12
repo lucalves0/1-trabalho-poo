@@ -1,4 +1,5 @@
 package servicos;
+
 import registros.Paciente;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -25,7 +26,6 @@ public class Departamento {
         
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
-        // criamos um prontuário de paciente
         
         // Transformamos este paciente em um objeto persistente 
         em.getTransaction().begin();
@@ -40,7 +40,6 @@ public class Departamento {
         
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
-        // criamos um prontuário de paciente
         
         // Transformamos este paciente em um objeto persistente 
         em.getTransaction().begin();

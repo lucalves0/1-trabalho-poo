@@ -20,24 +20,9 @@ public class Consulta {
     private String tipoConsulta;
     private String duracao;
     
-    public Consulta(){}
+    // Construtor
     
-    public Consulta(Integer id, String data, String horario, String medico, Integer idPaciente, String tipoConsulta){
-        
-        this.id = id;
-        this.dataConsulta = data;
-        this.horario = horario;
-        this.medico = medico;
-        this.idPaciente = idPaciente;
-        this.tipoConsulta = tipoConsulta;
-        
-        if("normal".equals(tipoConsulta.toLowerCase())){
-            this.duracao = "01:00";
-        }else if("retorno".equals(tipoConsulta.toLowerCase())){
-            this.duracao = "00:30";
-        }
-
-    }
+    public Consulta(){}
     
     // setters e getters
 
