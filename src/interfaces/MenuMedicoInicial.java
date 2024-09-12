@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package interfaces;
 
 import java.util.ArrayList;
@@ -9,12 +13,20 @@ import javax.swing.JOptionPane;
 import servicos.Medico;
 import registros.Paciente;
 
+/**
+ *
+ * @author Enzo Vignotti Sabino
+ */
 public class MenuMedicoInicial extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private Medico MEDICO;
     private List<Paciente> PACIETNES_BUSCADOS = new ArrayList<Paciente>();
     private String OPCAO_ESCOLHIDA = "NADA";
-
+    /**
+     * Creates new form MenuMedicoInicial
+     * @param emf
+     * @param medico
+     */
     public MenuMedicoInicial(EntityManagerFactory emf, Medico medico) {
         this.EMF = emf;
         this.MEDICO = medico;
@@ -59,9 +71,9 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jOptionPane1 = new javax.swing.JOptionPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        JBprontuarioPaciente = new javax.swing.JButton();
+        JBfichaPaciente = new javax.swing.JButton();
+        JBrelatorios = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         JDbuscarPaciente.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -143,24 +155,24 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(480, 300));
 
-        jButton1.setText("PRONTUÁRIO DO PACIENTE");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBprontuarioPaciente.setText("PRONTUÁRIO DO PACIENTE");
+        JBprontuarioPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                JBprontuarioPacienteMouseClicked(evt);
             }
         });
 
-        jButton2.setText("FICHA DO PACIENTE");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBfichaPaciente.setText("FICHA DO PACIENTE");
+        JBfichaPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                JBfichaPacienteMouseClicked(evt);
             }
         });
 
-        jButton3.setText("RELATÓRIOS");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBrelatorios.setText("RELATÓRIOS");
+        JBrelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                JBrelatoriosMouseClicked(evt);
             }
         });
 
@@ -180,9 +192,9 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(JBprontuarioPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBrelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBfichaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(197, 197, 197)
                         .addComponent(jButton4)))
@@ -192,11 +204,11 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(jButton1)
+                .addComponent(JBprontuarioPaciente)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(JBfichaPaciente)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(JBrelatorios)
                 .addGap(40, 40, 40)
                 .addComponent(jButton4)
                 .addContainerGap(71, Short.MAX_VALUE))
@@ -206,25 +218,27 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     // BOTÃO PRONTUÁRIO DO PACIENTE
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void JBprontuarioPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBprontuarioPacienteMouseClicked
         // TODO add your handling code here:
         setOpcaoEscolhida("PRONTUARIO");
         apagaJanelaBusca();
         JDbuscarPaciente.setVisible(true);
         
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_JBprontuarioPacienteMouseClicked
     
     // BOTÃO FICHA DO PACIENTE
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void JBfichaPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBfichaPacienteMouseClicked
         // TODO add your handling code here:
         setOpcaoEscolhida("FICHA");
         apagaJanelaBusca();
         JDbuscarPaciente.setVisible(true);
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_JBfichaPacienteMouseClicked
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void JBrelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBrelatoriosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3MouseClicked
+        // cria uma janela MENU MÉDICO RELATORIO
+        
+    }//GEN-LAST:event_JBrelatoriosMouseClicked
 
     // BOTÃO VOLTAR
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
@@ -287,10 +301,10 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBfichaPaciente;
+    private javax.swing.JButton JBprontuarioPaciente;
+    private javax.swing.JButton JBrelatorios;
     private javax.swing.JDialog JDbuscarPaciente;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
