@@ -1,4 +1,4 @@
-package gerenciadorMensagens;
+package serviços;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
