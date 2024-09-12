@@ -1,25 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
 import servicos.Medico;
 import registros.Paciente;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoFicha extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private MenuMedicoInicial PAGINA_ANTERIOR;
     private Medico MEDICO;
     private Paciente PACIENTE;
-    /**
-     * Creates new form MenuMedicoFicha
-     */
+
     public MenuMedicoFicha(EntityManagerFactory emf, MenuMedicoInicial paginaAnterior, Medico medico, Paciente paciente) {
         this.EMF = emf;
         this.PAGINA_ANTERIOR = paginaAnterior;

@@ -13,8 +13,6 @@ public class ProntuarioAtendimento implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String dataAtendimento = "";
-    //private Integer idpaciente;
-    //private String nomepaciente;
     
     @ManyToOne
     private Paciente paciente;
@@ -27,11 +25,6 @@ public class ProntuarioAtendimento implements Serializable{
     public ProntuarioAtendimento(){
     }
     
-    /*
-    public void resumoProntuarioAtendimento(){
-        System.out.println(String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", id, dataAtendimento, this));
-    }*/
-    
     //setters e getters
 
     public Paciente getPaciente(){
@@ -43,18 +36,6 @@ public class ProntuarioAtendimento implements Serializable{
     public void setDataAtendimento(String dataAtendimento) {
         this.dataAtendimento = dataAtendimento;
     }
-/*
-    public void setPaciente(Integer idpaciente){
-        this.idpaciente = idpaciente;
-    }
-    
-    public void setNomePaciente(String nomepaciente){
-        this.nomepaciente = nomepaciente;
-    }
-    */
-    /*public void setMedico(Medico medico) {
-        this.medico = medico;
-    }*/
 
     public void setSintomas(String sintomas) {
         this.sintomas = sintomas;

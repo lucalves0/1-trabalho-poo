@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import registros.Consulta;
-import registros.ProntuarioAtendimento;
 
 public class Secretaria extends Departamento{
     

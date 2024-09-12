@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import java.util.ArrayList;
@@ -13,20 +9,12 @@ import javax.swing.JOptionPane;
 import servicos.Medico;
 import registros.Paciente;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoInicial extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private Medico MEDICO;
     private List<Paciente> PACIETNES_BUSCADOS = new ArrayList<Paciente>();
     private String OPCAO_ESCOLHIDA = "NADA";
-    /**
-     * Creates new form MenuMedicoInicial
-     * @param emf
-     * @param medico
-     */
+
     public MenuMedicoInicial(EntityManagerFactory emf, Medico medico) {
         this.EMF = emf;
         this.MEDICO = medico;

@@ -50,5 +50,9 @@ public class GerenciadorMensagens{
     private String enviarEmail(Consulta con, Paciente pac){
         return "Email Enviado para " + pac.getNome() + " para o email " + pac.getInfo_contatoEmail() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
     }
+    
+    public LocalDate getDataAtual(){
+        return dataAtual;
+    }
 
 }

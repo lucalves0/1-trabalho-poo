@@ -10,8 +10,8 @@ public class Main {
         
         // Criação da Factory, que será fechada ao clicar em "SAIR"
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("DBCLIENT");
-        LocalDate dataAtual = LocalDate.now();
         
+        // Inicializa a Janela Inicial
         new JanelaStart(emf).setVisible(true);
     }
 }

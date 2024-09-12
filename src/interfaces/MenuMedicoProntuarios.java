@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import registros.ProntuarioAtendimento;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
@@ -13,10 +8,6 @@ import javax.swing.JOptionPane;
 import servicos.Medico;
 import registros.Paciente;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private static MenuMedicoInicial MENU_ANTERIOR;
@@ -24,9 +15,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private Paciente PACIENTE;
     private List<ProntuarioAtendimento> HISTORICO_ATENDIMENTOS;
     private String OPCAO_SELECIONADA;
-    /**
-     * Creates new form MenuMedicoProntuarios
-     */
+
     public MenuMedicoProntuarios(EntityManagerFactory emf, MenuMedicoInicial menuAnterior, Medico medico, Paciente paciente) {
         this.EMF = emf;
         MenuMedicoProntuarios.MENU_ANTERIOR = menuAnterior;

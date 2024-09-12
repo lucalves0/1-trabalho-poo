@@ -1,24 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import registros.ProntuarioAtendimento;
 import javax.persistence.EntityManagerFactory;
 import servicos.Medico;
 
-/**
- *
- * @author Enzo Vignotti Sabino
- */
 public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private ProntuarioAtendimento PRONTUARIO_ATENDIMENTO;
     private Medico MEDICO;
-    /**
-     * Creates new form MenuMedicoAtualizarProntuarioAtendimento
-     */
+
     public MenuMedicoAtualizarPAT(EntityManagerFactory emf, Medico medico, ProntuarioAtendimento PAT) {
         this.EMF = emf;
         this.PRONTUARIO_ATENDIMENTO = PAT;
