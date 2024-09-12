@@ -5,8 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import serviços.Secretaria;
-import registros.Consulta;
+import pessoas.Secretaria;
+import documentos.Consulta;
 
 public class GerConsulta extends javax.swing.JFrame {
     
@@ -16,10 +16,10 @@ public class GerConsulta extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        Secretaria sec = new Secretaria();
+        Secretaria sec = new Secretaria("Teste", "123");
         
-        btnBuscarConsulta.addActionListener(avt -> {
-            Integer nomeBuscar = Integer.parseInt(txtBuscaConsulta.getText());
+        btnBuscarPaciente.addActionListener(avt -> {
+            Integer nomeBuscar = Integer.parseInt(txtBuscaNomePaciente.getText());
             List<Consulta> consultas = sec.searchConsultaByPaciente(emf, nomeBuscar);
 
             if (consultas.isEmpty()) {
@@ -48,12 +48,12 @@ public class GerConsulta extends javax.swing.JFrame {
                                                         con.getDuracao());
                     listModel.addElement(infoCon);
                 }
-                listConsultaCad.setModel(listModel);
+                listPacientesCad.setModel(listModel);
             }
 
         });
 
-        cadConsultas.addActionListener(e -> {
+        cadPacientes.addActionListener(e -> {
             setVisible(false);
 
             // Código para abrir a nova tela
@@ -62,7 +62,7 @@ public class GerConsulta extends javax.swing.JFrame {
             telaCadConsulta.setVisible(true);
         });
 
-        upConsultas.addActionListener(e -> {
+        upPaciente.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de prosseguir, verifique o identificador da Consulta. Deseja prosseguir?", 
             "Confirmar", 
@@ -104,7 +104,7 @@ public class GerConsulta extends javax.swing.JFrame {
             }
         });
         
-        deleteConsultas.addActionListener(e -> {
+        deletePacientes.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de deletar a consulta, verifique o identificador da consulta. Deseja prosseguir?", 
             "Confirmar", 
@@ -173,15 +173,15 @@ public class GerConsulta extends javax.swing.JFrame {
         panelGerPacientes = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
-        txtBuscaConsulta = new java.awt.TextField();
-        btnBuscarConsulta = new java.awt.Button();
+        txtBuscaNomePaciente = new java.awt.TextField();
+        btnBuscarPaciente = new java.awt.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listConsultaCad = new javax.swing.JList<>();
+        listPacientesCad = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        cadConsultas = new javax.swing.JMenuItem();
-        upConsultas = new javax.swing.JMenuItem();
-        deleteConsultas = new javax.swing.JMenuItem();
+        cadPacientes = new javax.swing.JMenuItem();
+        upPaciente = new javax.swing.JMenuItem();
+        deletePacientes = new javax.swing.JMenuItem();
         Voltar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,14 +197,14 @@ public class GerConsulta extends javax.swing.JFrame {
         label1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         label1.setText("Buscar Consulta por Paciente");
 
-        txtBuscaConsulta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtBuscaNomePaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        btnBuscarConsulta.setActionCommand("Buscar");
-        btnBuscarConsulta.setBackground(new java.awt.Color(0, 204, 0));
-        btnBuscarConsulta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnBuscarConsulta.setLabel("Buscar");
+        btnBuscarPaciente.setActionCommand("Buscar");
+        btnBuscarPaciente.setBackground(new java.awt.Color(0, 204, 0));
+        btnBuscarPaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnBuscarPaciente.setLabel("Buscar");
 
-        jScrollPane1.setViewportView(listConsultaCad);
+        jScrollPane1.setViewportView(listPacientesCad);
 
         javax.swing.GroupLayout panelGerPacientesLayout = new javax.swing.GroupLayout(panelGerPacientes);
         panelGerPacientes.setLayout(panelGerPacientesLayout);
@@ -217,9 +217,9 @@ public class GerConsulta extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(label1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelGerPacientesLayout.createSequentialGroup()
-                        .addComponent(txtBuscaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscaNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelGerPacientesLayout.setVerticalGroup(
@@ -231,8 +231,8 @@ public class GerConsulta extends javax.swing.JFrame {
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelGerPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBuscaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(txtBuscaNomePaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addContainerGap())
@@ -243,19 +243,19 @@ public class GerConsulta extends javax.swing.JFrame {
         jMenu1.setText("Ações");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        cadConsultas.setText("Cadastro de Consultas");
-        cadConsultas.addActionListener(new java.awt.event.ActionListener() {
+        cadPacientes.setText("Cadastro de Consultas");
+        cadPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadConsultasActionPerformed(evt);
+                cadPacientesActionPerformed(evt);
             }
         });
-        jMenu1.add(cadConsultas);
+        jMenu1.add(cadPacientes);
 
-        upConsultas.setText("Atualizar informações de Consultas");
-        jMenu1.add(upConsultas);
+        upPaciente.setText("Atualizar informações de Consultas");
+        jMenu1.add(upPaciente);
 
-        deleteConsultas.setText("Remover Consultas");
-        jMenu1.add(deleteConsultas);
+        deletePacientes.setText("Remover Consultas");
+        jMenu1.add(deletePacientes);
 
         Voltar.setText("Voltar");
         jMenu1.add(Voltar);
@@ -267,9 +267,9 @@ public class GerConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadConsultasActionPerformed
+    private void cadPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadPacientesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cadConsultasActionPerformed
+    }//GEN-LAST:event_cadPacientesActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -281,18 +281,18 @@ public class GerConsulta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Voltar;
-    private java.awt.Button btnBuscarConsulta;
-    private javax.swing.JMenuItem cadConsultas;
-    private javax.swing.JMenuItem deleteConsultas;
+    private java.awt.Button btnBuscarPaciente;
+    private javax.swing.JMenuItem cadPacientes;
+    private javax.swing.JMenuItem deletePacientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private java.awt.List list1;
-    private javax.swing.JList<String> listConsultaCad;
+    private javax.swing.JList<String> listPacientesCad;
     private javax.swing.JPanel panelGerPacientes;
-    private java.awt.TextField txtBuscaConsulta;
-    private javax.swing.JMenuItem upConsultas;
+    private java.awt.TextField txtBuscaNomePaciente;
+    private javax.swing.JMenuItem upPaciente;
     // End of variables declaration//GEN-END:variables
 }

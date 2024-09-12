@@ -2,8 +2,8 @@ package interfaces;
 
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
-import registros.Paciente;
-import serviços.Secretaria;
+import pessoas.Paciente;
+import pessoas.Secretaria;
 
 public class CadPacientes extends javax.swing.JFrame {
     
@@ -13,7 +13,7 @@ public class CadPacientes extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);  
         
-        Secretaria sec = new Secretaria();
+        Secretaria sec = new Secretaria("Teste", "123");
         
         btnSalvarPaciente.addActionListener(evt ->{
         

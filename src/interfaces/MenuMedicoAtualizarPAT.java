@@ -4,10 +4,14 @@
  */
 package interfaces;
 
-import registros.ProntuarioAtendimento;
+import documentos.ProntuarioAtendimento;
 import javax.persistence.EntityManagerFactory;
-import serviços.Medico;
+import pessoas.Medico;
 
+/**
+ *
+ * @author Enzo Vignotti Sabino
+ */
 public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private ProntuarioAtendimento PRONTUARIO_ATENDIMENTO;
@@ -19,14 +23,12 @@ public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
         this.EMF = emf;
         this.PRONTUARIO_ATENDIMENTO = PAT;
         this.MEDICO = medico;
-        
+        initComponents();
         jTextField1.setText(PAT.getDataAtendimento());
         jTextField2.setText(PAT.getSintomas());
         jTextField3.setText(PAT.getDignostico());
         jTextField4.setText(PAT.getPrescricao());
         jTextField5.setText(PAT.getDataRetorno());
-        initComponents();
-        setLocationRelativeTo(null);
     }
 
     /**
@@ -51,7 +53,7 @@ public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("ATUALIZAR PRONTUARIO DE ATENDIMENTO");
 
@@ -156,6 +158,7 @@ public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
         this.PRONTUARIO_ATENDIMENTO.setDataRetorno(dataRetorno);
 
         this.MEDICO.atualizarProntuarioAtendimento(this.EMF, this.PRONTUARIO_ATENDIMENTO);
+        this.dispose();
     }//GEN-LAST:event_JBsalvarPATMouseClicked
 
     /**

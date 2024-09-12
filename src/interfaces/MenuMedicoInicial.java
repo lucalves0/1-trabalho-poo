@@ -4,27 +4,53 @@
  */
 package interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import serviços.Medico;
-import registros.Paciente;
+import pessoas.Medico;
+import pessoas.Paciente;
 
+/**
+ *
+ * @author Enzo Vignotti Sabino
+ */
 public class MenuMedicoInicial extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
     private Medico MEDICO;
-    private List<Paciente> PACIETNES_BUSCADOS;
+    private List<Paciente> PACIETNES_BUSCADOS = new ArrayList<Paciente>();
+    private String OPCAO_ESCOLHIDA = "NADA";
     /**
      * Creates new form MenuMedicoInicial
+     * @param emf
+     * @param medico
      */
     public MenuMedicoInicial(EntityManagerFactory emf, Medico medico) {
         this.EMF = emf;
         this.MEDICO = medico;
         initComponents();
-        setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        JDbuscarPaciente.setLocationRelativeTo(null);
         jButton6.setVisible(false);
+    }
+    
+    private void setOpcaoEscolhida(String opcao){
+        this.OPCAO_ESCOLHIDA = opcao;
+    }
+    
+    private String getOpcaoEscolhida(){
+        return this.OPCAO_ESCOLHIDA;
+    }
+    
+    public void apagaJanelaBusca(){
+        jTextField1.setText("");
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        jList1.setModel(listModel);
+        this.PACIETNES_BUSCADOS.clear();
+        jButton6.setVisible(false);
+        JDbuscarPaciente.dispose();
     }
 
     /**
@@ -43,30 +69,19 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jButton6 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jOptionPane1 = new javax.swing.JOptionPane();
-        JDbuscarPaciente1 = new javax.swing.JDialog();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jButton8 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
+        JDbuscarPaciente.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         JDbuscarPaciente.setTitle("BUSCA DO PACIENTE");
         JDbuscarPaciente.setResizable(false);
-        JDbuscarPaciente.setSize(new java.awt.Dimension(400, 500));
+        JDbuscarPaciente.setSize(new java.awt.Dimension(400, 350));
 
         jLabel1.setText("Informe o nome do paciente");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jButton5.setText("BUSCAR");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,6 +90,11 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
             }
         });
 
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jButton6.setText("OK");
@@ -83,6 +103,8 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
                 jButton6MouseClicked(evt);
             }
         });
+
+        jLabel3.setText("JDIALOG 1");
 
         javax.swing.GroupLayout JDbuscarPacienteLayout = new javax.swing.GroupLayout(JDbuscarPaciente.getContentPane());
         JDbuscarPaciente.getContentPane().setLayout(JDbuscarPacienteLayout);
@@ -100,17 +122,22 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
                         .addGap(147, 147, 147)
                         .addComponent(jButton5))
                     .addGroup(JDbuscarPacienteLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JDbuscarPacienteLayout.createSequentialGroup()
                         .addGap(153, 153, 153)
-                        .addComponent(jButton6)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(jButton6))
+                    .addGroup(JDbuscarPacienteLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JDbuscarPacienteLayout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(jLabel3)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         JDbuscarPacienteLayout.setVerticalGroup(
             JDbuscarPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JDbuscarPacienteLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,88 +147,18 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jButton6)
-                .addContainerGap(141, Short.MAX_VALUE))
-        );
-
-        JDbuscarPaciente1.setTitle("BUSCA DO PACIENTE");
-        JDbuscarPaciente1.setResizable(false);
-        JDbuscarPaciente1.setSize(new java.awt.Dimension(400, 500));
-
-        jLabel2.setText("Informe o nome do paciente");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jButton7.setText("BUSCAR");
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton7MouseClicked(evt);
-            }
-        });
-
-        jScrollPane2.setViewportView(jList2);
-
-        jButton8.setText("OK");
-        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton8MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout JDbuscarPaciente1Layout = new javax.swing.GroupLayout(JDbuscarPaciente1.getContentPane());
-        JDbuscarPaciente1.getContentPane().setLayout(JDbuscarPaciente1Layout);
-        JDbuscarPaciente1Layout.setHorizontalGroup(
-            JDbuscarPaciente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JDbuscarPaciente1Layout.createSequentialGroup()
-                .addGroup(JDbuscarPaciente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JDbuscarPaciente1Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jLabel2))
-                    .addGroup(JDbuscarPaciente1Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JDbuscarPaciente1Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jButton7))
-                    .addGroup(JDbuscarPaciente1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JDbuscarPaciente1Layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(jButton8)))
-                .addContainerGap(77, Short.MAX_VALUE))
-        );
-        JDbuscarPaciente1Layout.setVerticalGroup(
-            JDbuscarPaciente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JDbuscarPaciente1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jButton8)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU MÉDICO");
+        setResizable(false);
+        setSize(new java.awt.Dimension(480, 300));
 
         jButton1.setText("PRONTUÁRIO DO PACIENTE");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -225,11 +182,6 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
                 jButton4MouseClicked(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,12 +189,12 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(144, 144, 144)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(197, 197, 197)
                         .addComponent(jButton4)))
@@ -268,6 +220,8 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
     // BOTÃO PRONTUÁRIO DO PACIENTE
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
+        setOpcaoEscolhida("PRONTUARIO");
+        apagaJanelaBusca();
         JDbuscarPaciente.setVisible(true);
         
     }//GEN-LAST:event_jButton1MouseClicked
@@ -275,7 +229,9 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
     // BOTÃO FICHA DO PACIENTE
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        JDbuscarPaciente1.setVisible(true);
+        setOpcaoEscolhida("FICHA");
+        apagaJanelaBusca();
+        JDbuscarPaciente.setVisible(true);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
@@ -287,166 +243,74 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
         new JanelaStart(this.EMF).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4MouseClicked
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
     
     // BOTÃO BUSCAR PACIENTE
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // buscar o paciente no banco de dados pelo nome
         String nomeBuscado = jTextField1.getText();
-        List<Paciente> listaPacientes = this.MEDICO.searchPacienteByName(this.EMF, nomeBuscado);
-        this.PACIETNES_BUSCADOS = listaPacientes;
-        
-        if (listaPacientes.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    null, 
-                    "Nenhum paciente encontrado com o nome " + nomeBuscado + ".", 
-                    "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
-        } else {
-            DefaultListModel<String> listModel = new DefaultListModel<>();
+        if(!nomeBuscado.isBlank()){
+            List<Paciente> listaPacientes = this.MEDICO.searchPacienteByName(this.EMF, nomeBuscado);
+            this.PACIETNES_BUSCADOS = listaPacientes;
+            if (this.PACIETNES_BUSCADOS.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        null, 
+                        "Nenhum paciente encontrado com o nome " + nomeBuscado + ".", 
+                        "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
+            } else {
+                DefaultListModel<String> listModel = new DefaultListModel<>();
 
-            for (Paciente paciente : listaPacientes) {
-                String infoPaciente = String.format("Identificador do paciente: %d | "
-                                                  + "Nome do paciente: %s | " 
-                                                  + "Data de Nascimento: %s | " 
-                                                  + "Celular: %d | " 
-                                                  + "Convenio: %s |" ,
-                                                    paciente.getId(), 
-                                                    paciente.getNome(),
-                                                    paciente.getData_nascimento(),
-                                                    paciente.getInfo_contatoCelular(),
-                                                    paciente.getTipo_convenio());
-                listModel.addElement(infoPaciente);
-            }
-            jList1.setModel(listModel);
-            jButton6.setVisible(true);
+                for (Paciente paciente : this.PACIETNES_BUSCADOS) {
+                    String infoPaciente = String.format("ID: %d | "
+                                                      + "NOME: %s | " 
+                                                      + "NASC.: %s | " 
+                                                      + "CEL.: %d | " 
+                                                      + "CONVENIO: %s |" ,
+                                                        paciente.getId(), 
+                                                        paciente.getNome(),
+                                                        paciente.getData_nascimento(),
+                                                        paciente.getInfo_contatoCelular(),
+                                                        paciente.getTipo_convenio());
+                    listModel.addElement(infoPaciente);
+                }
+                jList1.setModel(listModel);
+
+            } // else
         }
         //this.setVisible(false);
         //JDbuscarPaciente.dispose();
     }//GEN-LAST:event_jButton5MouseClicked
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     // BOTÃO OK - PACIENTE SELECIONADO
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
         int indexSelecionado = jList1.getSelectedIndex();
-        System.out.println(indexSelecionado);
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
         Paciente pacienteSelecionado = this.PACIETNES_BUSCADOS.get(indexSelecionado);
-        System.out.println(indexSelecionado);
-        System.out.println(pacienteSelecionado.getNome());
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        new MenuMedicoProntuarios(this.EMF, this, this.MEDICO, pacienteSelecionado).setVisible(true);
-        System.out.println(indexSelecionado);
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
-        System.out.println("----------");
+        if(getOpcaoEscolhida().equals("PRONTUARIO")){
+            new MenuMedicoProntuarios(this.EMF, this, this.MEDICO, pacienteSelecionado).setVisible(true);
+        } else if (getOpcaoEscolhida().equals("FICHA")){
+            new MenuMedicoFicha(this.EMF, this, this.MEDICO, pacienteSelecionado).setVisible(true);
+        }
     }//GEN-LAST:event_jButton6MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
-        // buscar o paciente no banco de dados pelo nome
-        String nomeBuscado = jTextField2.getText();
-        List<Paciente> listaPacientes = this.MEDICO.searchPacienteByName(this.EMF, nomeBuscado);
-        this.PACIETNES_BUSCADOS = listaPacientes;
-        
-        if (listaPacientes.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    null, 
-                    "Nenhum paciente encontrado com o nome " + nomeBuscado + ".", 
-                    "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
-        } else {
-            DefaultListModel<String> listModel = new DefaultListModel<>();
-
-            for (Paciente paciente : listaPacientes) {
-                String infoPaciente = String.format("Identificador do paciente: %d | "
-                                                  + "Nome do paciente: %s | " 
-                                                  + "Data de Nascimento: %s | " 
-                                                  + "Celular: %d | " 
-                                                  + "Convenio: %s |" ,
-                                                    paciente.getId(), 
-                                                    paciente.getNome(),
-                                                    paciente.getData_nascimento(),
-                                                    paciente.getInfo_contatoCelular(),
-                                                    paciente.getTipo_convenio());
-                listModel.addElement(infoPaciente);
-            }
-            jList2.setModel(listModel);
-            jButton8.setVisible(true);
-        }
-    }//GEN-LAST:event_jButton7MouseClicked
-
-    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
-        // TODO add your handling code here:
-        int indexSelecionado = jList2.getSelectedIndex();
-        Paciente pacienteSelecionado = this.PACIETNES_BUSCADOS.get(indexSelecionado);
-        new MenuMedicoFicha(this.EMF, this, this.MEDICO, pacienteSelecionado).setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton8MouseClicked
+        jButton6.setVisible(true);
+    }//GEN-LAST:event_jList1ValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog JDbuscarPaciente;
-    private javax.swing.JDialog JDbuscarPaciente1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

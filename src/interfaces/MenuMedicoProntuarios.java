@@ -4,33 +4,65 @@
  */
 package interfaces;
 
-import registros.ProntuarioAtendimento;
-import registros.ProntuarioPaciente;
+import documentos.ProntuarioAtendimento;
+import documentos.ProntuarioPaciente;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import serviços.Medico;
-import registros.Paciente;
+import pessoas.Medico;
+import pessoas.Paciente;
 
+/**
+ *
+ * @author Enzo Vignotti Sabino
+ */
 public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
-    private MenuMedicoInicial MENU_ANTERIOR;
+    private static MenuMedicoInicial MENU_ANTERIOR;
     private Medico MEDICO;
     private Paciente PACIENTE;
-    private ArrayList<ProntuarioAtendimento> HISTORICO_ATENDIMENTOS;
+    private List<ProntuarioAtendimento> HISTORICO_ATENDIMENTOS;
+    private String OPCAO_SELECIONADA;
     /**
      * Creates new form MenuMedicoProntuarios
      */
     public MenuMedicoProntuarios(EntityManagerFactory emf, MenuMedicoInicial menuAnterior, Medico medico, Paciente paciente) {
         this.EMF = emf;
-        this.MENU_ANTERIOR = menuAnterior;
+        MenuMedicoProntuarios.MENU_ANTERIOR = menuAnterior;
         this.MEDICO = medico;
         this.PACIENTE = paciente;
-        this.HISTORICO_ATENDIMENTOS = paciente.getHistoricoAtendimento();
+        this.HISTORICO_ATENDIMENTOS = medico.buscaHistoricoAtendimento(emf, paciente);
+        
         initComponents();
-        setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        MenuMedicoProntuarios.MENU_ANTERIOR.apagaJanelaBusca();
+    }
+    private void setHISTORICO_ATENDIMENTO(){
+        this.HISTORICO_ATENDIMENTOS = this.MEDICO.buscaHistoricoAtendimento(this.EMF, this.PACIENTE);
+    }
+    private void refreshJDselecionarPAT(){
+        JDselecionarPAT.dispose();
+        setHISTORICO_ATENDIMENTO();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (ProntuarioAtendimento PAT : this.HISTORICO_ATENDIMENTOS) {
+            String infoAtendimento = String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", PAT.getId(), PAT.getDataAtendimento(), PAT.getPaciente().getNome());
+            listModel.addElement(infoAtendimento);
+        }
+        JLhistoricoAtendimentos.setModel(listModel);
+
+        // tornamos visível a caixa de diálogo com a lista
+        JDselecionarPAT.setVisible(true);        
+    }
+    
+    private void limpaJDcadastrarPAT(){
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        JDcadastrarPAT.setVisible(false);
     }
 
     /**
@@ -86,23 +118,20 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         JBsalvarPAT = new javax.swing.JButton();
-        JDatualizarPAT = new javax.swing.JDialog();
-        jButton5 = new javax.swing.JButton();
+        JDselecionarPAT = new javax.swing.JDialog();
+        JBselecionarPATok = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jDialog4 = new javax.swing.JDialog();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        JLhistoricoAtendimentos = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        JBcadastrarPAT = new javax.swing.JButton();
         JBatualizarPAT = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        JBapagarPAT = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
         JDprontuarioPaciente.setTitle("PRONTUÁRIO DO PACIENTE");
         JDprontuarioPaciente.setResizable(false);
-        JDprontuarioPaciente.setSize(new java.awt.Dimension(400, 500));
+        JDprontuarioPaciente.setSize(new java.awt.Dimension(460, 650));
 
         JLnome.setText("NOME:");
 
@@ -130,42 +159,11 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
 
         JLalergias.setText("ALERGIAS:");
 
-        jLabel3.setText("jLabel3");
-
-        jLabel4.setText("jLabel4");
-
-        jLabel5.setText("jLabel5");
-
-        jLabel6.setText("jLabel6");
-
-        jLabel7.setText("jLabel7");
-
-        jLabel8.setText("jLabel8");
-
-        jLabel9.setText("jLabel9");
-
-        jLabel10.setText("jLabel10");
-
-        jLabel11.setText("jLabel11");
-
-        jLabel12.setText("jLabel12");
-
-        jLabel13.setText("jLabel13");
-
-        jLabel14.setText("jLabel14");
-
-        jLabel15.setText("jLabel15");
-
         jLabel16.setText("PRONTUÁRIO DO PACIENTE");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
-        jLabel17.setText("HISTÓRICO DE CONSULTAS");
+        jLabel17.setText("HISTÓRICO DE ATENDIMENTOS");
 
         javax.swing.GroupLayout JDprontuarioPacienteLayout = new javax.swing.GroupLayout(JDprontuarioPaciente.getContentPane());
         JDprontuarioPaciente.getContentPane().setLayout(JDprontuarioPacienteLayout);
@@ -214,7 +212,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                             .addGroup(JDprontuarioPacienteLayout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         JDprontuarioPacienteLayout.setVerticalGroup(
             JDprontuarioPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +271,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                 .addGroup(JDprontuarioPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLalergias)
                     .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,7 +282,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
 
         JDcadastrarPAT.setTitle("CADASTRAR PRONTUÁRIO DE ATENDIMENTO");
         JDcadastrarPAT.setResizable(false);
-        JDcadastrarPAT.setSize(new java.awt.Dimension(400, 300));
+        JDcadastrarPAT.setSize(new java.awt.Dimension(450, 360));
 
         jLabel18.setText("CADASTRAR PRONTUÁRIO DE ATENDIMENTO");
 
@@ -363,87 +361,62 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        JDatualizarPAT.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        JDatualizarPAT.setResizable(false);
-        JDatualizarPAT.setSize(new java.awt.Dimension(400, 300));
+        JDselecionarPAT.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        JDselecionarPAT.setResizable(false);
+        JDselecionarPAT.setSize(new java.awt.Dimension(400, 300));
 
-        jButton5.setText("OK");
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBselecionarPATok.setText("OK");
+        JBselecionarPATok.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                JBselecionarPATokMouseClicked(evt);
+            }
+        });
+        JBselecionarPATok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBselecionarPATokActionPerformed(evt);
             }
         });
 
-        jLabel24.setText("ATUALIZAR PRONTUÁRIO DE ATENDIMENTO");
+        jLabel24.setText("ESCOLHA O PRONTUÁRIO DE ATENDIMENTO");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        JLhistoricoAtendimentos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(JLhistoricoAtendimentos);
 
-        javax.swing.GroupLayout JDatualizarPATLayout = new javax.swing.GroupLayout(JDatualizarPAT.getContentPane());
-        JDatualizarPAT.getContentPane().setLayout(JDatualizarPATLayout);
-        JDatualizarPATLayout.setHorizontalGroup(
-            JDatualizarPATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JDatualizarPATLayout.createSequentialGroup()
+        javax.swing.GroupLayout JDselecionarPATLayout = new javax.swing.GroupLayout(JDselecionarPAT.getContentPane());
+        JDselecionarPAT.getContentPane().setLayout(JDselecionarPATLayout);
+        JDselecionarPATLayout.setHorizontalGroup(
+            JDselecionarPATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JDselecionarPATLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel24)
                 .addGap(89, 89, 89))
-            .addGroup(JDatualizarPATLayout.createSequentialGroup()
-                .addGroup(JDatualizarPATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JDatualizarPATLayout.createSequentialGroup()
+            .addGroup(JDselecionarPATLayout.createSequentialGroup()
+                .addGroup(JDselecionarPATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JDselecionarPATLayout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JDatualizarPATLayout.createSequentialGroup()
+                    .addGroup(JDselecionarPATLayout.createSequentialGroup()
                         .addGap(166, 166, 166)
-                        .addComponent(jButton5)))
+                        .addComponent(JBselecionarPATok)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
-        JDatualizarPATLayout.setVerticalGroup(
-            JDatualizarPATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JDatualizarPATLayout.createSequentialGroup()
+        JDselecionarPATLayout.setVerticalGroup(
+            JDselecionarPATLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JDselecionarPATLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel24)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jButton5)
+                .addComponent(JBselecionarPATok)
                 .addContainerGap(106, Short.MAX_VALUE))
         );
 
-        jDialog4.setSize(new java.awt.Dimension(400, 300));
-
-        jLabel1.setText("OPÇÃO SELECIONADA NO COMBOBOX");
-
-        jLabel2.setText("jLabel2");
-
-        javax.swing.GroupLayout jDialog4Layout = new javax.swing.GroupLayout(jDialog4.getContentPane());
-        jDialog4.getContentPane().setLayout(jDialog4Layout);
-        jDialog4Layout.setHorizontalGroup(
-            jDialog4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog4Layout.createSequentialGroup()
-                .addGroup(jDialog4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDialog4Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1))
-                    .addGroup(jDialog4Layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(jLabel2)))
-                .addContainerGap(103, Short.MAX_VALUE))
-        );
-        jDialog4Layout.setVerticalGroup(
-            jDialog4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog4Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(jLabel1)
-                .addGap(71, 71, 71)
-                .addComponent(jLabel2)
-                .addContainerGap(120, Short.MAX_VALUE))
-        );
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("MENU PRONTUÁRIOS");
 
         jButton1.setText("CONSULTAR PRONTUÁRIO DO PACIENTE");
@@ -459,10 +432,10 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("CADASTRAR PRONTUÁRIO DE ATENDIMENTO");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBcadastrarPAT.setText("CADASTRAR PRONTUÁRIO DE ATENDIMENTO");
+        JBcadastrarPAT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                JBcadastrarPATMouseClicked(evt);
             }
         });
 
@@ -472,21 +445,11 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                 JBatualizarPATMouseClicked(evt);
             }
         });
-        JBatualizarPAT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBatualizarPATActionPerformed(evt);
-            }
-        });
 
-        jButton4.setText("APAGAR PRONTUÁRIO DE ATENDIMENTO");
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBapagarPAT.setText("APAGAR PRONTUÁRIO DE ATENDIMENTO");
+        JBapagarPAT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton4MouseClicked(evt);
-            }
-        });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                JBapagarPATMouseClicked(evt);
             }
         });
 
@@ -505,9 +468,9 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                 .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(JBatualizarPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBcadastrarPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JBapagarPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(83, 83, 83))
             .addGroup(layout.createSequentialGroup()
                 .addGap(181, 181, 181)
@@ -520,11 +483,11 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                 .addGap(84, 84, 84)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(JBcadastrarPAT)
                 .addGap(18, 18, 18)
                 .addComponent(JBatualizarPAT)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(JBapagarPAT)
                 .addGap(18, 18, 18)
                 .addComponent(jButton6)
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -548,55 +511,92 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         jLabel13.setText(this.PACIENTE.getDoencaCardiaca());
         jLabel14.setText(this.PACIENTE.getCirurgias());
         jLabel15.setText(this.PACIENTE.getAlergias());
+        //JDprontuarioPaciente.setVisible(true);
         
-        /*
-        List<Paciente> listaPacientes = this.MEDICO.searchPacienteByName(this.EMF, nomeBuscado);
         
-        this.PACIETNES_BUSCADOS = listaPacientes;
+        //List<Paciente> listaPacientes = this.MEDICO.searchPacienteByName(this.EMF, nomeBuscado);
         
-        if (listaPacientes.isEmpty()) {
-            JOptionPane.showMessageDialog(
+        //this.PACIETNES_BUSCADOS = listaPacientes;
+        
+        if (!this.HISTORICO_ATENDIMENTOS.isEmpty()) {
+            /*JOptionPane.showMessageDialog(
                     null, 
                     "Nenhum paciente encontrado com o nome " + nomeBuscado + ".", 
-                    "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);
-        } else {
+                    "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);*/
             DefaultListModel<String> listModel = new DefaultListModel<>();
-
-            for (Paciente paciente : listaPacientes) {
-                String infoPaciente = String.format("Identificador do paciente: %d | "
-                                                  + "Nome do paciente: %s | " 
-                                                  + "Data de Nascimento: %s | " 
-                                                  + "Celular: %d | " 
-                                                  + "Convenio: %s |" ,
-                                                    paciente.getId(), 
-                                                    paciente.getNome(),
-                                                    paciente.getData_nascimento(),
-                                                    paciente.getInfo_contatoCelular(),
-                                                    paciente.getTipo_convenio());
+            for (ProntuarioAtendimento PAT : this.HISTORICO_ATENDIMENTOS) {
+                String infoPaciente = String.format("Id atendimento: %d | "
+                                                  + "Data: %s | " 
+                                                  + "Paciente: %s | ",
+                                                    PAT.getId(),
+                                                    PAT.getDataAtendimento(), 
+                                                    PAT.getPaciente().getNome());
                 listModel.addElement(infoPaciente);
             }
             jList1.setModel(listModel);
             jButton6.setVisible(true);
+            
         }
-        JDprontuarioPaciente.setVisible(true);*/
+        JDprontuarioPaciente.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    // BOTÃO CADASTRAR PRONTUÁRIO DE ATENDIMENTO
+    private void JBcadastrarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBcadastrarPATMouseClicked
         // TODO add your handling code here:
+        limpaJDcadastrarPAT();
+        JDcadastrarPAT.setLocationRelativeTo(null);
         JDcadastrarPAT.setVisible(true);
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_JBcadastrarPATMouseClicked
 
     private void JBatualizarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBatualizarPATMouseClicked
         // TODO add your handling code here:
         // busacar o histórico de prontuários de atendimento por meio do prontuário do paciente
         
-        JDatualizarPAT.setVisible(true);
+        this.OPCAO_SELECIONADA = "ATUALIZAR";
+        setHISTORICO_ATENDIMENTO();
+        // primeiro verificamos se o paciente possui histórico de atendimentos
+        if (this.HISTORICO_ATENDIMENTOS.isEmpty()){
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "O paciente não possui histórico de atendimentos", 
+                    null, JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // construimos a lista de historico de atendimentos
+            DefaultListModel<String> listModel = new DefaultListModel<>();
+            for (ProntuarioAtendimento PAT : this.HISTORICO_ATENDIMENTOS) {
+                String infoAtendimento = String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", PAT.getId(), PAT.getDataAtendimento(), PAT.getPaciente().getNome());
+                listModel.addElement(infoAtendimento);
+            }
+            JLhistoricoAtendimentos.setModel(listModel);
+            
+            // tornamos visível a caixa de diálogo com a lista
+            JDselecionarPAT.setVisible(true);
+        }     
     }//GEN-LAST:event_JBatualizarPATMouseClicked
 
-    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+    private void JBapagarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBapagarPATMouseClicked
         // TODO add your handling code here:
-        JDatualizarPAT.setVisible(true);
-    }//GEN-LAST:event_jButton4MouseClicked
+        this.OPCAO_SELECIONADA = "APAGAR";
+        
+        // primeiro verificamos se o paciente possui histórico de atendimentos
+        setHISTORICO_ATENDIMENTO();
+        if (this.HISTORICO_ATENDIMENTOS.isEmpty()){
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "O paciente não possui histórico de atendimentos", 
+                    null, JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // construimos a lista de historico de atendimentos
+            DefaultListModel<String> listModel = new DefaultListModel<>();
+            for (ProntuarioAtendimento PAT : this.HISTORICO_ATENDIMENTOS) {
+                String infoAtendimento = String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", PAT.getId(), PAT.getDataAtendimento(), PAT.getPaciente().getNome());
+                listModel.addElement(infoAtendimento);
+            }
+            JLhistoricoAtendimentos.setModel(listModel);
+            
+            // tornamos visível a caixa de diálogo com a lista
+            JDselecionarPAT.setVisible(true);
+        }
+    }//GEN-LAST:event_JBapagarPATMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -609,14 +609,20 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton6MouseClicked
 
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+    private void JBselecionarPATokMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBselecionarPATokMouseClicked
         // TODO add your handling code here:
         
-        int indexSelecionado = jList2.getSelectedIndex();
+        int indexSelecionado = JLhistoricoAtendimentos.getSelectedIndex();
         ProntuarioAtendimento prontuarioEscolhido = this.HISTORICO_ATENDIMENTOS.get(indexSelecionado);
-        new MenuMedicoAtualizarPAT(this.EMF, this.MEDICO, prontuarioEscolhido);
-        jDialog4.setVisible(true);
-    }//GEN-LAST:event_jButton5MouseClicked
+        
+        if(this.OPCAO_SELECIONADA.equalsIgnoreCase("ATUALIZAR")){
+            new MenuMedicoAtualizarPAT(this.EMF, this.MEDICO, prontuarioEscolhido).setVisible(true);
+        } else if (this.OPCAO_SELECIONADA.equalsIgnoreCase("APAGAR")){
+            this.MEDICO.removerProntuarioAtendimento(this.EMF, prontuarioEscolhido);
+            refreshJDselecionarPAT();
+        }
+
+    }//GEN-LAST:event_JBselecionarPATokMouseClicked
 
     private void JBsalvarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBsalvarPATMouseClicked
         // TODO add your handling code here:
@@ -633,67 +639,28 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         String dataRetorno = jTextField5.getText();
         PAT.setDataRetorno(dataRetorno);
         
-        this.MEDICO.cadastrarProntuarioAtendimento(this.EMF, PAT);
+        this.MEDICO.cadastrarProntuarioAtendimento(this.EMF, this.PACIENTE, PAT);
+        setHISTORICO_ATENDIMENTO();
+        
+        JDcadastrarPAT.dispose();
+        limpaJDcadastrarPAT();
     }//GEN-LAST:event_JBsalvarPATMouseClicked
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void JBselecionarPATokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBselecionarPATokActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void JBatualizarPATActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBatualizarPATActionPerformed
-        // TODO add your handling code here:
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (ProntuarioAtendimento PAT : this.HISTORICO_ATENDIMENTOS) {
-            String infoAtendimento = String.format("|ID: %d |ATENDIMENTO: %s |PACIENTE: %s |", PAT.getId(), PAT.getDataAtendimento(), PAT.getNomePaciente());
-            listModel.addElement(infoAtendimento);
-        }
-        jList2.setModel(listModel);
-        
-        JDatualizarPAT.setVisible(true);
-    }//GEN-LAST:event_JBatualizarPATActionPerformed
+    }//GEN-LAST:event_JBselecionarPATokActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    /*
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        /*try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuMedicoProntuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuMedicoProntuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuMedicoProntuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuMedicoProntuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuMedicoProntuarios().setVisible(true);
-            }
-        });
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBapagarPAT;
     private javax.swing.JButton JBatualizarPAT;
+    private javax.swing.JButton JBcadastrarPAT;
     private javax.swing.JButton JBsalvarPAT;
-    private javax.swing.JDialog JDatualizarPAT;
+    private javax.swing.JButton JBselecionarPATok;
     private javax.swing.JDialog JDcadastrarPAT;
     private javax.swing.JDialog JDprontuarioPaciente;
+    private javax.swing.JDialog JDselecionarPAT;
     private javax.swing.JLabel JLalergias;
     private javax.swing.JLabel JLbebe;
     private javax.swing.JLabel JLcelular;
@@ -706,14 +673,10 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private javax.swing.JLabel JLemail;
     private javax.swing.JLabel JLendereco;
     private javax.swing.JLabel JLfuma;
+    private javax.swing.JList<String> JLhistoricoAtendimentos;
     private javax.swing.JLabel JLnome;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JDialog jDialog4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -724,7 +687,6 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -738,7 +700,6 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
