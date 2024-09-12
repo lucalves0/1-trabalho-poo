@@ -38,9 +38,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-                              <Component id="btnCancelarPaciente" min="-2" pref="165" max="-2" attributes="0"/>
+                              <Component id="btnCancelarConsulta" min="-2" pref="165" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnSalvarPaciente" min="-2" pref="165" max="-2" attributes="0"/>
+                              <Component id="btnSalvarConsulta" min="-2" pref="165" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel1" pref="645" max="32767" attributes="0"/>
                       </Group>
@@ -59,8 +59,8 @@
               <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnSalvarPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCancelarPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalvarConsulta" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelarConsulta" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -92,7 +92,7 @@
             <Property name="text" type="java.lang.String" value="Data:"/>
           </Properties>
         </Component>
-        <Component class="java.awt.TextField" name="txtNomePaciente">
+        <Component class="java.awt.TextField" name="txtDataConsulta">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
@@ -102,7 +102,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomePacienteActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDataConsultaActionPerformed"/>
           </Events>
         </Component>
         <Component class="java.awt.Label" name="label2">
@@ -113,7 +113,7 @@
             <Property name="text" type="java.lang.String" value="Hor&#xe1;rio: "/>
           </Properties>
         </Component>
-        <Component class="java.awt.TextField" name="txtDataNascimentoPaciente">
+        <Component class="java.awt.TextField" name="txtConsultaHorario">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
@@ -134,7 +134,7 @@
             <Property name="text" type="java.lang.String" value="M&#xe9;dico: "/>
           </Properties>
         </Component>
-        <Component class="java.awt.TextField" name="txtEnderecoPaciente">
+        <Component class="java.awt.TextField" name="txtMedicoConsulta">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
@@ -152,7 +152,7 @@
             <Property name="text" type="java.lang.String" value="Identificador do Paciente:"/>
           </Properties>
         </Component>
-        <Component class="java.awt.TextField" name="txtInfoContatoPaciente">
+        <Component class="java.awt.TextField" name="txtIdPaciente">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
@@ -170,7 +170,7 @@
             <Property name="text" type="java.lang.String" value="Tipo da consulta:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbxTpConvenioPaciente">
+        <Component class="javax.swing.JComboBox" name="cbxTpConsulta">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
@@ -191,7 +191,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="java.awt.Button" name="btnSalvarPaciente">
+    <Component class="java.awt.Button" name="btnSalvarConsulta">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="cc" red="0" type="rgb"/>
@@ -202,7 +202,7 @@
         <Property name="label" type="java.lang.String" value="Salvar"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Button" name="btnCancelarPaciente">
+    <Component class="java.awt.Button" name="btnCancelarConsulta">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="ff" type="rgb"/>

@@ -18,8 +18,8 @@ public class GerConsulta extends javax.swing.JFrame {
         
         Secretaria sec = new Secretaria();
         
-        btnBuscarPaciente.addActionListener(avt -> {
-            Integer nomeBuscar = Integer.parseInt(txtBuscaNomePaciente.getText());
+        btnBuscarConsulta.addActionListener(avt -> {
+            Integer nomeBuscar = Integer.parseInt(txtBuscaConsulta.getText());
             List<Consulta> consultas = sec.searchConsultaByPaciente(emf, nomeBuscar);
 
             if (consultas.isEmpty()) {
@@ -48,12 +48,12 @@ public class GerConsulta extends javax.swing.JFrame {
                                                         con.getDuracao());
                     listModel.addElement(infoCon);
                 }
-                listPacientesCad.setModel(listModel);
+                listConsultaCad.setModel(listModel);
             }
 
         });
 
-        cadPacientes.addActionListener(e -> {
+        cadConsultas.addActionListener(e -> {
             setVisible(false);
 
             // Código para abrir a nova tela
@@ -62,7 +62,7 @@ public class GerConsulta extends javax.swing.JFrame {
             telaCadConsulta.setVisible(true);
         });
 
-        upPaciente.addActionListener(e -> {
+        upConsultas.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de prosseguir, verifique o identificador da Consulta. Deseja prosseguir?", 
             "Confirmar", 
@@ -104,7 +104,7 @@ public class GerConsulta extends javax.swing.JFrame {
             }
         });
         
-        deletePacientes.addActionListener(e -> {
+        deleteConsultas.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de deletar a consulta, verifique o identificador da consulta. Deseja prosseguir?", 
             "Confirmar", 
@@ -173,15 +173,15 @@ public class GerConsulta extends javax.swing.JFrame {
         panelGerPacientes = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
-        txtBuscaNomePaciente = new java.awt.TextField();
-        btnBuscarPaciente = new java.awt.Button();
+        txtBuscaConsulta = new java.awt.TextField();
+        btnBuscarConsulta = new java.awt.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listPacientesCad = new javax.swing.JList<>();
+        listConsultaCad = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        cadPacientes = new javax.swing.JMenuItem();
-        upPaciente = new javax.swing.JMenuItem();
-        deletePacientes = new javax.swing.JMenuItem();
+        cadConsultas = new javax.swing.JMenuItem();
+        upConsultas = new javax.swing.JMenuItem();
+        deleteConsultas = new javax.swing.JMenuItem();
         Voltar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,14 +197,14 @@ public class GerConsulta extends javax.swing.JFrame {
         label1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         label1.setText("Buscar Consulta por Paciente");
 
-        txtBuscaNomePaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtBuscaConsulta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        btnBuscarPaciente.setActionCommand("Buscar");
-        btnBuscarPaciente.setBackground(new java.awt.Color(0, 204, 0));
-        btnBuscarPaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnBuscarPaciente.setLabel("Buscar");
+        btnBuscarConsulta.setActionCommand("Buscar");
+        btnBuscarConsulta.setBackground(new java.awt.Color(0, 204, 0));
+        btnBuscarConsulta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnBuscarConsulta.setLabel("Buscar");
 
-        jScrollPane1.setViewportView(listPacientesCad);
+        jScrollPane1.setViewportView(listConsultaCad);
 
         javax.swing.GroupLayout panelGerPacientesLayout = new javax.swing.GroupLayout(panelGerPacientes);
         panelGerPacientes.setLayout(panelGerPacientesLayout);
@@ -217,9 +217,9 @@ public class GerConsulta extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(label1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelGerPacientesLayout.createSequentialGroup()
-                        .addComponent(txtBuscaNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnBuscarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelGerPacientesLayout.setVerticalGroup(
@@ -231,8 +231,8 @@ public class GerConsulta extends javax.swing.JFrame {
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelGerPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBuscaNomePaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(txtBuscaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addContainerGap())
@@ -243,19 +243,19 @@ public class GerConsulta extends javax.swing.JFrame {
         jMenu1.setText("Ações");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        cadPacientes.setText("Cadastro de Consultas");
-        cadPacientes.addActionListener(new java.awt.event.ActionListener() {
+        cadConsultas.setText("Cadastro de Consultas");
+        cadConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadPacientesActionPerformed(evt);
+                cadConsultasActionPerformed(evt);
             }
         });
-        jMenu1.add(cadPacientes);
+        jMenu1.add(cadConsultas);
 
-        upPaciente.setText("Atualizar informações de Consultas");
-        jMenu1.add(upPaciente);
+        upConsultas.setText("Atualizar informações de Consultas");
+        jMenu1.add(upConsultas);
 
-        deletePacientes.setText("Remover Consultas");
-        jMenu1.add(deletePacientes);
+        deleteConsultas.setText("Remover Consultas");
+        jMenu1.add(deleteConsultas);
 
         Voltar.setText("Voltar");
         jMenu1.add(Voltar);
@@ -267,9 +267,9 @@ public class GerConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadPacientesActionPerformed
+    private void cadConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadConsultasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cadPacientesActionPerformed
+    }//GEN-LAST:event_cadConsultasActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -281,18 +281,18 @@ public class GerConsulta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Voltar;
-    private java.awt.Button btnBuscarPaciente;
-    private javax.swing.JMenuItem cadPacientes;
-    private javax.swing.JMenuItem deletePacientes;
+    private java.awt.Button btnBuscarConsulta;
+    private javax.swing.JMenuItem cadConsultas;
+    private javax.swing.JMenuItem deleteConsultas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private java.awt.List list1;
-    private javax.swing.JList<String> listPacientesCad;
+    private javax.swing.JList<String> listConsultaCad;
     private javax.swing.JPanel panelGerPacientes;
-    private java.awt.TextField txtBuscaNomePaciente;
-    private javax.swing.JMenuItem upPaciente;
+    private java.awt.TextField txtBuscaConsulta;
+    private javax.swing.JMenuItem upConsultas;
     // End of variables declaration//GEN-END:variables
 }
