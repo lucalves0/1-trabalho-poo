@@ -16,6 +16,28 @@ public class GerenciadorMensagens{
     public GerenciadorMensagens(){}
 
     // Métodos para o Envio de Mensagens:
+    public List<String> getConsultasAmanha(List<Consulta> Consultas, List<Paciente> Pacientes){
+    
+        List<String> ConsultasAm = new ArrayList<>();
+        for(int i = 0; i < Consultas.size(); i++){
+        
+            if(!dataAtual.isEqual(LocalDate.now())){
+                dataAtual = LocalDate.now();
+            }
+            
+            LocalDate dataConsulta = LocalDate.parse(Consultas.get(i).getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+            if(dataAtual.plusDays(1).isEqual(dataConsulta)){
+                String info = "Consulta id " + Consultas.get(i).getId() + " com o paciente " + Pacientes.get(i).getNome() + " do dia " + Consultas.get(i).getData() + " do tipo " + Consultas.get(i).getTipoConsulta() + " com o médico " + Consultas.get(i).getMedico();
+                ConsultasAm.add(info);
+            }
+            
+        }
+        
+        return ConsultasAm;
+        
+    }
+    
     public List<String> enviarMensagens(List<Consulta> Consultas, List<Paciente> Pacientes){
     
         List<String> Mensagens = new ArrayList<>();

@@ -20,6 +20,11 @@ public class MenuSecretaria extends javax.swing.JFrame {
             new GerConsulta(emf).setVisible(true);
         });
         
+        Relatorios.addActionListener(e -> {
+            this.dispose();
+            new RelSec(emf).setVisible(true);
+        });
+        
         Voltar.addActionListener(e -> {
             this.dispose();
             new JanelaStart(emf).setVisible(true);
@@ -37,11 +42,11 @@ public class MenuSecretaria extends javax.swing.JFrame {
         btnGerPacientes = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        Relatorios = new javax.swing.JMenuItem();
         Voltar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu da secretaria");
+        setTitle("Menu da Secretaria");
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -106,8 +111,8 @@ public class MenuSecretaria extends javax.swing.JFrame {
 
         jMenu1.setText("Ações");
 
-        jMenuItem1.setText("Gerar relátorio");
-        jMenu1.add(jMenuItem1);
+        Relatorios.setText("Gerar relátorio");
+        jMenu1.add(Relatorios);
 
         Voltar.setText("Voltar");
         Voltar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +150,7 @@ public class MenuSecretaria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Relatorios;
     private javax.swing.JMenuItem Voltar;
     private javax.swing.JButton btnGerConsultas;
     private javax.swing.JButton btnGerPacientes;
@@ -152,7 +158,6 @@ public class MenuSecretaria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

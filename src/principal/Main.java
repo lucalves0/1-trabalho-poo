@@ -1,6 +1,5 @@
 package principal;
 
-import java.time.LocalDate;
 import interfaces.*;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

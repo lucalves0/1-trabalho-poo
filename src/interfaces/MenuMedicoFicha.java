@@ -175,6 +175,7 @@ public class MenuMedicoFicha extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ficha do Paciente");
 
         jLabel3.setText("jLabel3");
 

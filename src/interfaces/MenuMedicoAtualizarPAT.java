@@ -44,6 +44,7 @@ public class MenuMedicoAtualizarPAT extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Atualizar Prontuario de Atendimento");
 
         jLabel1.setText("ATUALIZAR PRONTUARIO DE ATENDIMENTO");
 

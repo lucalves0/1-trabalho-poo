@@ -606,7 +606,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="MENU PRONTU&#xc1;RIOS"/>
+    <Property name="title" type="java.lang.String" value="Menu Prontu&#xe1;rios"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

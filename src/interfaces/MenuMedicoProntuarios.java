@@ -448,7 +448,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("MENU PRONTUÁRIOS");
+        setTitle("Menu Prontuários");
 
         jButton1.setText("CONSULTAR PRONTUÁRIO DO PACIENTE");
         jButton1.setToolTipText("");

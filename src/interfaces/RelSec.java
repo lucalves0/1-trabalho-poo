@@ -9,11 +9,11 @@ import registros.Paciente;
 import servicos.Secretaria;
 import servicos.GerenciadorMensagens;
 
-public class GerMensagens extends javax.swing.JFrame {
+public class RelSec extends javax.swing.JFrame {
     
     private static EntityManagerFactory emf;
     
-    public GerMensagens(EntityManagerFactory emf) {
+    public RelSec(EntityManagerFactory emf) {
         initComponents();
         setLocationRelativeTo(null);
         
@@ -29,13 +29,13 @@ public class GerMensagens extends javax.swing.JFrame {
             Pacientes.add(pac);
         }
         
-        List<String> Mensagens = germsg.enviarMensagens(Consultas, Pacientes);
+        List<String> ConsultasAm = germsg.getConsultasAmanha(Consultas, Pacientes);
         
-        for(int i = 0; i < Mensagens.size(); i++){
-            listModel.addElement(Mensagens.get(i));
+        for(int i = 0; i < ConsultasAm.size(); i++){
+            listModel.addElement(ConsultasAm.get(i));
         }
         
-        listMsgs.setModel(listModel);
+        listConsult.setModel(listModel);
      
         Voltar.addActionListener(e -> {
             this.dispose();
@@ -53,7 +53,7 @@ public class GerMensagens extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listMsgs = new javax.swing.JList<>();
+        listConsult = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Voltar = new javax.swing.JMenuItem();
@@ -65,12 +65,12 @@ public class GerMensagens extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GERENCIAMENTO DE MENSAGENS");
+        jLabel1.setText("Relatório Secretaria");
 
         label1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        label1.setText("Mensagens Enviadas Hoje");
+        label1.setText("Consulas Agendadas para Amanhã:");
 
-        jScrollPane1.setViewportView(listMsgs);
+        jScrollPane1.setViewportView(listConsult);
 
         javax.swing.GroupLayout panelGerMsgsLayout = new javax.swing.GroupLayout(panelGerMsgs);
         panelGerMsgs.setLayout(panelGerMsgsLayout);
@@ -114,7 +114,7 @@ public class GerMensagens extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GerMensagens(emf).setVisible(true); 
+                new RelSec(emf).setVisible(true); 
             }
         });
     }
@@ -127,7 +127,7 @@ public class GerMensagens extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private java.awt.List list1;
-    private javax.swing.JList<String> listMsgs;
+    private javax.swing.JList<String> listConsult;
     private javax.swing.JPanel panelGerMsgs;
     // End of variables declaration//GEN-END:variables
 }

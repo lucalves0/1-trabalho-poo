@@ -12,26 +12,25 @@ public class UpInforConsulta extends javax.swing.JFrame {
 
     private static EntityManagerFactory emf;
     
-    public UpInforConsulta(Integer idPaciente, EntityManagerFactory emf) {
+    public UpInforConsulta(Integer idConsulta, EntityManagerFactory emf) {
         initComponents();
         setLocationRelativeTo(null);
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Secretaria sec = new Secretaria();
         
-        Consulta consulta = sec.searchConsulta(emf, idPaciente);
+        Consulta con = sec.searchConsulta(emf, idConsulta);
         
-        txtDataConsulta.setText(consulta.getData());
-        txtConsultaHorario.setText(consulta.getHorario());
-        txtMedicoConsulta.setText(consulta.getMedico());
-        txtIdPaciente.setText(String.valueOf(consulta.getPaciente()));
-        cbxTpConsulta.setSelectedItem(consulta.getTipoConsulta());
+        txtDataConsulta.setText(con.getData());
+        txtConsultaHorario.setText(con.getHorario());
+        txtMedicoConsulta.setText(con.getMedico());
+        txtIdPaciente.setText(String.valueOf(con.getPaciente()));
+        cbxTpConsulta.setSelectedItem(con.getTipoConsulta());
        
         btnSalvarConsulta.addActionListener(evt ->{
         
             try {
                 
-                Consulta con = new Consulta();
                 con.setData(LocalDate.parse(txtDataConsulta.getText(), formatter).format(formatter));
                 con.setHorario(txtConsultaHorario.getText());
                 con.setMedico(txtMedicoConsulta.getText());
@@ -39,7 +38,7 @@ public class UpInforConsulta extends javax.swing.JFrame {
                 con.setTipoConsulta((String) cbxTpConsulta.getSelectedItem());
                 con.setDuracao(con.getTipoConsulta());
                 
-                sec.updateCadConsulta(emf, consulta);
+                sec.updateCadConsulta(emf, con);
                 
                 this.dispose();
                 new GerConsulta(emf).setVisible(true);
