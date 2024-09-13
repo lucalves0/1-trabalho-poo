@@ -399,17 +399,17 @@ public class MenuMedicoInicial extends javax.swing.JFrame {
 
     private void JBreceitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBreceitaMouseClicked
         this.OPCAO_ESCOLHIDA = "RECEITA";
-        new MenuMedicoRelatorios(this.EMF, this, this.MEDICO, this.OPCAO_ESCOLHIDA).setVisible(true);
+        new MenuMedicoRelatorios(this, this.OPCAO_ESCOLHIDA).setVisible(true);
     }//GEN-LAST:event_JBreceitaMouseClicked
 
     private void JBatestadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBatestadoMouseClicked
         this.OPCAO_ESCOLHIDA = "ATESTADO";
-        new MenuMedicoRelatorios(this.EMF, this, this.MEDICO, this.OPCAO_ESCOLHIDA).setVisible(true);
+        new MenuMedicoRelatorios(this, this.OPCAO_ESCOLHIDA).setVisible(true);
     }//GEN-LAST:event_JBatestadoMouseClicked
 
     private void JBacompanhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBacompanhaMouseClicked
         this.OPCAO_ESCOLHIDA = "DECLARACAO";
-        new MenuMedicoRelatorios(this.EMF, this, this.MEDICO, this.OPCAO_ESCOLHIDA).setVisible(true);
+        new MenuMedicoRelatorios(this, this.OPCAO_ESCOLHIDA).setVisible(true);
     }//GEN-LAST:event_JBacompanhaMouseClicked
 
     private void JBclientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBclientesMouseClicked
