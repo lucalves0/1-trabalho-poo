@@ -39,7 +39,7 @@ public class RelSec extends javax.swing.JFrame {
      
         Voltar.addActionListener(e -> {
             this.dispose();
-            new JanelaStart(emf).setVisible(true);
+            new MenuSecretaria(emf).setVisible(true);
         });
         
     }
