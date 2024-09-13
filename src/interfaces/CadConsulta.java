@@ -1,3 +1,5 @@
+// Interface para o Cadastro de Consultas Médicas
+
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
@@ -19,6 +21,7 @@ public class CadConsulta extends javax.swing.JFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Secretaria sec = new Secretaria();
         
+        // Ação do botão de Salvar
         btnSalvarConsulta.addActionListener(evt ->{
         
             try {
@@ -37,14 +40,14 @@ public class CadConsulta extends javax.swing.JFrame {
                 new GerConsulta(emf).setVisible(true);
             
             }catch (NumberFormatException e) {
-                
+                // Telefone Incorreto
                 // Se não for um número, exibe a mensagem de erro
                 JOptionPane.showMessageDialog(null, "Por favor, insira um número para o identificador válido.", "Erro", JOptionPane.ERROR_MESSAGE);
                 txtIdPaciente.setText("");
                 txtIdPaciente.requestFocus();
                 
             }catch (DateTimeParseException e) {
-            
+                // Data da consulta incorreta
                 JOptionPane.showMessageDialog(null, "Por favor, insira uma data válida. [dd/mm/yyyy]", "Erro", JOptionPane.ERROR_MESSAGE);
                 txtDataConsulta.setText("");
                 txtDataConsulta.requestFocus();
@@ -52,6 +55,7 @@ public class CadConsulta extends javax.swing.JFrame {
             }
         });
         
+        // Ação do botão de cancelar
         btnCancelar.addActionListener(evt -> {
         
             setVisible(false);

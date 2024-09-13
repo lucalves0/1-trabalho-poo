@@ -1,3 +1,5 @@
+// Classe POJO de Pacientes
+
 package registros;
 
 import java.io.Serializable;
@@ -31,9 +33,13 @@ public class Paciente implements Serializable{
     private String cirurgias;
     private String alergias;
     
+    // Construtor
+    
     public Paciente() {
     }
 
+    // Sets e Gets
+    
     public String getNome() {
         return nome;
     }

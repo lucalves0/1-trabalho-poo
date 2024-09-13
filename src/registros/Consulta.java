@@ -1,3 +1,5 @@
+// Classe POJO de Consultas Médicas
+
 package registros;
 
 import javax.persistence.Entity;
@@ -5,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+// Adiciona a entidade no banco de dados
 @Entity
 public class Consulta {
     
@@ -19,6 +22,8 @@ public class Consulta {
     
     private String tipoConsulta;
     private String duracao;
+    
+    // Construtor
     
     public Consulta(){}
     

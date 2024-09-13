@@ -1,3 +1,5 @@
+// Interface para o Gerenciador de Mensagens
+
 package interfaces;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class GerMensagens extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
+        // Pega uma lista completa de Pacientes e suas Consultas
         Secretaria sec = new Secretaria();
         GerenciadorMensagens germsg = new GerenciadorMensagens();
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -29,14 +32,17 @@ public class GerMensagens extends javax.swing.JFrame {
             Pacientes.add(pac);
         }
         
+        // Encontra as consultas para amanhã e envia as mensagens
         List<String> Mensagens = germsg.enviarMensagens(Consultas, Pacientes);
         
+        // Exibe o log de mensagens enviadas
         for(int i = 0; i < Mensagens.size(); i++){
             listModel.addElement(Mensagens.get(i));
         }
         
         listMsgs.setModel(listModel);
      
+        // Botão de Voltar
         Voltar.addActionListener(e -> {
             this.dispose();
             new JanelaStart(emf).setVisible(true);

@@ -1,3 +1,5 @@
+// Executa o programa e geração de interfaces
+
 package principal;
 
 import interfaces.*;

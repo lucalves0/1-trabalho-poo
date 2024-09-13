@@ -1,3 +1,5 @@
+// Interface para o Gerenciador de Consultas Médicas
+
 package interfaces;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class GerConsulta extends javax.swing.JFrame {
         
         Secretaria sec = new Secretaria();
         
+        // Butão que busca uma consulta dado o nome para ser buscado
         btnBuscarConsulta.addActionListener(avt -> {
             Integer nomeBuscar = Integer.parseInt(txtBuscaConsulta.getText());
             List<Consulta> consultas = sec.searchConsultaByPaciente(emf, nomeBuscar);
@@ -53,6 +56,7 @@ public class GerConsulta extends javax.swing.JFrame {
 
         });
 
+        // Menu de cadastras consultas
         cadConsultas.addActionListener(e -> {
             setVisible(false);
 
@@ -62,6 +66,7 @@ public class GerConsulta extends javax.swing.JFrame {
             telaCadConsulta.setVisible(true);
         });
 
+        // Menu de realizar o update de uma consula
         upConsultas.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de prosseguir, verifique o identificador da Consulta. Deseja prosseguir?", 
@@ -77,21 +82,21 @@ public class GerConsulta extends javax.swing.JFrame {
                 if (idPacienteStr != null && !idPacienteStr.trim().isEmpty()) {
                     try {
                         // Tenta converter o ID para um inteiro
-                        Integer idPaciente = Integer.parseInt(idPacienteStr);
+                        Integer idConsulta = Integer.parseInt(idPacienteStr);
 
                         // Criar a query para buscar pacientes pelo ID
 
-                        List<Consulta> consultas = sec.searchConsultaList(emf, idPaciente);
+                        List<Consulta> consultas = sec.searchConsultaList(emf, idConsulta);
 
                         if (!consultas.isEmpty()) {
                             // Se a consulta for encontrada, oculta a tela atual e abre a nova tela
                             setVisible(false);
-                            UpInforConsulta telaUpInforConsultas = new UpInforConsulta(idPaciente, emf);
+                            UpInforConsulta telaUpInforConsultas = new UpInforConsulta(idConsulta, emf);
                             telaUpInforConsultas.setVisible(true);
                             telaUpInforConsultas.setLocationRelativeTo(null); // Opcional: centraliza a nova tela
                         } else {
                             // Exibe mensagem informando que a Consulta não foi encontrada
-                            JOptionPane.showMessageDialog(null, "Consulta com o ID '" + idPaciente + "' não encontrado.", "Consulta não encontrada", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Consulta com o ID '" + idConsulta + "' não encontrado.", "Consulta não encontrada", JOptionPane.WARNING_MESSAGE);
                         }
 
                     } catch (NumberFormatException ex) {
@@ -104,6 +109,7 @@ public class GerConsulta extends javax.swing.JFrame {
             }
         });
         
+        // Menu de deletar consultas
         deleteConsultas.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de deletar a consulta, verifique o identificador da consulta. Deseja prosseguir?", 
@@ -158,6 +164,7 @@ public class GerConsulta extends javax.swing.JFrame {
         
         });
      
+        // Menu de Voltar
         Voltar.addActionListener(e -> {
             this.dispose();
             new MenuSecretaria(emf).setVisible(true);
