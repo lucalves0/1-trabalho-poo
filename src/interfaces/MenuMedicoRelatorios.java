@@ -9,7 +9,6 @@ public class MenuMedicoRelatorios extends javax.swing.JFrame {
     private Medico MEDICO;
     private String OPCAO_ESCOLHIDA;
     
-    //MenuMedicoRelatorios(this.EMF, this, this.MEDICO, this.OPCAO_ESCOLHIDA)
     public MenuMedicoRelatorios(EntityManagerFactory emf, MenuMedicoInicial menuAnterior, Medico medico, String opcao) {
         this.EMF = emf;
         this.MENU_ANTERIOR = menuAnterior;
@@ -475,7 +474,6 @@ public class MenuMedicoRelatorios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBemitirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBemitirMouseClicked
-        // TODO add your handling code here:
         // deixa visivel a pagina anterior e dá um dospose na autal
         callJdialog(this.OPCAO_ESCOLHIDA);
         this.MENU_ANTERIOR.setVisible(true);

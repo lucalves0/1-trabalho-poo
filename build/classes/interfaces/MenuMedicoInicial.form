@@ -108,8 +108,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JOptionPane" name="jOptionPane1">
-    </Component>
     <Container class="javax.swing.JDialog" name="JDrelatorio">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="0"/>
