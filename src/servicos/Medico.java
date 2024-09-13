@@ -1,3 +1,5 @@
+// Classe filha de departamentos, que representa os serviços do médico
+
 package servicos;
 
 import registros.*;
@@ -13,8 +15,9 @@ public class Medico extends Departamento{
         super("Medico", 2);
     }
     
-    // SETS e GETS
+    // Métodos do médico
     
+    // Retorna os prontuários de atendimento
     public List<ProntuarioAtendimento> buscaHistoricoAtendimento(EntityManagerFactory emf, Paciente paciente){
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("SELECT p FROM ProntuarioAtendimento p WHERE p.paciente = :pac");
@@ -26,6 +29,7 @@ public class Medico extends Departamento{
         return listaAtendiemntos;
     }
     
+    // Cadastra os prontuários de atendimento
     public void cadastrarProntuarioAtendimento(EntityManagerFactory emf, Paciente paciente, ProntuarioAtendimento PAT){
         EntityManager em = emf.createEntityManager();
         
@@ -37,6 +41,7 @@ public class Medico extends Departamento{
         em.close();
     }
     
+    // Remove os prontuários de atendimento
     public void removerProntuarioAtendimento(EntityManagerFactory emf, ProntuarioAtendimento PAT){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -46,6 +51,7 @@ public class Medico extends Departamento{
         em.close();        
     }
     
+    // Atualiza os prontuários de atendimento
     public void atualizarProntuarioAtendimento(EntityManagerFactory emf, ProntuarioAtendimento PAT){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();

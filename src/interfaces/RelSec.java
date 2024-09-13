@@ -1,3 +1,5 @@
+// Interface para a geração de relatórios da secretaria
+
 package interfaces;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class RelSec extends javax.swing.JFrame {
         GerenciadorMensagens germsg = new GerenciadorMensagens();
         DefaultListModel<String> listModel = new DefaultListModel<>();
         
+        // Pega uma lista de todas as consultas e seus pacientes
         List<Consulta> Consultas = sec.searchAllConsultas(emf);
         List<Paciente> Pacientes = new ArrayList<>();
         
@@ -29,12 +32,14 @@ public class RelSec extends javax.swing.JFrame {
             Pacientes.add(pac);
         }
         
+        // Encontra quais são as consultas para amanhã
         List<String> ConsultasAm = germsg.getConsultasAmanha(Consultas, Pacientes);
         
         for(int i = 0; i < ConsultasAm.size(); i++){
             listModel.addElement(ConsultasAm.get(i));
         }
         
+        // Escreve as consultas para amanhã
         listConsult.setModel(listModel);
      
         Voltar.addActionListener(e -> {

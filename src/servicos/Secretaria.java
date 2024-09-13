@@ -1,3 +1,5 @@
+// Classe filha de departamentos, que representa os serviços da secretaria
+
 package servicos;
 
 import registros.Paciente;
@@ -9,12 +11,15 @@ import registros.Consulta;
 
 public class Secretaria extends Departamento{
     
+    // Construtor
+    
     public Secretaria(){
         super("Secretaria", 1);
     }
     
-    // Métodos de cadastro de Pacientes
+    // Métodos da secretaria
     
+    // Retorna uma lista de pacientes
     public List<Paciente> searchPacienteList(EntityManagerFactory emf, Integer id){
         
         // Criaremos a EntityManager através da fabrica
@@ -31,7 +36,8 @@ public class Secretaria extends Departamento{
 
     }
     
-        public List<Consulta> searchAllConsultas(EntityManagerFactory emf){
+    // Retorna uma lista com todas as consultas
+    public List<Consulta> searchAllConsultas(EntityManagerFactory emf){
         
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
@@ -45,6 +51,7 @@ public class Secretaria extends Departamento{
 
     }
 
+    // Retorna uma lista de Consultas
     public List<Consulta> searchConsultaList(EntityManagerFactory emf, Integer id){
         
         // Criaremos a EntityManager através da fabrica
@@ -61,7 +68,7 @@ public class Secretaria extends Departamento{
 
     }
 
-    
+    // Retorna um único paciente dado o id
     public Paciente searchPaciente(EntityManagerFactory emf, Integer id){
         
         // Criaremos a EntityManager através da fabrica
@@ -77,6 +84,7 @@ public class Secretaria extends Departamento{
 
     }
     
+    // Retorna uma única consulta dado o id
     public Consulta searchConsulta(EntityManagerFactory emf, Integer id){
         
         // Criaremos a EntityManager através da fabrica
@@ -92,6 +100,7 @@ public class Secretaria extends Departamento{
 
     }
     
+    // Retorna uma lista de consultas dado o id do paciente
     public List<Consulta> searchConsultaByPaciente(EntityManagerFactory emf, Integer id){
     
         // Criaremos a EntityManager através da fabrica
@@ -108,10 +117,7 @@ public class Secretaria extends Departamento{
         
     }
     
-    public void serchProntuarioAtendimentoByPaciente(EntityManagerFactory emf, Paciente PAC){
-        //EntityManager em = emf.createEntityManager();
-    }
-    
+    // Remove o cadastro de um paciente
     public void removeCadPaciente(EntityManagerFactory emf, Paciente pac){
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
@@ -125,6 +131,7 @@ public class Secretaria extends Departamento{
         em.close();
     }
     
+    // Remove o cadastro de uma consulta
     public void removeCadConsulta(EntityManagerFactory emf, Consulta con){
         // Criaremos a EntityManager através da fabrica
         EntityManager em = emf.createEntityManager();
@@ -138,6 +145,7 @@ public class Secretaria extends Departamento{
         em.close();
     }
     
+    // Realiza o cadastro de uma consulta
     public void postCadConsulta(EntityManagerFactory emf, Consulta con){
         
         // Criaremos a EntityManager através da fabrica
@@ -153,6 +161,7 @@ public class Secretaria extends Departamento{
 
     }
     
+    // Atualiza o cadastro de uma consulta
     public void updateCadConsulta(EntityManagerFactory emf, Consulta con){
         
         // Criaremos a EntityManager através da fabrica
