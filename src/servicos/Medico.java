@@ -54,6 +54,7 @@ public class Medico extends Departamento{
     
     public List<ProntuarioAtendimento> buscaHistoricoAtendimento(EntityManagerFactory emf, Paciente paciente){
         EntityManager em = emf.createEntityManager();
+        // busca todos os prontuarios de atendimento de *paciente;
         Query query = em.createQuery("SELECT p FROM ProntuarioAtendimento p WHERE p.paciente = :pac");
         query.setParameter("pac", paciente);
         

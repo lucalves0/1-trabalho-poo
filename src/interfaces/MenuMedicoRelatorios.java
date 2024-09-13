@@ -1,18 +1,11 @@
 package interfaces;
 
-import javax.persistence.EntityManagerFactory;
-import servicos.Medico;
-
 public class MenuMedicoRelatorios extends javax.swing.JFrame {
-    private EntityManagerFactory EMF;
     private MenuMedicoInicial MENU_ANTERIOR;
-    private Medico MEDICO;
     private String OPCAO_ESCOLHIDA;
     
-    public MenuMedicoRelatorios(EntityManagerFactory emf, MenuMedicoInicial menuAnterior, Medico medico, String opcao) {
-        this.EMF = emf;
+    public MenuMedicoRelatorios(MenuMedicoInicial menuAnterior, String opcao) {
         this.MENU_ANTERIOR = menuAnterior;
-        this.MEDICO = medico;
         this.OPCAO_ESCOLHIDA = opcao;
         initComponents();
         this.setLocationRelativeTo(null);

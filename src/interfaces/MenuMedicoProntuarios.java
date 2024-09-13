@@ -10,7 +10,7 @@ import registros.Paciente;
 
 public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private EntityManagerFactory EMF;
-    private static MenuMedicoInicial MENU_ANTERIOR;
+    private MenuMedicoInicial MENU_ANTERIOR;
     private Medico MEDICO;
     private Paciente PACIENTE;
     private List<ProntuarioAtendimento> HISTORICO_ATENDIMENTOS;
@@ -18,14 +18,14 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
 
     public MenuMedicoProntuarios(EntityManagerFactory emf, MenuMedicoInicial menuAnterior, Medico medico, Paciente paciente) {
         this.EMF = emf;
-        MenuMedicoProntuarios.MENU_ANTERIOR = menuAnterior;
+        this.MENU_ANTERIOR = menuAnterior;
         this.MEDICO = medico;
         this.PACIENTE = paciente;
         this.HISTORICO_ATENDIMENTOS = medico.buscaHistoricoAtendimento(emf, paciente);
         
         initComponents();
         this.setLocationRelativeTo(null);
-        MenuMedicoProntuarios.MENU_ANTERIOR.apagaJanelaBusca();
+        this.MENU_ANTERIOR.apagaJanelaBusca();
     }
     private void setHISTORICO_ATENDIMENTO(){
         this.HISTORICO_ATENDIMENTOS = this.MEDICO.buscaHistoricoAtendimento(this.EMF, this.PACIENTE);
@@ -549,7 +549,6 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_JBconsultarPPACMouseClicked
     // BOTÃO CADASTRAR PRONTUÁRIO DE ATENDIMENTO
     private void JBcadastrarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBcadastrarPATMouseClicked
-        // TODO add your handling code here:
         limpaJDcadastrarPAT();
         JDcadastrarPAT.setLocationRelativeTo(null);
         JDcadastrarPAT.setVisible(true);
