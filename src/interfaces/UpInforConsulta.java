@@ -201,13 +201,13 @@ public class UpInforConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataConsultaActionPerformed
 
 
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new UpInforConsulta(0, emf).setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnCancelarConsulta;

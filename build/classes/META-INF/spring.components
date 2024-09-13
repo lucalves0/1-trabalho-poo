@@ -1,4 +1,6 @@
 registros.Consulta=javax.persistence.Entity
+registros.Consulta_=javax.persistence.metamodel.StaticMetamodel,javax.annotation.processing.Generated
 registros.Paciente=javax.persistence.Entity,javax.persistence.Table
+registros.Paciente_=javax.persistence.metamodel.StaticMetamodel,javax.annotation.processing.Generated
 registros.ProntuarioAtendimento=javax.persistence.Entity,javax.persistence.Table
 registros.ProntuarioAtendimento_=javax.persistence.metamodel.StaticMetamodel,javax.annotation.processing.Generated
