@@ -1,5 +1,3 @@
-// Interface para a atualização de Pacientes
-
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
@@ -19,7 +17,6 @@ public class UpInforPacientes extends javax.swing.JFrame {
         
         Paciente paciente = sec.searchPaciente(emf, idPaciente);
         
-        // Reescreve as informações anteriores para atualizar
         txtNomePaciente.setText(paciente.getNome());
         txtDataNascimentoPaciente.setText(paciente.getData_nascimento());
         txtEnderecoPaciente.setText(paciente.getEndereco());
@@ -27,7 +24,6 @@ public class UpInforPacientes extends javax.swing.JFrame {
         txtInfoEmailPaciente.setText(paciente.getInfo_contatoEmail());
         cbxTpConvenioPaciente.setSelectedItem(paciente.getTipo_convenio());
        
-        // Botão que salva alterações
         btnSalvarPaciente.addActionListener(evt ->{
         
             try {
@@ -55,7 +51,6 @@ public class UpInforPacientes extends javax.swing.JFrame {
         
         });
         
-        // Botão para cancelar a atualização
         btnCancelarPaciente.addActionListener(evt -> {
         
             setVisible(false);

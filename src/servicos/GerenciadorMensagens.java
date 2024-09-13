@@ -1,5 +1,3 @@
-// Classe para o gerenciador de mensagens
-
 package servicos;
 
 import java.time.LocalDate;
@@ -18,8 +16,6 @@ public class GerenciadorMensagens{
     public GerenciadorMensagens(){}
 
     // Métodos para o Envio de Mensagens:
-    
-    // Método para encontrar as consultas de Amanhã
     public List<String> getConsultasAmanha(List<Consulta> Consultas, List<Paciente> Pacientes){
     
         List<String> ConsultasAm = new ArrayList<>();
@@ -42,7 +38,6 @@ public class GerenciadorMensagens{
         
     }
     
-    // Método para enviar as mensagens
     public List<String> enviarMensagens(List<Consulta> Consultas, List<Paciente> Pacientes){
     
         List<String> Mensagens = new ArrayList<>();
@@ -70,17 +65,14 @@ public class GerenciadorMensagens{
         
     }
     
-    // Método de envio de SMS
     private String enviarSMS(Consulta con, Paciente pac){
         return "SMS Enviado para " + pac.getNome() + " para o número " + pac.getInfo_contatoCelular() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
     }
     
-    // Método de envio de e-mail
     private String enviarEmail(Consulta con, Paciente pac){
         return "Email Enviado para " + pac.getNome() + " para o email " + pac.getInfo_contatoEmail() + " sobre a consulta de id " + con.getId() + " do dia " + con.getData();
     }
     
-    // Retorna a data atual
     public LocalDate getDataAtual(){
         return dataAtual;
     }

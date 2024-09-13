@@ -1,4 +1,3 @@
-// Interface para a tela inicial do sistema
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
@@ -12,26 +11,22 @@ public class JanelaStart extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        // Botão para o menu da secretaria
         btnSecretaria.addActionListener(e -> {
             this.dispose();
             new MenuSecretaria(emf).setVisible(true);
         });
         
-        // Botão para o menu do médico
         BtnMedic.addActionListener(e -> {
             this.dispose();
             Medico med = new Medico();
             new MenuMedicoInicial(emf, med).setVisible(true);
         });
         
-        // Botão para o menu do gerenciador de mensagens
         BtnMessage.addActionListener(e -> {
             this.dispose();
             new GerMensagens(emf).setVisible(true);
         });
         
-        // Botão para finalizar o programa
         Exit.addActionListener(e ->{
         
             emf.close();

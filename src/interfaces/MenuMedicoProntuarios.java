@@ -112,7 +112,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         JLhistoricoAtendimentos = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        JBconsultarPAT = new javax.swing.JButton();
         JBcadastrarPAT = new javax.swing.JButton();
         JBatualizarPAT = new javax.swing.JButton();
         JBapagarPAT = new javax.swing.JButton();
@@ -120,7 +120,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
 
         JDprontuarioPaciente.setTitle("PRONTUÁRIO DO PACIENTE");
         JDprontuarioPaciente.setResizable(false);
-        JDprontuarioPaciente.setSize(new java.awt.Dimension(460, 650));
+        JDprontuarioPaciente.setSize(new java.awt.Dimension(460, 700));
 
         JLnome.setText("NOME:");
 
@@ -304,9 +304,9 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         JDprontuarioPaciente.getAccessibleContext().setAccessibleDescription("");
@@ -450,16 +450,16 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Menu Prontuários");
 
-        jButton1.setText("CONSULTAR PRONTUÁRIO DO PACIENTE");
-        jButton1.setToolTipText("");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBconsultarPAT.setText("CONSULTAR PRONTUÁRIO DO PACIENTE");
+        JBconsultarPAT.setToolTipText("");
+        JBconsultarPAT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                JBconsultarPATMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        JBconsultarPAT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                JBconsultarPATActionPerformed(evt);
             }
         });
 
@@ -500,7 +500,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(JBatualizarPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBcadastrarPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBconsultarPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBapagarPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(83, 83, 83))
             .addGroup(layout.createSequentialGroup()
@@ -512,7 +512,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(84, 84, 84)
-                .addComponent(jButton1)
+                .addComponent(JBconsultarPAT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JBcadastrarPAT)
                 .addGap(18, 18, 18)
@@ -527,7 +527,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void JBconsultarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBconsultarPATMouseClicked
         // TODO add your handling code here:
         jLabel3.setText(this.PACIENTE.getNome());
         jLabel4.setText(this.PACIENTE.getData_nascimento());
@@ -542,18 +542,9 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
         jLabel13.setText(this.PACIENTE.getDoencaCardiaca());
         jLabel14.setText(this.PACIENTE.getCirurgias());
         jLabel15.setText(this.PACIENTE.getAlergias());
-        //JDprontuarioPaciente.setVisible(true);
-        
-        
-        //List<Paciente> listaPacientes = this.MEDICO.searchPacienteByName(this.EMF, nomeBuscado);
-        
-        //this.PACIETNES_BUSCADOS = listaPacientes;
+
         
         if (!this.HISTORICO_ATENDIMENTOS.isEmpty()) {
-            /*JOptionPane.showMessageDialog(
-                    null, 
-                    "Nenhum paciente encontrado com o nome " + nomeBuscado + ".", 
-                    "Paciente não encontrado", JOptionPane.WARNING_MESSAGE);*/
             DefaultListModel<String> listModel = new DefaultListModel<>();
             for (ProntuarioAtendimento PAT : this.HISTORICO_ATENDIMENTOS) {
                 String infoPaciente = String.format("Id atendimento: %d | "
@@ -568,8 +559,9 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
             jButton6.setVisible(true);
             
         }
+        JDprontuarioPaciente.setLocationRelativeTo(null);
         JDprontuarioPaciente.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_JBconsultarPATMouseClicked
     // BOTÃO CADASTRAR PRONTUÁRIO DE ATENDIMENTO
     private void JBcadastrarPATMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBcadastrarPATMouseClicked
         // TODO add your handling code here:
@@ -600,6 +592,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
             JLhistoricoAtendimentos.setModel(listModel);
             
             // tornamos visível a caixa de diálogo com a lista
+            JDselecionarPAT.setLocationRelativeTo(null);
             JDselecionarPAT.setVisible(true);
         }     
     }//GEN-LAST:event_JBatualizarPATMouseClicked
@@ -625,13 +618,14 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
             JLhistoricoAtendimentos.setModel(listModel);
             
             // tornamos visível a caixa de diálogo com a lista
+            JDselecionarPAT.setLocationRelativeTo(null);
             JDselecionarPAT.setVisible(true);
         }
     }//GEN-LAST:event_JBapagarPATMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void JBconsultarPATActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBconsultarPATActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_JBconsultarPATActionPerformed
     
     //BOTÃO VOLTAR
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
@@ -687,6 +681,7 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private javax.swing.JButton JBapagarPAT;
     private javax.swing.JButton JBatualizarPAT;
     private javax.swing.JButton JBcadastrarPAT;
+    private javax.swing.JButton JBconsultarPAT;
     private javax.swing.JButton JBsalvarPAT;
     private javax.swing.JButton JBselecionarPATok;
     private javax.swing.JDialog JDcadastrarPAT;
@@ -706,7 +701,6 @@ public class MenuMedicoProntuarios extends javax.swing.JFrame {
     private javax.swing.JLabel JLfuma;
     private javax.swing.JList<String> JLhistoricoAtendimentos;
     private javax.swing.JLabel JLnome;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

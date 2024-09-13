@@ -1,5 +1,3 @@
-// Interface para o Cadastro de Pacientes
-
 package interfaces;
 
 import javax.persistence.EntityManagerFactory;
@@ -17,7 +15,6 @@ public class CadPacientes extends javax.swing.JFrame {
         
         Secretaria sec = new Secretaria();
         
-        // Ação do botão de salvar
         btnSalvarPaciente.addActionListener(evt ->{
         
             try {
@@ -36,7 +33,7 @@ public class CadPacientes extends javax.swing.JFrame {
                 new GerPacientes(emf).setVisible(true);
             
             }catch (NumberFormatException e) {
-                // Número Incorreto
+                
                 // Se não for um número, exibe a mensagem de erro
                 JOptionPane.showMessageDialog(null, "Por favor, insira um número para o contato válido.", "Erro", JOptionPane.ERROR_MESSAGE);
                 txtInfoContatoPaciente.setText("");
@@ -46,7 +43,6 @@ public class CadPacientes extends javax.swing.JFrame {
         
         });
         
-        // Ação do botão de cancelar
         btnCancelarPaciente.addActionListener(evt -> {
         
             setVisible(false);

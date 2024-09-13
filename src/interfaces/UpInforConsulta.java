@@ -1,5 +1,3 @@
-// Interface para a atualização de Consultas Médicas
-
 package interfaces;
 
 import java.time.LocalDate;
@@ -23,14 +21,12 @@ public class UpInforConsulta extends javax.swing.JFrame {
         
         Consulta con = sec.searchConsulta(emf, idConsulta);
         
-        // Reescreve as informações anteriores
         txtDataConsulta.setText(con.getData());
         txtConsultaHorario.setText(con.getHorario());
         txtMedicoConsulta.setText(con.getMedico());
         txtIdPaciente.setText(String.valueOf(con.getPaciente()));
         cbxTpConsulta.setSelectedItem(con.getTipoConsulta());
        
-        // Botão para salvar as alterações
         btnSalvarConsulta.addActionListener(evt ->{
         
             try {
@@ -64,7 +60,6 @@ public class UpInforConsulta extends javax.swing.JFrame {
         
         });
         
-        // Botão para cancelar
         btnCancelarConsulta.addActionListener(evt -> {
         
             setVisible(false);

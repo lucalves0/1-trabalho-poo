@@ -1,5 +1,3 @@
-// Classe POJO dos Prontuários Médicos
-
 package registros;
 import java.io.Serializable;
 import javax.persistence.Entity;

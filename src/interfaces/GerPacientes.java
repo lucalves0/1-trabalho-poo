@@ -1,5 +1,3 @@
-// Interface para o Gerenciador de Pacientes
-
 package interfaces;
 
 import java.util.List;
@@ -20,7 +18,6 @@ public class GerPacientes extends javax.swing.JFrame {
         
         Secretaria sec = new Secretaria();
         
-        // Botão de Buscar acionado
         btnBuscarPaciente.addActionListener(avt -> {
             String nomeBuscar = txtBuscaNomePaciente.getText();
             List<Paciente> pacientes = sec.searchPacienteByName(emf, nomeBuscar);
@@ -56,7 +53,6 @@ public class GerPacientes extends javax.swing.JFrame {
 
         });
 
-        // Menu de cadastrar Pacientes
         cadPacientes.addActionListener(e -> {
             setVisible(false);
 
@@ -66,7 +62,6 @@ public class GerPacientes extends javax.swing.JFrame {
             telaCadPaciente.setVisible(true);
         });
 
-        // Menu de atualizar pacientes
         upPaciente.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de prosseguir, verifique o identificador do paciente. Deseja prosseguir?", 
@@ -109,7 +104,6 @@ public class GerPacientes extends javax.swing.JFrame {
             }
         });
         
-        // Menu de deletar pacientes
         deletePacientes.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(null, 
             "Recomendamos que antes de deleter o usuário, verifique o identificador do paciente. Deseja prosseguir?", 
@@ -164,7 +158,6 @@ public class GerPacientes extends javax.swing.JFrame {
         
         });
      
-        // Voltar
         Voltar.addActionListener(e -> {
             this.dispose();
             new MenuSecretaria(emf).setVisible(true);

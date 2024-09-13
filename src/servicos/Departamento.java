@@ -1,5 +1,3 @@
-// Superclasse de Departamentos
-
 package servicos;
 import registros.Paciente;
 import java.util.List;
@@ -14,7 +12,7 @@ public class Departamento {
     protected String nome;
     
     // Diferentes Departamentos tem níveis de acesso diferentes!
-    // Secretaria tem nivel 1 e médico tem nível 2 (Apenas para abstração)
+    // Secretaria tem nivel 1 e médico tem nível 2
     protected Integer nivelAcesso;
     
     // CONSTRUTORES
@@ -23,7 +21,6 @@ public class Departamento {
         this.nivelAcesso = nivelAcesso;
     }
     
-    // Método de adicionar informações do paciente
     public void postCadPaciente(EntityManagerFactory emf, Paciente pac){
         
         // Criaremos a EntityManager através da fabrica
@@ -39,7 +36,6 @@ public class Departamento {
         em.close();
     }
     
-    // Método de atualizar informações do Paciente
     public void updateCadPaciente(EntityManagerFactory emf, Paciente pac){
         
         // Criaremos a EntityManager através da fabrica
@@ -55,7 +51,6 @@ public class Departamento {
         em.close();
     }
     
-    // Método de procura de Pacientes por nome
     public List<Paciente> searchPacienteByName(EntityManagerFactory emf, String name){
     
         // Criaremos a EntityManager através da fabrica
